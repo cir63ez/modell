@@ -15,7 +15,7 @@ function loadAdditionalJs() {
     
     if(isset($additional_js)) {
         foreach($additional_js as $js_file) {
-            echo '<script src="' . $js_file . '"></script>\n';
+            echo '<script src="' . $js_file . '"></script>';
         }
     }
 }
