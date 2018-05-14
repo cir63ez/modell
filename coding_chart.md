@@ -11,7 +11,7 @@
 - [Coding Chart](#coding-chart)
     - [Names](#names)
         - [camelCase](#camelcase)
-        - [Typedef & Struct](#typedef-struct)
+        - [Typedef & Struct](#typedef--struct)
         - [Function names](#function-names)
         - [Pointers](#pointers)
     - [Formatting](#formatting)
