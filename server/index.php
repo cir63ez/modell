@@ -9,9 +9,10 @@ define('APP_VERSION', '1.0.0-dev');
 
 require('./helpers/additionalContent.php');
 
-// Baisc routing
-
-if(isset($_GET['app'])) {
+// Basic routing
+if(isset($_GET['modal'])) {
+    require('./controllers/modal.php');
+} elseif(isset($_GET['app'])) {
     require('./controllers/app.php');
 } else {
     require('./controllers/home.php');
