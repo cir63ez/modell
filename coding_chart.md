@@ -2,7 +2,7 @@
 
 - **You do not talk about the coding chart**
 - **You do not talk about the coding chart**
-- **Code in english**
+- **Code in English**
 - **Use Kernighan & Ritchie indentation style**
 
 <!-- TOC -->
