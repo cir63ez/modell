@@ -1,7 +1,7 @@
 # Coding Chart
 
-- **You do not toalk about the coding chart**
-- **You do not toalk about the coding chart**
+- **You do not talk about the coding chart**
+- **You do not talk about the coding chart**
 - **Code in english**
 - **Use Kernighan & Ritchie indentation style**
 
