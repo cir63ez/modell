@@ -1,0 +1,12 @@
+https://github.com/cir63ez/modell
+
+git clone url ---> récupérer le dépôt du début
+git add fichier.c fichier1.h ---> ajouter des fichiers
+git add * ---> ajouter tous les fichiers modifiés
+git commit -m "message" ---> préparer l'ajoutergit push ---> envoyer
+git pull ---> récupérer le code du dépôt
+
+HEAD "
+
+
+"
