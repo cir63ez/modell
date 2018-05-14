@@ -24,6 +24,17 @@ HOST?=localhost
 
 # Recipes
 
+install:
+	sudo apt-get install -y php
+	sudo apt-get install -y php-dev
+	sudo apt-get install -y gcc
+	sudo apt-get install -y libsdl1.2debian
+	sudo apt-get install -y libsdl2-2.0.0
+	sudo apt-get install -y libsdl1.2-dev
+	sudo apt-get install -y libsdl2-dev
+	sudo apt-get install -y libsdl-image1.2
+	sudo apt-get install -y libsdl-image1.2-dev
+
 $(LOCAL_LIBS): %.o: $(CROOT)/%.c $(CROOT)/%.h
 	$(CC) -c $< -o $(CROOT)/$@
 
