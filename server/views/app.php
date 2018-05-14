@@ -1,9 +1,5 @@
 <?php require('./views/head.php'); ?>
 
-<!-- <h1 class="display-3 lead">TODO: Code.</h1>
-
-<p class="text-center"><img src="https://media.giphy.com/media/3o7btQ0NH6Kl8CxCfK/giphy.gif" alt="wip"></p> -->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a href="#" class="navbar-brand">
         <img src="./assets/img/favicon.png" width="32" alt="favicon">
@@ -45,13 +41,13 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6">
-                                <h2>Position</h2>
+                                <h4>Position</h4>
                                 <input type="number" class="form-control" name="cameraPositionX" placeholder="X">
                                 <input type="number" class="form-control" name="cameraPositionY" placeholder="Y">
                                 <input type="number" class="form-control" name="cameraPositionZ" placeholder="Z">
                             </div>
                             <div class="col-6">
-                                <h2>Vector</h2>
+                                <h4>Vector</h4>
                                 <input type="number" class="form-control" name="cameraVectorX" placeholder="X">
                                 <input type="number" class="form-control" name="cameraVectorY" placeholder="Y">
                                 <input type="number" class="form-control" name="cameraVectorZ" placeholder="Z">
@@ -59,7 +55,7 @@
                         </div>
                     </div>
 
-                    <h2>Field of view</h2>
+                    <h4>Field of view</h4>
                     <div class="form-group">
                         <input type="number" class="form-control" name="cameraFieldOfView" placeholder="Field of view">
                     </div>
