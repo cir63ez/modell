@@ -60,7 +60,7 @@ void exportObjectsToFile(); // is good
 
 ### Pointers
 
-Put the pointer on the name of the variable
+Put the pointer near the name of the variable
 
 ```c
 char *str;
@@ -70,7 +70,7 @@ char *str;
 
 ### Brace placement
 
-Brace opening at the end of the line, and closing the line after the last OR one the same line for one-line statements
+Brace opening at the end of the line, and closing the line after the last OR on the same line for one-line statements
 
 ```c
 int add(int a, int b) {
@@ -92,16 +92,16 @@ struct foo {
 };
 ```
 
-### Parens for ternary operation
+### Parentheses for ternary operation
 
-Make sure to put parens around a condition in a ternary operation
+Make sure to put parentheses around a condition in a ternary operation
 
 ```c
 int a  = (b > c) ? 0 : 1;
-// Remember, this equals to: if(b > c) {int a = 0;} else {int a = 1;}
+// Remember, this is equivalent to: if(b > c) {int a = 0;} else {int a = 1;}
 ```
 
-### Parens at long return
+### Parentheses at long return
 
 ```c
 return 1; // is okay
@@ -124,7 +124,7 @@ int b;
 
 ### Structure
 
-Just describe briefly why is the structure for or what is it
+Just describe briefly what the structure is for or what it is
 
 ```c
 /* Vector: Cointains a vector position */
@@ -140,8 +140,8 @@ typedef struct Vector_ {
 Functions must me documented following the phpdoc style (without describing the type of the variables)
 
 - First, describe what does the function
-- Seconds, describe the inputs
-- Finaly, describe the output
+- Then, describe the inputs
+- Finally, describe the output
 
 ```c
 /**
