@@ -30,16 +30,16 @@
 
 ### camelCase
 
-Always use **camelCase** for fonctions and variables name
+Always use **camelCase** for fonctions and variables name.
 
 ```c
 int myVariableName;
-int myFunctionName(int integerArgument, float anotherAgrument);
+int myFunctionName(int integerArgument, float anotherArgument);
 ```
 
 ### Typedef & Struct
 
-Name a type with a capital letter for the first one, and name the structure by the same name with an underscore to the end
+Name a type with a capital letter for the first one, and name the structure by the same name with an underscore at the end.
 
 ```c
 typedef struct Point_ {
@@ -51,7 +51,7 @@ typedef struct Point_ {
 
 ### Function names
 
-Use prefixes or suffixes and make their name clear
+Use prefixes or suffixes and make their name clear.
 
 ```c
 void export(); // is bad
@@ -60,7 +60,7 @@ void exportObjectsToFile(); // is good
 
 ### Pointers
 
-Put the pointer near the name of the variable
+Put the pointer near the name of the variable.
 
 ```c
 char *str;
@@ -70,7 +70,7 @@ char *str;
 
 ### Brace placement
 
-Brace opening at the end of the line, and closing the line after the last OR on the same line for one-line statements
+Brace opening at the end of the line, and closing at the line after the last OR on the same line for one-line statements.
 
 ```c
 int add(int a, int b) {
@@ -81,9 +81,9 @@ int add(int a, int b) {
 int add(int a, int b) {return a + b;}
 ```
 
-### Developped strctures
+### Developped structures
 
-Write the structure's content on multiple lines
+Write the structure's content on multiple lines.
 
 ```c
 struct foo {
@@ -94,7 +94,7 @@ struct foo {
 
 ### Parentheses for ternary operation
 
-Make sure to put parentheses around a condition in a ternary operation
+Make sure to put parentheses around a condition in a ternary operation.
 
 ```c
 int a  = (b > c) ? 0 : 1;
@@ -111,7 +111,7 @@ return (7 + 2 - sqrt(1/2)); // is good
 
 ### Avoid long lines
 
-Conventionnaly, lines in while coding should not exceed 78 characters, based on monitors size
+Conventionally, lines in while coding should not exceed 78 characters, based on monitor size.
 
 ### One variable per line
 
@@ -124,10 +124,10 @@ int b;
 
 ### Structure
 
-Just describe briefly what the structure is for or what it is
+Describe briefly what the structure is for or what it is.
 
 ```c
-/* Vector: Cointains a vector position */
+/* Vector: Contains a vector position */
 typedef struct Vector_ {
     double x;
     double y;
@@ -137,9 +137,9 @@ typedef struct Vector_ {
 
 ### Function
 
-Functions must me documented following the phpdoc style (without describing the type of the variables)
+Functions must be documented following the phpdoc style (without describing the type of the variables).
 
-- First, describe what does the function
+- First, describe what the function does 
 - Then, describe the inputs
 - Finally, describe the output
 
