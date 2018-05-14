@@ -1,7 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-
 typedef struct Point_ {
     double x;
     double y;
@@ -25,12 +21,12 @@ typedef struct Rgb_ {
     double blue;
 } Rgb;
 
-typedef struct Plan_ {
+typedef struct Plane_ {
     double a;
     double b;
     double c;
     double d;
-} Plan;
+} Plane;
 
 typedef struct Pixel_ {
     Rgb color;
