@@ -1,7 +1,4 @@
-#include <math.h>
 #include "lib.h"
-
-#define NaN 0./0.
 
 /**
 * Calculate a vector with from two points
@@ -206,7 +203,8 @@ Plane planEquationWithPoints(Point A, Point B, Point C) {
 * @param B: Object point
 * @param Q: Plane
 *
-* @return the position of the  object's image on a plane*/
+* @return the position of the  object's image on a plane
+*/
 Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
@@ -240,16 +238,77 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
     }
 }
 
+/**
+* Calculate the intersection point between a line and a plane
+*
+* @param L: Line
+* @param B: First plane
+*
+* @return the plane the observator sees first
+*/
+Point pointIntersectionLineAndPlane(Line L, Plane P) {
+    double t = 0;
+    Point I;
+    Line L;
 
+    I.x = NaN;
+    I.y = NaN;
+    I.z = NaN;
+
+    t = -((P.a * L.pt.x + P.b * L.pt.y + P.c * L.pt.z)/(P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z))
+    if(t < 0){
+        return I;
+    }
+    else {
+        I.x = (L.directionVector.x) * t + L.pt.x;
+        I.y = (L.directionVector.y) * t + L.pt.y;
+        I.z = (L.directionVector.z) * t + L.pt.Z;
+        return I;
+    }
+
+    
+}
 
 /**
 * Give the first plan that the observator sees
 *
 * @param O: Observateur point
+* @param direction: vector direction of the observator
 * @param B: First plane
-* @param Q: Seconde plane
+* @param Q: Second plane
 *
-* @return the plane the observator sees first*/
-Point firstPlaneSeen(Point O, Plane P, Plane Q) {
-    
+* @return the plane the observator sees first
+*/
+Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
+    Plan test;
+    Line L;
+    Point IA;
+    Point IB;
+    Vector OIA;
+    Vector OIB;
+
+    L.pt = O;
+    L.directionVector = direction;
+
+    IA = pointIntersectionLineAndPlane(L, P);
+    IB = pointIntersectionLineAndPlane(L, Q);
+
+    if(TODO: verif that the points exist){
+        OIA = pointsToVector(O, IA);
+        OIB = pointsToVector(O, IB);
+    }
+    else {
+        test.a = NaN;
+        test.b = NaN;
+        test.c = NaN;
+        test.d = NaN;
+        return test;
+    }
+
+    if(norm(OIA) > norm(OIB)){
+        return Q;
+    }
+    else {
+        return P;
+    }
 }
