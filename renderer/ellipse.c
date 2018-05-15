@@ -1,7 +1,4 @@
 #include "lib.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include "ellipse.h"
 
 
@@ -23,6 +20,7 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     double gamma;
 
     Point I;
+
     I.x = NaN;
     I.y = NaN;
     I.z = NaN;
@@ -40,14 +38,18 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     if(delta < 0){
         return I;
     }
+
     if (delta > 0){
         t = (-2 * beta - sqrt(delta))/(2 * alpha);
     }
+
     if (delta == 0){
         t = - beta / alpha;
     }
+
     I.x = L.directionvector.x * t + L.pt.x;
     I.y = L.directionvector.y * t + L.pt.y;
     I.z = L.directionvector.z * t + L.pt.z;
+    
     return I;
 }

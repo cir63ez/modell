@@ -11,7 +11,7 @@
 *                    ->
 * @return the vector AB
 */
-Vector pointsToVector(Point A, Point B){
+Vector pointsToVector(Point A, Point B) {
     Vector V;
 
     V.x = B.x - A.x;
@@ -29,7 +29,7 @@ Vector pointsToVector(Point A, Point B){
 *
 * @return the sum of the vectors
 */
-Vector sumVectors(Vector A, Vector B){
+Vector sumVectors(Vector A, Vector B) {
     Vector V;
 
 	V.x = A.x + B.x;
@@ -47,7 +47,7 @@ Vector sumVectors(Vector A, Vector B){
 *
 * @return the difference between the vectors
 */
-Vector differenceVectors(Vector A, Vector B){
+Vector differenceVectors(Vector A, Vector B) {
     Vector V;
 
     V.x = A.x - B.x;
@@ -65,7 +65,7 @@ Vector differenceVectors(Vector A, Vector B){
 *
 * @return the scalar product
 */
-double scalarProduct(Vector A, Vector B){
+double scalarProduct(Vector A, Vector B) {
     double scalar;
 
     scalar = A.x * B.x + A.y * B.y + A.z * B.z;
