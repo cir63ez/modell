@@ -176,7 +176,7 @@ Vector normalVector(Point A, Point B, Point C) {
 * @return the equation of the plan formed by the 3 points non aligned
 * @return a plan with nul coefficient if the 3 points are aligned
 */
-Plane planEquationWithPoints(Point A, Point B, Point C) {
+Plane planeEquationFromPoints(Point A, Point B, Point C) {
     Plane P;
 
     P.a = 0;
