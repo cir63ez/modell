@@ -303,22 +303,30 @@ Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
     IA = pointIntersectionLineAndPlane(L, P);
     IB = pointIntersectionLineAndPlane(L, Q);
 
-    if(TODO: verif that the points exist){
-        OIA = pointsToVector(O, IA);
-        OIB = pointsToVector(O, IB);
-    }
-    else {
+    if(IA == NaN && IB == NaN) {
         test.a = NaN;
         test.b = NaN;
         test.c = NaN;
         test.d = NaN;
         return test;
     }
-
-    if(norm(OIA) > norm(OIB)){
+    
+    else if(IA == NaN){
         return Q;
     }
-    else {
+
+    else if(IB == NaN){
         return P;
     }
+
+    else {
+        OIA = pointsToVector(O, IA);
+        OIB = pointsToVector(O, IB);
+        if(norm(OIA) > norm(OIB)){
+            return Q;
+        }
+        else {
+            return P;
+        }
+    }   
 }

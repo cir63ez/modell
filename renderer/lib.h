@@ -61,3 +61,5 @@ char arePointsAligned(Point A, Point B, Point C);
 Vector normalVector(Point A, Point B, Point C);
 Plane planEquationWithPoints(Point A, Point B, Point C);
 Point imagePointOnPlane(Point O, Point B, Plane P, Plane Q);
+Point pointIntersectionLineAndPlane(Line L, Plane P);
+Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q);
