@@ -9,7 +9,7 @@ CFLAGS?=-lm -Wall
 # Main file in the "CROOT" folder ($(CROOT)/$(TARGET).c)
 TARGET?=renderer
 # Local libraries files needed for the compilation (LOCAL_LIBS=lib1.o lib2.o lib3.o) -	They will be automatically compiled
-LOCAL_LIBS?=structure.o
+LOCAL_LIBS?=lib.o
 
 # PHP Server Options
 
@@ -33,7 +33,7 @@ $(LOCAL_LIBS): %.o: $(CROOT)/%.c $(CROOT)/%.h
 	$(CC) -c $< -o $(CROOT)/$@
 
 build: $(CROOT)/$(TARGET).c $(LOCAL_LIBS)
-	cd $(CROOT); $(CC) $(TARGET).c $(CFLAGS) -o $(TARGET) $(LOCAL_LIBS)
+	cd $(CROOT); $(CC) $(TARGET).c -o $(TARGET) $(LOCAL_LIBS) $(CFLAGS)
 
 run: build
 	./$(CROOT)/$(TARGET)
