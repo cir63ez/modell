@@ -1,11 +1,13 @@
 #include <math.h>
 #include "lib.h"
 
+#define NaN 0./0.
+
 /**
 * Calculate a vector with from two points
 *
-* @param A: First point's name
-* @param B: Second point's name
+* @param A: First point
+* @param B: Second point
 *                    ->
 * @return the vector AB
 */
@@ -22,8 +24,8 @@ Vector pointsToVector(Point A, Point B){
 /**
 * Calculate the sum of two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the sum of the vectors
 */
@@ -40,8 +42,8 @@ Vector sumVectors(Vector A, Vector B){
 /**
 * Calculate the difference of two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the difference between the vectors
 */
@@ -58,8 +60,8 @@ Vector differenceVectors(Vector A, Vector B){
 /**
 * Calculate the scalarProduct of two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the scalar product
 */
@@ -74,7 +76,7 @@ double scalarProduct(Vector A, Vector B){
 /**
 * Calculate the norm of a vector
 *
-* @param A: Vector's name
+* @param A: Vector
 *
 * @return the norm of the vector
 */
@@ -86,8 +88,8 @@ double norm(Vector A) {
 /**
 * Calculate the angle between two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the angle between the vector
 */
@@ -119,9 +121,9 @@ double angle(Vector AB, Vector AC) {
 /**
 * Verify if 3 points are aligned
 *
-* @param A: First point's name
-* @param B: Second point's name
-* @param C: Third point's name
+* @param A: First point
+* @param B: Second point
+* @param C: Third point
 *
 * @return TRUE if the 3 points are aligned
 * @return FALSE if the 3 points are not aligned
@@ -141,9 +143,9 @@ char arePointsAligned(Point A, Point B, Point C) {
 /**
 * Calculate a normal vector with 3 points
 *
-* @param A: First point's name
-* @param B: Second point's name
-* @param C: Third point's name
+* @param A: First point'
+* @param B: Second point
+* @param C: Third point
 *
 * @return a vector normal of a plan if the 3 points are not aligned
 * @return the nul vector if the 3 points are aligned
@@ -169,9 +171,9 @@ Vector normalVector(Point A, Point B, Point C) {
 /**
 * Calculate a plan equation 3 points
 *
-* @param A: First point's name
-* @param B: Second point's name
-* @param C: Third point's name
+* @param A: First point
+* @param B: Second point
+* @param C: Third point
 *
 * @return the equation of the plan formed by the 3 points non aligned
 * @return a plan with nul coefficient if the 3 points are aligned
@@ -198,22 +200,22 @@ Plane planEquationWithPoints(Point A, Point B, Point C) {
 }
 
 /**
-* Calculate a plan equation 3 points
+* Calculate the image of an  object on a plane
 *
 * @param O: Observateur point
-* @param B: Object point's name
-* @param Q: Plane's name
+* @param B: Object point
+* @param Q: Plane
 *
 * @return the position of the  object's image on a plane*/
-Point imagePointOnPlane(Point O, Point B, Plane P, Plane Q) {
+Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
     double denominator;
     double nominator;
 
-    I.x = 0./0.;
-    I.y = 0./0.;
-    I.z = 0./0.;
+    I.x = NaN;
+    I.y = NaN;
+    I.z = NaN;
 
     t = 0;
     denominator = 0;
@@ -236,4 +238,18 @@ Point imagePointOnPlane(Point O, Point B, Plane P, Plane Q) {
             return I;
         }
     }
+}
+
+
+
+/**
+* Give the first plan that the observator sees
+*
+* @param O: Observateur point
+* @param B: First plane
+* @param Q: Seconde plane
+*
+* @return the plane the observator sees first*/
+Point firstPlaneSeen(Point O, Plane P, Plane Q) {
+    
 }
