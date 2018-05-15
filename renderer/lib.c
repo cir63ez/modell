@@ -1,11 +1,10 @@
-#include <math.h>
 #include "lib.h"
 
 /**
 * Calculate a vector with from two points
 *
-* @param A: First point's name
-* @param B: Second point's name
+* @param A: First point
+* @param B: Second point
 *                    ->
 * @return the vector AB
 */
@@ -22,8 +21,8 @@ Vector pointsToVector(Point A, Point B) {
 /**
 * Calculate the sum of two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the sum of the vectors
 */
@@ -40,8 +39,8 @@ Vector sumVectors(Vector A, Vector B) {
 /**
 * Calculate the difference of two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the difference between the vectors
 */
@@ -58,8 +57,8 @@ Vector differenceVectors(Vector A, Vector B) {
 /**
 * Calculate the scalarProduct of two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the scalar product
 */
@@ -74,7 +73,7 @@ double scalarProduct(Vector A, Vector B) {
 /**
 * Calculate the norm of a vector
 *
-* @param A: Vector's name
+* @param A: Vector
 *
 * @return the norm of the vector
 */
@@ -86,8 +85,8 @@ double norm(Vector A) {
 /**
 * Calculate the angle between two vectors
 *
-* @param A: First vector's name
-* @param B: Second vector's name
+* @param A: First vector
+* @param B: Second vector
 *
 * @return the angle between the vector
 */
@@ -119,9 +118,9 @@ double angle(Vector AB, Vector AC) {
 /**
 * Verify if 3 points are aligned
 *
-* @param A: First point's name
-* @param B: Second point's name
-* @param C: Third point's name
+* @param A: First point
+* @param B: Second point
+* @param C: Third point
 *
 * @return TRUE if the 3 points are aligned
 * @return FALSE if the 3 points are not aligned
@@ -149,9 +148,9 @@ char arePointsAligned(Point A, Point B, Point C) {
 /**
 * Calculate a normal vector with 3 points
 *
-* @param A: First point's name
-* @param B: Second point's name
-* @param C: Third point's name
+* @param A: First point'
+* @param B: Second point
+* @param C: Third point
 *
 * @return a vector normal of a plan if the 3 points are not aligned
 * @return the nul vector if the 3 points are aligned
@@ -177,9 +176,9 @@ Vector normalVector(Point A, Point B, Point C) {
 /**
 * Calculate a plan equation 3 points
 *
-* @param A: First point's name
-* @param B: Second point's name
-* @param C: Third point's name
+* @param A: First point
+* @param B: Second point
+* @param C: Third point
 *
 * @return the equation of the plan formed by the 3 points non aligned
 * @return a plan with nul coefficient if the 3 points are aligned
@@ -208,22 +207,23 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 }
 
 /**
-* Calculate a plan equation 3 points
+* Calculate the image of an  object on a plane
 *
 * @param O: Observateur point
-* @param B: Object point's name
-* @param Q: Plane's name
+* @param B: Object point
+* @param Q: Plane
 *
-* @return the position of the  object's image on a plane*/
-Point imagePointOnPlane(Point O, Point B, Plane P, Plane Q) {
+* @return the position of the  object's image on a plane
+*/
+Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
     double denominator;
     double nominator;
 
-    I.x = 0./0.;
-    I.y = 0./0.;
-    I.z = 0./0.;
+    I.x = NaN;
+    I.y = NaN;
+    I.z = NaN;
 
     t = 0;
     denominator = 0;
@@ -246,4 +246,87 @@ Point imagePointOnPlane(Point O, Point B, Plane P, Plane Q) {
             return I;
         }
     }
+}
+
+/**
+* Calculate the intersection point between a line and a plane
+*
+* @param L: Line
+* @param B: First plane
+*
+* @return the plane the observator sees first
+*/
+Point pointIntersectionLineAndPlane(Line L, Plane P) {
+    double t = 0;
+    Point I;
+    Line L;
+
+    I.x = NaN;
+    I.y = NaN;
+    I.z = NaN;
+
+    t = -((P.a * L.pt.x + P.b * L.pt.y + P.c * L.pt.z)/(P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z))
+    if(t < 0){
+        return I;
+    }
+    else {
+        I.x = (L.directionVector.x) * t + L.pt.x;
+        I.y = (L.directionVector.y) * t + L.pt.y;
+        I.z = (L.directionVector.z) * t + L.pt.Z;
+        return I;
+    }
+
+    
+}
+
+/**
+* Give the first plan that the observator sees
+*
+* @param O: Observateur point
+* @param direction: vector direction of the observator
+* @param B: First plane
+* @param Q: Second plane
+*
+* @return the plane the observator sees first
+*/
+Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
+    Plan test;
+    Line L;
+    Point IA;
+    Point IB;
+    Vector OIA;
+    Vector OIB;
+
+    L.pt = O;
+    L.directionVector = direction;
+
+    IA = pointIntersectionLineAndPlane(L, P);
+    IB = pointIntersectionLineAndPlane(L, Q);
+
+    if(IA == NaN && IB == NaN) {
+        test.a = NaN;
+        test.b = NaN;
+        test.c = NaN;
+        test.d = NaN;
+        return test;
+    }
+    
+    else if(IA == NaN){
+        return Q;
+    }
+
+    else if(IB == NaN){
+        return P;
+    }
+
+    else {
+        OIA = pointsToVector(O, IA);
+        OIB = pointsToVector(O, IB);
+        if(norm(OIA) > norm(OIB)){
+            return Q;
+        }
+        else {
+            return P;
+        }
+    }   
 }
