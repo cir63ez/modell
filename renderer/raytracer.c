@@ -7,14 +7,39 @@
 *        RESX / RESY : resolution x et y de l'image
 *        Ellipse ellipse : l'ellipse
 *        Line firstRay : the ray corresponding to the (0,0) pixel
-*        Plane image : Image plane
-*        image : pixel array 
+*        Point originPoint : Origin of the image
+*        Plane imagePlane : Image plane
+*        image[] : pixel array
 */
+
+/**
+* Calculates the ray corresponding to the (0,0) pixel
+*
+* @param A: Image plane
+* @param B: Origin point of the image
+*
+* @return the ray corresponding to the (0,0) pixel
+*/
+
+Line calculateFirstRay (Plane image, Point origin){
+    Line firstRay;
+    Vector directionVector;
+
+    firstRay.pt = origin;
+
+    directionVector.x = image.a;
+    directionVector.y = image.b;
+    directionVector.z = image.c;
+    firstRay.directionVector = directionVector;
+
+    return firstRay;
+}
 
 
 *rgb rayTracer(  ){
     Rgb *image;
     Point contactPoint;
+    firstRay = calculateFirstRay(imagePlane, originPoint)
     Line tmpLine = firstRay;
     image = (Rgb*)malloc(sizeof(Rgb) * RESY * RESX);
     for (int i = 0; i < RESX * RESY; i++){
