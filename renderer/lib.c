@@ -346,6 +346,8 @@ Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double re
     double tetaB;
     Vector rayReflected;
     Vector rayRefracted;
+    Line reflected;
+    Line refracted;
     double radicand = 0;
 
     radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(teta1),2);
@@ -353,10 +355,17 @@ Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double re
     tetaA = acos(scalarProduct(ray, normal));
     tetaB = sqrt(radicand);
 
+    reflected.pt = I;
+    refracted.pt = I;
+
     if(radicand < 0){
         rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
         rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
         rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+
+        rayRefracted.x = NaN;
+        rayRefracted.y = NaN;
+        rayRefracted.z = NaN;
     }
 
     else if(cos(tetaA) >= 0){
@@ -377,5 +386,8 @@ Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double re
         rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
         rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
     }
+
+    reflected.directionVector = rayReflected;
+    refracted.directionVector = rayRefracted;
 
 }
