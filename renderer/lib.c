@@ -136,7 +136,7 @@ char arePointsAligned(Point A, Point B, Point C) {
     scalar = scalarProduct(AB,AC);
     angleCos = scalar/(norm(AB)*norm(AC));
 
-    if(FEQUAL(norm(AB)*norm(AC))) {return FALSE;}
+    if(FEQUAL(norm(AB)*norm(AC), 0)) {return FALSE;}
 
     if(FEQUAL(angleCos, 1) || FEQUAL(angleCos, -1)) {
         return TRUE;
