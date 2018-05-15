@@ -1,4 +1,3 @@
-#include "lib.h"
 #include "ellipse.h"
 
 
@@ -17,7 +16,9 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     double C;
     double alpha;
     double beta;
+    double delta;
     double gamma;
+    double t;
 
     Point I;
 
@@ -25,12 +26,12 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     I.y = NaN;
     I.z = NaN;
 
-    A = pow(a,2);
-    B = pow(b,2);
-    C = pow(c,2);
+    A = pow(E.a,2);
+    B = pow(E.b,2);
+    C = pow(E.c,2);
 
-    alpha = pow(L.directionvector.x,2)/A + pow(L.directionvector.y,2)/B + pow(L.directionvector.z,2)/C;
-    beta = (L.directionvector.x * L.pt.x)/A + (L.directionvector.y * L.pt.y)/B + (L.directionvector.z * L.pt.z)/C;
+    alpha = pow(L.directionVector.x,2)/A + pow(L.directionVector.y,2)/B + pow(L.directionVector.z,2)/C;
+    beta = (L.directionVector.x * L.pt.x)/A + (L.directionVector.y * L.pt.y)/B + (L.directionVector.z * L.pt.z)/C;
     gamma = (pow(L.pt.x,2)/A + pow(L.pt.y,2)/B + pow(L.pt.z,2)/C) - 1;
 
     delta = pow(beta,2) - 4 * alpha * gamma;
@@ -47,9 +48,9 @@ Point contactEllipseWithLine(Ellipse E, Line L){
         t = - beta / alpha;
     }
 
-    I.x = L.directionvector.x * t + L.pt.x;
-    I.y = L.directionvector.y * t + L.pt.y;
-    I.z = L.directionvector.z * t + L.pt.z;
+    I.x = L.directionVector.x * t + L.pt.x;
+    I.y = L.directionVector.y * t + L.pt.y;
+    I.z = L.directionVector.z * t + L.pt.z;
 
     return I;
 }
