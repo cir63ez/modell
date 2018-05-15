@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -78,10 +79,10 @@ Vector normalVector(Point A, Point B, Point C);
 Plane planEquationWithPoints(Point A, Point B, Point C);
 
 // Calculate the image of an  object on a plane
-Point imagePointOnPlane(Point O, Point B, Plane P, Plane Q);
+Point imagePointOnPlane(Point O, Point B, Plane Q);
 
 // Calculate the intersection point between a line and a plane
 Point pointIntersectionLineAndPlane(Line L, Plane P);
 
 // Give the first plan that the observator sees
-Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q);
+Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q);

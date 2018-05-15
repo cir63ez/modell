@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "bmp.h"
+#include "raytracer.h"
 
 /*Missing : paramètres d'entrée du main
 *          RESX / RESY : resolution x et y de l'image
@@ -35,36 +37,46 @@ Line calculateFirstRay (Plane image, Point origin){
 
 
 *rgb rayTracer(  ){
+    BMPFile *finalImage;
     Rgb *image;
     Point contactPoint;
+    Rgb white;
+    Rgb black;
 
     firstRay = calculateFirstRay(imagePlane, originPoint)
     Line tmpLine = firstRay;
     image = (Rgb*)malloc(sizeof(Rgb) * RESY * RESX);
+    finalImage = newBMP(200,200);
+    white.red = 255;
+    white.green = 255;
+    white.blue = 255;
+
+    black.red = 0;
+    black.green = 0;
+    black.blue = 0;
 
     for (int i = 0; i < RESX * RESY; i++){
-        tmpLine.pt.x += (i % (RESX - 1)) * vectorA.x;
-        tmpLine.pt.y += (i % (RESX - 1)) * vectorA.y;
-        tmpLine.pt.z += (i % (RESX - 1)) * vectorA.z;
+        x = i % (RESX - 1);
+        y = i - (i % (RESX - 1)) / (RESX - 1);
+        tmpLine.pt.x += x * vectorA.x;
+        tmpLine.pt.y += x * vectorA.y;
+        tmpLine.pt.z += x * vectorA.z;
 
-        tmpLine.pt.x += (i - (i % (RESX - 1)) / (RESX - 1)) * vectorA.x;
-        tmpLine.pt.y += (i - (i % (RESX - 1)) / (RESX - 1)) * vectorA.y;
-        tmpLine.pt.z += (i - (i % (RESX - 1)) / (RESX - 1)) * vectorA.z;
+        tmpLine.pt.x += y * vectorA.x;
+        tmpLine.pt.y += y * vectorA.y;
+        tmpLine.pt.z += y * vectorA.z;
 
         contactPoint = contactEllipseWithLine(ellipse, tmpLine);
 
         if(isnan(contactPoint.x) || isnan(contactPoint.y) || isnan(contactPoint.z)){
-            image[i].red = 0;
-            image[i].green = 0;
-            image[i].blue = 0;
+            BMPSetColor(finalImage, x, y, white);
         }
         else{
-            image[i].red = 255;
-            image[i].green = 255;
-            image[i].blue = 255;
+            BMPSetColor(finalImage, x, y, black);
         }
-        
+
         tmpLine = firstRay;
     }
+    tempPrint(finalImage);
     return image;
 }
