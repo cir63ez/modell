@@ -174,7 +174,7 @@ Vector normalVector(Point A, Point B, Point C) {
 }
 
 /**
-* Calculate a plan equation 3 points
+* Calculate a plan equation with 3 points
 *
 * @param A: First point
 * @param B: Second point
@@ -324,5 +324,61 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         } else {
             return P;
         }
+<<<<<<< HEAD
     }
 }
+=======
+    }   
+}
+
+
+/**
+* Calculate the reflected ray and the refracted ray if it exists
+*
+* @param O: Observateur point
+* @param normal: normal vector of the plane 
+* @param ray: ray which arrive
+* @param refractiveIndexA: refractive index of the first medium
+* @param refractiveIndexB: refractive index of the second medium
+*
+* @return the reflected ray and the refracted ray if it exists
+*/
+Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
+    double tetaA;
+    double tetaB;
+    Vector rayReflected;
+    Vector rayRefracted;
+    double radicand = 0;
+
+    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(teta1),2);
+
+    tetaA = acos(scalarProduct(ray, normal));
+    tetaB = sqrt(radicand);
+
+    if(radicand < 0){
+        rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
+        rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
+        rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+    }
+
+    else if(cos(tetaA) >= 0){
+        rayRefracted.x = (refractiveIndexA / refractiveIndexB) * ray.x + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) - cos(tetaB))* normal.x;
+        rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) - cos(tetaB))* normal.y;
+        rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) - cos(tetaB))* normal.z;
+
+        rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
+        rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
+        rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+    }
+    else {
+        rayRefracted.x = (refractiveIndexA / refractiveIndexB) * ray.x + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) + cos(tetaB))* normal.x;
+        rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) + cos(tetaB))* normal.y;
+        rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) + cos(tetaB))* normal.z;
+
+        rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
+        rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
+        rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+    }
+
+}
+>>>>>>> 462fa2c4395d65a3b108b2f5bf3c7330c2f143a8

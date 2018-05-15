@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -50,16 +51,45 @@ typedef struct Pixel_ {
 } Pixel;
 
 // Functions
-
+// Calculate a vector with from two points
 Vector pointsToVector(Point A, Point B);
+
+// Calculate the sum of two vectors
 Vector sumVectors(Vector A, Vector B);
+
+// Calculate the difference of two vectors
 Vector differenceVectors(Vector A, Vector B);
+
+// Calculate the scalar product of two vectors
 double scalarProduct(Vector A, Vector B);
+
+// Calculate the norm of two vector 
 double norm(Vector A);
+
+// Calculate the angle between two vectors
 double angle(Vector AB, Vector AC);
+
+// Verify if 3 points are aligned
 char arePointsAligned(Point A, Point B, Point C);
+
+// Calculate a normal vector with 3 points
 Vector normalVector(Point A, Point B, Point C);
+<<<<<<< HEAD
 Plane planeEquationFromPoints(Point A, Point B, Point C);
+=======
+
+// Calculate the equation of a plane with 3 points
+Plane planEquationWithPoints(Point A, Point B, Point C);
+
+// Calculate the image of an  object on a plane
+>>>>>>> 462fa2c4395d65a3b108b2f5bf3c7330c2f143a8
 Point imagePointOnPlane(Point O, Point B, Plane Q);
+
+// Calculate the intersection point between a line and a plane
 Point pointIntersectionLineAndPlane(Line L, Plane P);
+<<<<<<< HEAD
+=======
+
+// Give the first plan that the observator sees
+>>>>>>> 462fa2c4395d65a3b108b2f5bf3c7330c2f143a8
 Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q);
