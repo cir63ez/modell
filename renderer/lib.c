@@ -259,20 +259,19 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
 Point pointIntersectionLineAndPlane(Line L, Plane P) {
     double t = 0;
     Point I;
-    Line L;
 
     I.x = NaN;
     I.y = NaN;
     I.z = NaN;
 
-    t = -((P.a * L.pt.x + P.b * L.pt.y + P.c * L.pt.z)/(P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z))
-    if(t < 0){
+    t = -((P.a * L.pt.x + P.b * L.pt.y + P.c * L.pt.z)/(P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z));
+    if(t < 0) {
         return I;
     }
     else {
         I.x = (L.directionVector.x) * t + L.pt.x;
         I.y = (L.directionVector.y) * t + L.pt.y;
-        I.z = (L.directionVector.z) * t + L.pt.Z;
+        I.z = (L.directionVector.z) * t + L.pt.z;
         return I;
     }
 
@@ -289,8 +288,8 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
 *
 * @return the plane the observator sees first
 */
-Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
-    Plan test;
+Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
+    Plane test;
     Line L;
     Point IA;
     Point IB;
@@ -303,7 +302,7 @@ Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
     IA = pointIntersectionLineAndPlane(L, P);
     IB = pointIntersectionLineAndPlane(L, Q);
 
-    if(IA == NaN && IB == NaN) {
+    if((isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) && (isnan(IB.x) || isnan(IB.y) || isnan(IB.z))) {
         test.a = NaN;
         test.b = NaN;
         test.c = NaN;
@@ -311,21 +310,20 @@ Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
         return test;
     }
     
-    else if(IA == NaN){
+    else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
         return Q;
     }
 
-    else if(IB == NaN){
+    else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
         return P;
     }
 
     else {
         OIA = pointsToVector(O, IA);
         OIB = pointsToVector(O, IB);
-        if(norm(OIA) > norm(OIB)){
+        if(norm(OIA) > norm(OIB)) {
             return Q;
-        }
-        else {
+        } else {
             return P;
         }
     }   
