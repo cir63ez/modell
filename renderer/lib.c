@@ -174,7 +174,7 @@ Vector normalVector(Point A, Point B, Point C) {
 }
 
 /**
-* Calculate a plan equation 3 points
+* Calculate a plan equation with 3 points
 *
 * @param A: First point
 * @param B: Second point
@@ -310,7 +310,7 @@ Point firstPlaneSeen(Point O, vector direction, Plane P, Plane Q) {
         test.d = NaN;
         return test;
     }
-    
+
     else if(IA == NaN){
         return Q;
     }
