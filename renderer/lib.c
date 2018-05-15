@@ -101,14 +101,14 @@ double angle(Vector AB, Vector AC) {
     normAC = norm(AC);
 
     if(normAB == 0 || normAC == 0) {
-    	printf("TODO: Error div by 0");
+    	printf("TODO: Error div by 0\n");
     	return 0;
     }
 
     test = productABAC/(normAB * normAC);
 
     if (test > 1 || test < -1){
-        printf("TODO: Fix test not in range (-1,1)");
+        printf("TODO: Fix test not in range (-1,1)\n");
         return 0;
     }
 
@@ -163,7 +163,7 @@ Vector normalVector(Point A, Point B, Point C) {
     V.z = NaN;
 
     if (arePointsAligned(A,B,C)) {
-        printf("We can't make a plan equation with 3 aligned points");
+        printf("We can't make a plan equation with 3 aligned points\n");
     } else {
         V.x = ((B.y - A.y)*(C.z - A.z)-(B.z - A.z)*(C.y - A.y));
         V.y = -((B.x - A.x)*(C.z - A.z)-(B.z - A.z)*(C.x - A.x));
@@ -193,10 +193,10 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
     P.d = 0;
 
     if (arePointsAligned(A,B,C)){
-        printf("We can't make a plan equation with 3 aligned points");
+        printf("We can't make a plan equation with 3 aligned points\n");
     } else {
         V = normalVector(A,B,C);
-        
+
         P.a = V.x;
         P.b = V.y;
         P.c = V.z;
@@ -207,15 +207,15 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 }
 
 /**
-* Calculate the image of an  object on a plane
+* Calculate the image of an object on a plane
 *
 * @param O: Observateur point
 * @param B: Object point
 * @param Q: Plane
 *
-* @return the position of the  object's image on a plane
+* @return the position of the object's image on a plane
 */
-Point imagePointOnPlane(Point O, Point B, Plane Q) {
+/*Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
     double denominator;
@@ -226,8 +226,6 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
     I.z = NaN;
 
     t = 0;
-    denominator = 0;
-    nominator = 0;
     nominator = Q.a * B.x + Q.b * O.y + Q.c * O.z + Q.d;
     denominator = Q.a * (B.x - O.x) + Q.b * (B.y - O.y)  + Q.c * (B.z - O.z);
 
@@ -246,7 +244,7 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
             return I;
         }
     }
-}
+}*/
 
 /**
 * Calculate the intersection point between a line and a plane
@@ -275,7 +273,7 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
         return I;
     }
 
-    
+
 }
 
 /**
@@ -309,7 +307,7 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         test.d = NaN;
         return test;
     }
-    
+
     else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
         return Q;
     }
@@ -326,5 +324,5 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         } else {
             return P;
         }
-    }   
+    }
 }
