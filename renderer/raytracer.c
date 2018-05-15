@@ -12,6 +12,7 @@
 *        image[] : pixel array
 */
 
+
 /**
 * Calculates the ray corresponding to the (0,0) pixel
 *
@@ -20,7 +21,6 @@
 *
 * @return the ray corresponding to the (0,0) pixel
 */
-
 Line calculateFirstRay (Plane image, Point origin){
     Line firstRay;
     Vector directionVector;
@@ -60,7 +60,7 @@ Line calculateFirstRay (Plane image, Point origin){
             image[i].green = 255;
             image[i].blue = 255;
         }
-        tmpLine = firstRay
+        tmpLine = firstRay;
     }
     return image;
 }

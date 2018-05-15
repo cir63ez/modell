@@ -130,12 +130,20 @@ char arePointsAligned(Point A, Point B, Point C) {
 	Vector AB;
 	Vector AC;
 	double scalar;
+    double angleCos;
 
     AB = pointsToVector(A,B);
     AC = pointsToVector(A,C);
     scalar = scalarProduct(AB,AC);
+    angleCos = scalar/(norm(AB)*norm(AC));
 
-    return (scalar == 0) ? TRUE : FALSE;
+    if(FEQUAL(norm(AB)*norm(AC))) {return FALSE;}
+
+    if(FEQUAL(angleCos, 1) || FEQUAL(angleCos, -1)) {
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 /**
@@ -151,9 +159,9 @@ char arePointsAligned(Point A, Point B, Point C) {
 Vector normalVector(Point A, Point B, Point C) {
     Vector V;
 
-    V.x = 0;
-    V.y = 0;
-    V.z = 0;
+    V.x = NaN;
+    V.y = NaN;
+    V.z = NaN;
 
     if (arePointsAligned(A,B,C)) {
         printf("We can't make a plan equation with 3 aligned points");
@@ -178,6 +186,7 @@ Vector normalVector(Point A, Point B, Point C) {
 */
 Plane planeEquationFromPoints(Point A, Point B, Point C) {
     Plane P;
+    Vector V;
 
     P.a = 0;
     P.b = 0;
@@ -187,7 +196,8 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
     if (arePointsAligned(A,B,C)){
         printf("We can't make a plan equation with 3 aligned points");
     } else {
-        Vector V = normalVector(A,B,C);
+        V = normalVector(A,B,C);
+        
         P.a = V.x;
         P.b = V.y;
         P.c = V.z;

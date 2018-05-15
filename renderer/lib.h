@@ -6,8 +6,10 @@
 
 #define TRUE 1
 #define FALSE 0
-
 #define NaN 0./0.
+
+#define FEQUAL_LIMIT 0.0000000001
+#define FEQUAL(A, B) (fabs(A - B) < FEQUAL_LIMIT) ? TRUE : FALSE
 
 // Structures
 
@@ -29,9 +31,9 @@ typedef struct Line_ {
 } Line;
 
 typedef struct Rgb_ {
-    double red;
-    double green;
-    double blue;
+    int red;
+    int green;
+    int blue;
 } Rgb;
 
 typedef struct Plane_ {

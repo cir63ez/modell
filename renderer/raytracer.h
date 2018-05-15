@@ -1,3 +1,4 @@
 #include "raytracer.c"
 
-*rgb rayTracer();
+Line calculateFirstRay (Plane image, Point origin);
+*Rgb rayTracer();
