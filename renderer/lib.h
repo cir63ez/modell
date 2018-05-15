@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define TRUE 1
+#define FALSE 0
+
 typedef struct Point_ {
     double x;
     double y;
@@ -10,10 +17,10 @@ typedef struct Vector_ {
     double z;
 } Vector;
 
-typedef struct Ray_ {
+typedef struct Line_ {
     Point pt;
     Vector directionVector;
-} Ray;
+} Line;
 
 typedef struct Rgb_ {
     double red;
@@ -29,7 +36,7 @@ typedef struct Plane_ {
 } Plane;
 
 typedef struct Pixel_ {
+    int x;
+    int y;
     Rgb color;
-    Point coordinates;
 } Pixel;
-
