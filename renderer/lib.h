@@ -41,7 +41,10 @@ typedef struct Plane_ {
     double a;
     double b;
     double c;
-    double d;
+    //double d;
+    double x;
+    double y;
+    double z;
 } Plane;
 
 typedef struct Pixel_ {
@@ -51,38 +54,16 @@ typedef struct Pixel_ {
 } Pixel;
 
 // Functions
-// Calculate a vector with from two points
+
 Vector pointsToVector(Point A, Point B);
-
-// Calculate the sum of two vectors
 Vector sumVectors(Vector A, Vector B);
-
-// Calculate the difference of two vectors
 Vector differenceVectors(Vector A, Vector B);
-
-// Calculate the scalar product of two vectors
 double scalarProduct(Vector A, Vector B);
-
-// Calculate the norm of two vector 
 double norm(Vector A);
-
-// Calculate the angle between two vectors
 double angle(Vector AB, Vector AC);
-
-// Verify if 3 points are aligned
 char arePointsAligned(Point A, Point B, Point C);
-
-// Calculate a normal vector with 3 points
 Vector normalVector(Point A, Point B, Point C);
-
-// Calculate the equation of a plane with 3 points
 Plane planEquationWithPoints(Point A, Point B, Point C);
-
-// Calculate the image of an  object on a plane
 Point imagePointOnPlane(Point O, Point B, Plane Q);
-
-// Calculate the intersection point between a line and a plane
 Point pointIntersectionLineAndPlane(Line L, Plane P);
-
-// Give the first plan that the observator sees
 Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q);
