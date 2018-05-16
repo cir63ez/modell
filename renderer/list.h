@@ -6,10 +6,6 @@
 #define ELLIPSE_TYPE 0
 #define BRICK_TYPE 1
 
-typedef struct Light_ {
-    Point lightSource;
-} Light;
-
 typedef struct Element_ {
     char type;
     double * object;
@@ -20,8 +16,4 @@ typedef struct List_ {
     Element * tete;
     double nbElement;
 } List;
-
-typedef struct Ray_ {
-    Line rayLine;
-} Ray;
 
