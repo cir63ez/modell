@@ -26,15 +26,31 @@ Point contactBrickWithLine(Brick B, Line L){
 * @return an array of double which contain the informations about the brick
 */
 double * encodeBrick(Brick B){
-    double brick[8];
-    brick[0] = B.a;
-    brick[1] = B.b;
-    brick[2] = B.c;
-    brick[3] = B.d;
-    brick[4] = B.e;
-    brick[5] = B.f;
-    brick[6] = B.g;
-    brick[7] = B.h;
+    double brick[24];
+    brick[0] = B.a.x;
+    brick[1] = B.a.y;
+    brick[2] = B.a.z;
+    brick[3] = B.b.x;
+    brick[4] = B.b.y;
+    brick[5] = B.b.z;
+    brick[6] = B.c.x;
+    brick[7] = B.c.y;
+    brick[8] = B.c.z;
+    brick[9] = B.d.x;
+    brick[10] = B.d.y;
+    brick[11] = B.d.z;
+    brick[12] = B.e.x;
+    brick[13] = B.e.y;
+    brick[14] = B.e.z;
+    brick[15] = B.f.x;
+    brick[16] = B.f.y;
+    brick[17] = B.f.z;
+    brick[18] = B.g.x;
+    brick[19] = B.g.y;
+    brick[20] = B.g.z;
+    brick[21] = B.h.x;
+    brick[22] = B.h.y;
+    brick[23] = B.h.z;
     return brick;
 }
 
@@ -50,14 +66,30 @@ Brick decodeBrick(double * brick){
     Brick B;
     double brick[8];
 
-    B.a = brick[0];
-    B.b = brick[1];
-    B.c = brick[2];
-    B.d = brick[3];
-    B.e = brick[4];
-    B.f = brick[5];
-    B.g = brick[6];
-    B.h = brick[7];
+    B.a.x = brick[0];
+    B.a.y = brick[1];
+    B.a.z = brick[2];
+    B.b.x = brick[3];
+    B.b.y = brick[4];
+    B.b.z = brick[5];
+    B.c.x = brick[6];
+    B.c.y = brick[7];
+    B.c.z = brick[8];
+    B.d.x = brick[9];
+    B.d.y = brick[10];
+    B.d.z = brick[11];
+    B.e.x = brick[0];
+    B.e.y = brick[1];
+    B.e.z = brick[2];
+    B.f.x = brick[3];
+    B.f.y = brick[4];
+    B.f.z = brick[5];
+    B.g.x = brick[6];
+    B.g.y = brick[7];
+    B.g.z = brick[8];
+    B.h.x = brick[9];
+    B.h.y = brick[10];
+    B.h.z = brick[11];
 
     return B;
 }
