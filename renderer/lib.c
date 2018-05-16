@@ -101,7 +101,6 @@ double angle(Vector AB, Vector AC) {
     normAC = norm(AC);
 
     if(normAB == 0 || normAC == 0) {
-    	printf("TODO: Error div by 0");
     	printf("TODO: Error div by 0\n");
     	return 0;
     }
@@ -109,7 +108,6 @@ double angle(Vector AB, Vector AC) {
     test = productABAC/(normAB * normAC);
 
     if (test > 1 || test < -1){
-        printf("TODO: Fix test not in range (-1,1)");
         printf("TODO: Fix test not in range (-1,1)\n");
         return 0;
     }
@@ -165,8 +163,7 @@ Vector normalVector(Point A, Point B, Point C) {
     V.z = NaN;
 
     if (arePointsAligned(A,B,C)) {
-        printf("We can't make a plan equation with 3 aligned points");
-        printf("We can't make a plan equation with 3 aligned points\n");
+        printf("We can't make a plane equation with 3 aligned points\n");
     } else {
         V.x = ((B.y - A.y)*(C.z - A.z)-(B.z - A.z)*(C.y - A.y));
         V.y = -((B.x - A.x)*(C.z - A.z)-(B.z - A.z)*(C.x - A.x));
@@ -197,8 +194,7 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
     P.d = 0;
 
     if (arePointsAligned(A,B,C)){
-        printf("We can't make a plan equation with 3 aligned points");
-        printf("We can't make a plan equation with 3 aligned points\n");
+        printf("We can't make a plane equation with 3 aligned points\n");
     } else {
         V = normalVector(A,B,C);
 
@@ -356,7 +352,7 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
     }
 }
 =======
-    }   
+    }
 }
 
 
@@ -364,7 +360,7 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
 * Calculate the reflected ray and the refracted ray if it exists
 *
 * @param O: Observateur point
-* @param normal: normal vector of the plane 
+* @param normal: normal vector of the plane
 * @param ray: ray which arrive
 * @param refractiveIndexA: refractive index of the first medium
 * @param refractiveIndexB: refractive index of the second medium
