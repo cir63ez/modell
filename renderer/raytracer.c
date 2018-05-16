@@ -68,8 +68,8 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
          tmpLine.pt.z += y * vectorB.z;
         */
 
-        x = i % (resolution - 1);
-        y = i - (i % (resolution - 1)) / (resolution - 1);
+        x = i % (resolution);
+        y = i - ((i /resolution) / (resolution) );
 
         tmpLine.pt.x += x * i;
         tmpLine.pt.y += y * i;
@@ -81,7 +81,7 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
             || isnan(contactPoint.y)
             || isnan(contactPoint.z)){
 
-                        BMPSetColor(BMPimage , x, y, white);
+            BMPSetColor(BMPimage , x, y, white);
         }
         else{
             BMPSetColor(BMPimage, x, y, black);
