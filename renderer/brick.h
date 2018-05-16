@@ -10,5 +10,8 @@ typedef struct Brick_ {
     double g;
 } Brick;
 
+
 Point contactBrickWithLine(Brick B, Line L);
 
+//Encode a brick as an array
+double * encodeEllipse(Ellipse E);

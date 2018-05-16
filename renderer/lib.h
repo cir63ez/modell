@@ -15,14 +15,6 @@
 // Structures
 
 
-typedef struct Light_ {
-    Point lightSource;
-} Light;
-
-typedef struct Ray_ {
-    Line rayLine;
-} Ray;
-
 typedef struct Point_ {
     double x;
     double y;
@@ -50,11 +42,18 @@ typedef struct Plane_ {
     double a;
     double b;
     double c;
-
     double x;
     double y;
     double z;
 } Plane;
+
+typedef struct Light_ {
+    Point lightSource;
+} Light;
+
+typedef struct Ray_ {
+    Line rayLine;
+} Ray;
 
 typedef struct Pixel_ {
     int x;

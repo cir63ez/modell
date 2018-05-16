@@ -191,7 +191,6 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
     P.a = 0;
     P.b = 0;
     P.c = 0;
-    P.d = 0;
 
     if (arePointsAligned(A,B,C)){
         printf("We can't make a plane equation with 3 aligned points\n");
@@ -233,15 +232,8 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
     I.z = NaN;
 
     t = 0;
-<<<<<<< HEAD
-    denominator = 0;
-    nominator = 0;
-    nominator = (Q.a - Q.l) * B.x + (Q.b - Q.m) * O.y + (Q.c - Q.n) * O.z;
-    denominator = (Q.a - Q.l) * (B.x - O.x) + (Q.b - Q.m) * (B.y - O.y)  + (Q.c - Q.n) * (B.z - O.z);
-=======
     nominator = Q.a * B.x + Q.b * O.y + Q.c * O.z + Q.d;
     denominator = Q.a * (B.x - O.x) + Q.b * (B.y - O.y)  + Q.c * (B.z - O.z);
->>>>>>> b84629212b07098447fb7606119ca6a95cc74540
 
     if(denominator == 0){
         return I;
@@ -344,16 +336,9 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         } else {
             return P;
         }
-<<<<<<< HEAD
     }
 }
-=======
-<<<<<<< HEAD
-    }
-}
-=======
-    }
-}
+
 
 
 /**
@@ -412,14 +397,6 @@ Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double re
         rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
         rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
     }
-
-<<<<<<< HEAD
     reflected.directionVector = rayReflected;
     refracted.directionVector = rayRefracted;
-
 }
-=======
-}
->>>>>>> 462fa2c4395d65a3b108b2f5bf3c7330c2f143a8
->>>>>>> b84629212b07098447fb7606119ca6a95cc74540
->>>>>>> 40437471f87d069e8451c474e8804933309bc49c

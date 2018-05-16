@@ -56,7 +56,6 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 }
 
 
-
 /**
 * Encode an ellipse as an array
 *
@@ -65,5 +64,12 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 * @return an array of double which contain the informations about the ellipse
 */
 double * encodeEllipse(Ellipse E){
-
+    double ellipse[6];
+    ellipse[0] = E.a;
+    ellipse[1] = E.b;
+    ellipse[2] = E.c;
+    ellipse[3] = E.x;
+    ellipse[4] = E.y;
+    ellipse[5] = E.z;
+    return ellipse;
 }
