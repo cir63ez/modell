@@ -88,9 +88,9 @@ int main() {
 
 	Plane P;
 	P=planeEquationFromPoints(PA,PB,PC);
-	printf("a=%lf,b=%lf,c=%lf,d=%lf goes wrong\n",P.a,P.b,P.c,P.d);
+	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes wrong\n",P.a,P.b,P.c,P.x,P.y,p.z);
 	P=planeEquationFromPoints(PA,PB,PD);
-	printf("a=%lf,b=%lf,c=%lf,d=%lf goes well\n",P.a,P.b,P.c,P.d);
+	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes well\n",P.a,P.b,P.c,P.x,P.y,p.z);
 
 // pointIntersectionLineAndPlane
 
