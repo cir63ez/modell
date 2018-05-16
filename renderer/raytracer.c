@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "bmp.h"
+#include "raytracer.h"
+#include "lib.h"
 
 /*Missing : paramètres d'entrée du main
-*          RESX / RESY : resolution x et y de l'image
-*          Ellipse ellipse : l'ellipse
+*          Ellipse E : the ellipsoid
 *          Line firstRay : the ray corresponding to the (0,0) pixel
 *          Point originPoint : Origin of the image
 *          Plane imagePlane : Image plane
@@ -34,37 +36,58 @@ Line calculateFirstRay (Plane image, Point origin){
 }
 
 
-*rgb rayTracer(  ){
+Rgb* rayTracer(Ellipse E, /*Light *list*/, Plane observer, Point imageOrigin, int resolution){
+    BMPFile *finalImage;
     Rgb *image;
     Point contactPoint;
 
-    firstRay = calculateFirstRay(imagePlane, originPoint)
+    Rgb white;
+    white.red = 255;
+    white.green = 255;
+    white.blue = 255;
+
+    Rgb black;
+    black.red = 0;
+    black.green = 0;
+    black.blue = 0;
+
+    firstRay = calculateFirstRay(O, origin);
     Line tmpLine = firstRay;
-    image = (Rgb*)malloc(sizeof(Rgb) * RESY * RESX);
+    image = (Rgb*)malloc(sizeof(Rgb) * resolution * resolution);
+    finalImage = newBMP(resolution,resolution);
 
-    for (int i = 0; i < RESX * RESY; i++){
-        tmpLine.pt.x += (i % (RESX - 1)) * vectorA.x;
-        tmpLine.pt.y += (i % (RESX - 1)) * vectorA.y;
-        tmpLine.pt.z += (i % (RESX - 1)) * vectorA.z;
+    int x, y;
 
-        tmpLine.pt.x += (i - (i % (RESX - 1)) / (RESX - 1)) * vectorA.x;
-        tmpLine.pt.y += (i - (i % (RESX - 1)) / (RESX - 1)) * vectorA.y;
-        tmpLine.pt.z += (i - (i % (RESX - 1)) / (RESX - 1)) * vectorA.z;
+    for (int i = 0; i < resolution * resolution; i++){
+        /* tmpLine.pt.x += x * vectorA.x;
+         tmpLine.pt.y += x * vectorA.y;
+         tmpLine.pt.z += x * vectorA.z;
+         tmpLine.pt.x += y * vectorB.x;
+         tmpLine.pt.y += y * vectorB.y;
+         tmpLine.pt.z += y * vectorB.z;
+        */
 
-        contactPoint = contactEllipseWithLine(ellipse, tmpLine);
+        x = i % (resolution - 1);
+        y = i - (i % (resolution - 1)) / (resolution - 1);
 
-        if(isnan(contactPoint.x) || isnan(contactPoint.y) || isnan(contactPoint.z)){
-            image[i].red = 0;
-            image[i].green = 0;
-            image[i].blue = 0;
+        tmpLine.pt.x += x * i;
+        tmpLine.pt.y += y * i;
+
+
+        contactPoint = contactEllipseWithLine(E, tmpLine);
+
+        if(isnan(contactPoint.x)
+            || isnan(contactPoint.y)
+            || isnan(contactPoint.z)){
+            
+            BMPSetColor(finalImage, x, y, white);
         }
         else{
-            image[i].red = 255;
-            image[i].green = 255;
-            image[i].blue = 255;
+            BMPSetColor(finalImage, x, y, black);
         }
-        
+
         tmpLine = firstRay;
     }
+    tempPrint(finalImage);
     return image;
 }

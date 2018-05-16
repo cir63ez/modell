@@ -7,10 +7,10 @@
 * @param E: Ellipse's name
 * @param B: Line's name
 *
-* @return the closest point of contact between an ellipse and a line if it exist
+* @return the closest point of contact between an ellipse and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Point contactEllipseWithLine(Ellipse E, Line L){
+Point contactEllipseWithLine(Ellipse E, Line L) {
     double A;
     double B;
     double C;
@@ -26,9 +26,9 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     I.y = NaN;
     I.z = NaN;
 
-    A = pow(E.a,2);
-    B = pow(E.b,2);
-    C = pow(E.c,2);
+    A = pow((E.a - E.x),2);
+    B = pow((E.b - E.y),2);
+    C = pow((E.c - E.z),2);
 
     alpha = pow(L.directionVector.x,2)/A + pow(L.directionVector.y,2)/B + pow(L.directionVector.z,2)/C;
     beta = (L.directionVector.x * L.pt.x)/A + (L.directionVector.y * L.pt.y)/B + (L.directionVector.z * L.pt.z)/C;
@@ -53,4 +53,44 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     I.z = L.directionVector.z * t + L.pt.z;
 
     return I;
+}
+
+
+/**
+* Encode an ellipse as an array
+*
+* @param E: Ellipse's name
+*
+* @return an array of double which contain the informations about the ellipse
+*/
+double * encodeEllipse(Ellipse E){
+    double ellipse[6];
+    ellipse[0] = E.a;
+    ellipse[1] = E.b;
+    ellipse[2] = E.c;
+    ellipse[3] = E.x;
+    ellipse[4] = E.y;
+    ellipse[5] = E.z;
+    return ellipse;
+}
+
+
+/**
+* Encode an ellipse's array as a ellipse structure
+*
+* @param ellipse: Ellipse array
+*
+* @return an ellipse
+*/
+Ellipse decodeEllipse(double * ellipse){
+    Ellipse E;
+    double ellipse[6];
+
+    E.a = ellipse[0];
+    E.b = ellipse[1];
+    E.c = ellipse[2];
+    E.x = ellipse[3];
+    E.y = ellipse[4];
+    E.z = ellipse[5];
+    return E;
 }

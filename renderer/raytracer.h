@@ -1,4 +1,3 @@
-#include "raytracer.c"
 #include "lib.h"
 #include "ellipse.h"
 

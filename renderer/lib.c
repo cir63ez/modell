@@ -101,14 +101,14 @@ double angle(Vector AB, Vector AC) {
     normAC = norm(AC);
 
     if(normAB == 0 || normAC == 0) {
-    	printf("TODO: Error div by 0");
+    	printf("TODO: Error div by 0\n");
     	return 0;
     }
 
     test = productABAC/(normAB * normAC);
 
     if (test > 1 || test < -1){
-        printf("TODO: Fix test not in range (-1,1)");
+        printf("TODO: Fix test not in range (-1,1)\n");
         return 0;
     }
 
@@ -163,7 +163,7 @@ Vector normalVector(Point A, Point B, Point C) {
     V.z = NaN;
 
     if (arePointsAligned(A,B,C)) {
-        printf("We can't make a plan equation with 3 aligned points");
+        printf("We can't make a plane equation with 3 aligned points\n");
     } else {
         V.x = ((B.y - A.y)*(C.z - A.z)-(B.z - A.z)*(C.y - A.y));
         V.y = -((B.x - A.x)*(C.z - A.z)-(B.z - A.z)*(C.x - A.x));
@@ -175,6 +175,7 @@ Vector normalVector(Point A, Point B, Point C) {
 
 /**
 * Calculate a plan equation 3 points
+* Calculate a plan equation with 3 points
 *
 * @param A: First point
 * @param B: Second point
@@ -190,17 +191,19 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
     P.a = 0;
     P.b = 0;
     P.c = 0;
-    P.d = 0;
 
     if (arePointsAligned(A,B,C)){
-        printf("We can't make a plan equation with 3 aligned points");
+        printf("We can't make a plane equation with 3 aligned points\n");
     } else {
         V = normalVector(A,B,C);
-        
+
         P.a = V.x;
         P.b = V.y;
         P.c = V.z;
-        P.d = P.a * A.x + P.b * A.y + P.c * A.z;
+        P.x = A.x;
+        P.y = A.y;
+        P.z = A.z;
+        //P.d = -( P.a * A.x + P.b * A.y + P.c * A.z);
     }
 
     return P;
@@ -208,14 +211,17 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 
 /**
 * Calculate the image of an  object on a plane
+* Calculate the image of an object on a plane
 *
 * @param O: Observateur point
 * @param B: Object point
 * @param Q: Plane
 *
 * @return the position of the  object's image on a plane
+* @return the position of the object's image on a plane
 */
-Point imagePointOnPlane(Point O, Point B, Plane Q) {
+//Point imagePointOnPlane(Point O, Point B, Plane Q) {
+/*Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
     double denominator;
@@ -226,8 +232,6 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
     I.z = NaN;
 
     t = 0;
-    denominator = 0;
-    nominator = 0;
     nominator = Q.a * B.x + Q.b * O.y + Q.c * O.z + Q.d;
     denominator = Q.a * (B.x - O.x) + Q.b * (B.y - O.y)  + Q.c * (B.z - O.z);
 
@@ -247,6 +251,7 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
         }
     }
 }
+}*/
 
 /**
 * Calculate the intersection point between a line and a plane
@@ -254,17 +259,22 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
 * @param L: Line
 * @param B: First plane
 *
-* @return the plane the observator sees first
+* @return the plane the observer sees first
 */
 Point pointIntersectionLineAndPlane(Line L, Plane P) {
     double t = 0;
     Point I;
+    double nominator;
+    double denominator;
 
     I.x = NaN;
     I.y = NaN;
     I.z = NaN;
 
-    t = -((P.a * L.pt.x + P.b * L.pt.y + P.c * L.pt.z)/(P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z));
+    nominator = ((P.a - P.x) * L.pt.x + (P.b - P.y) * L.pt.y + (P.c - P.z) * L.pt.z);
+    denominator =((P.a - P.x) * L.directionVector.x + (P.b - P.y) * L.directionVector.y + (P.c - P.z) * L.directionVector.z);
+    t = -( nominator / denominator);
+
     if(t < 0) {
         return I;
     }
@@ -275,18 +285,18 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
         return I;
     }
 
-    
+
 }
 
 /**
-* Give the first plan that the observator sees
+* Give the first plan that the observer sees
 *
 * @param O: Observateur point
-* @param direction: vector direction of the observator
+* @param direction: vector direction of the observer
 * @param B: First plane
 * @param Q: Second plane
 *
-* @return the plane the observator sees first
+* @return the plane the observer sees first
 */
 Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
     Plane test;
@@ -306,10 +316,9 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         test.a = NaN;
         test.b = NaN;
         test.c = NaN;
-        test.d = NaN;
         return test;
     }
-    
+
     else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
         return Q;
     }
@@ -326,5 +335,91 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         } else {
             return P;
         }
-    }   
+    }
+}
+
+
+
+/**
+* Calculate the reflected ray and the refracted ray if it exists
+*
+* @param O: Observateur point
+* @param normal: normal vector of the plane
+* @param ray: ray which arrive
+* @param refractiveIndexA: refractive index of the first medium
+* @param refractiveIndexB: refractive index of the second medium
+*
+* @return the reflected ray and the refracted ray if it exists
+*/
+Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
+    double thetaA;
+    double thetaB;
+    Vector rayReflected;
+    Line reflected;
+    double radicand = 0;
+
+    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(thetaA),2));
+
+    thetaA = acos(scalarProduct(ray, normal));
+
+
+    reflected.pt = I;
+
+    if(radicand < 0){
+        rayReflected.x = ray.x + (2 * cos(thetaA)) * normal.x;
+        rayReflected.y = ray.y + (2 * cos(thetaA)) * normal.y;
+        rayReflected.z = ray.z + (2 * cos(thetaA)) * normal.z;
+    }
+
+    else if(cos(thetaA) >= 0){
+        thetaB = sqrt(radicand);
+        rayReflected.x = ray.x + (2 * cos(thetaA)) * normal.x;
+        rayReflected.y = ray.y + (2 * cos(thetaA)) * normal.y;
+        rayReflected.z = ray.z + (2 * cos(thetaA)) * normal.z;
+    }
+    else {
+        thetaB = sqrt(radicand);
+        rayReflected.x = ray.x + (2 * cos(thetaA)) * normal.x;
+        rayReflected.y = ray.y + (2 * cos(thetaA)) * normal.y;
+        rayReflected.z = ray.z + (2 * cos(thetaA)) * normal.z;
+    }
+    reflected.directionVector = rayReflected;
+    return reflected;
+}
+
+Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
+    double thetaA;
+    double thetaB;
+    Vector rayRefracted;
+    Line refracted;
+    double radicand = 0;
+
+    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(thetaA),2));
+
+    thetaA = acos(scalarProduct(ray, normal));
+
+    refracted.pt = I;
+
+    if(radicand < 0){
+        rayRefracted.x = NaN;
+        rayRefracted.y = NaN;
+        rayRefracted.z = NaN;
+    }
+
+    else if(cos(thetaA) >= 0){
+        thetaB = sqrt(radicand);
+        rayRefracted.x = (refractiveIndexA / refractiveIndexB) * ray.x + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) - cos(thetaB))* normal.x;
+        rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) - cos(thetaB))* normal.y;
+        rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) - cos(thetaB))* normal.z;
+
+    }
+    else {
+        thetaB = sqrt(radicand);
+        rayRefracted.x = (refractiveIndexA / refractiveIndexB) * ray.x + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) + cos(thetaB))* normal.x;
+        rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) + cos(thetaB))* normal.y;
+        rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) + cos(thetaB))* normal.z;
+
+    }
+    refracted.directionVector = rayRefracted;
+    return refracted;
 }
