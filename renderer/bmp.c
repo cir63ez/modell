@@ -1,65 +1,115 @@
 #include "bmp.h"
 
-BMPFile *newBMP(int width, int height) {
-	BMPFile *image;
-	Rgb *pixelsGrid;
-
-	image = (BMPFile *) malloc(sizeof(BMPFile));
-	pixelsGrid = (Rgb *) malloc(sizeof(Rgb) * width * height);
-	
-	image->width = width;
-	image->height = height;
-	image->pixels = pixelsGrid;
-
-	return image;
+/**
+ * Set the color of the pixel of a BMP image array
+ * 
+ * @param image: array image
+ * @param x: x position of the pixel (heigtj axe)
+ * @param y: y position of the pixel (width axe)
+ * @param color: Rbg color
+ * 
+ * @return void
+ */
+void BMPSetColor(unsigned char image[MAX_IMAGE_HEIGHT][MAX_IMAGE_WIDTH][BYTES_PER_PIXEL] , int x, int y, Rgb color) {
+	image[x][y][2] = (unsigned char) (color.red);
+    image[x][y][1] = (unsigned char) (color.green);
+    image[x][y][0] = (unsigned char) (color.blue);
 }
 
-// 0------x------>
-// |      |      
-// y------■      
-// |
-// V             
-void BMPSetColor(BMPFile *image, int x, int y, Rgb color) {
-	int index;
-	Rgb* pixelsGrid;
+/**
+ * Generate an image file from an array image
+ * 
+ * @param image: array image
+ * @param height: Height of the image
+ * @param width: Width of the image
+ * @param imageFileName: Filename of the output image
+ * 
+ * @return void
+ */
+void generateBitmapImage(unsigned char *image, int height, int width, char* imageFileName) {
 
-	index = y * image->width + x;
-	pixelsGrid = image->pixels;
+    unsigned char* fileHeader = createBitmapFileHeader(height, width);
+    unsigned char* infoHeader = createBitmapInfoHeader(height, width);
+    unsigned char padding[3] = {0, 0, 0};
+    int paddingSize = (4-(width*BYTES_PER_PIXEL)%4)%4;
 
-	pixelsGrid[index] = color;
+    FILE* imageFile = fopen(imageFileName, "wb");
+
+    fwrite(fileHeader, 1, FILE_HEADER_SIZE, imageFile);
+    fwrite(infoHeader, 1, INFO_HEADER_SIZE, imageFile);
+
+    int i;
+    for(i = 0; i < height; i++){
+        fwrite(image+(i*width*BYTES_PER_PIXEL), BYTES_PER_PIXEL, width, imageFile);
+        fwrite(padding, 1, paddingSize, imageFile);
+    }
+
+    fclose(imageFile);
 }
 
-void tempPrint(BMPFile *image) {
-	int index;
-	Rgb* pixelsGrid;
+/**
+ * Generate the Bitmap File Header
+ * 
+ * @param height: Height of the image
+ * @param width: Width of the image 
+ * 
+ * @return unsigned char*: 
+ */
+unsigned char *createBitmapFileHeader(int height, int width) {
+    int fileSize = FILE_HEADER_SIZE + INFO_HEADER_SIZE + BYTES_PER_PIXEL*height*width;
 
-	pixelsGrid = image->pixels;
+    static unsigned char fileHeader[] = {
+        0,0, /// signature
+        0,0,0,0, /// image file size in bytes
+        0,0,0,0, /// reserved
+        0,0,0,0, /// start of pixel array
+    };
 
-	for(int i = 0; i < image->height; i++) {
-		for(int j = 0; j < image->width; j++) {
-			index = i*image->width + j;
-			printf("[%3d]", pixelsGrid[index].red);
-		}
-		printf("\n");
-	}
+    fileHeader[ 0] = (unsigned char)('B');
+    fileHeader[ 1] = (unsigned char)('M');
+    fileHeader[ 2] = (unsigned char)(fileSize    );
+    fileHeader[ 3] = (unsigned char)(fileSize>> 8);
+    fileHeader[ 4] = (unsigned char)(fileSize>>16);
+    fileHeader[ 5] = (unsigned char)(fileSize>>24);
+    fileHeader[10] = (unsigned char)(FILE_HEADER_SIZE + INFO_HEADER_SIZE);
 
-	printf("\n");
+    return fileHeader;
+}
 
-	for(int i = 0; i < image->height; i++) {
-		for(int j = 0; j < image->width; j++) {
-			index = i*image->width + j;
-			printf("[%3d]", pixelsGrid[index].green);
-		}
-		printf("\n");
-	}
+/**
+ * Generate the Bitmap Info Header
+ * 
+ * @param height: Height of the image
+ * @param width: Width of the image
+ * 
+ * @return unsigned char*
+ */
+unsigned char *createBitmapInfoHeader(int height, int width) {
+    static unsigned char infoHeader[] = {
+        0,0,0,0, /// header size
+        0,0,0,0, /// image width
+        0,0,0,0, /// image height
+        0,0, /// number of color planes
+        0,0, /// bits per pixel
+        0,0,0,0, /// compression
+        0,0,0,0, /// image size
+        0,0,0,0, /// horizontal resolution
+        0,0,0,0, /// vertical resolution
+        0,0,0,0, /// colors in color table
+        0,0,0,0, /// important color count
+    };
 
-	printf("\n");
+    infoHeader[ 0] = (unsigned char)(INFO_HEADER_SIZE);
+    infoHeader[ 4] = (unsigned char)(width    );
+    infoHeader[ 5] = (unsigned char)(width>> 8);
+    infoHeader[ 6] = (unsigned char)(width>>16);
+    infoHeader[ 7] = (unsigned char)(width>>24);
+    infoHeader[ 8] = (unsigned char)(height    );
+    infoHeader[ 9] = (unsigned char)(height>> 8);
+    infoHeader[10] = (unsigned char)(height>>16);
+    infoHeader[11] = (unsigned char)(height>>24);
+    infoHeader[12] = (unsigned char)(1);
+    infoHeader[14] = (unsigned char)(BYTES_PER_PIXEL*8);
 
-	for(int i = 0; i < image->height; i++) {
-		for(int j = 0; j < image->width; j++) {
-			index = i*image->width + j;
-			printf("[%3d]", pixelsGrid[index].blue);
-		}
-		printf("\n");
-	}
+    return infoHeader;
 }
