@@ -14,9 +14,65 @@
 * @return a point with NaN coordinates if the point doesn't exist
 */
 Point contactTetrahedromWithLine(Tetrahedrom T, Line L){
-   // TODO: develop the function (with plane with 3 points & point of contact & first plane seen)
-}
+    // TODO: develop the function (with plane with 3 points & on the polygon!!! & point of contact & first plane seen)
+    Plane PA;
+    Plane PB;
+    Plane PC;
+    Plane PD;
+    Point IA;
+    Point IB;
+    Point IC;
+    Point ID;
+    double testA;
+    double testB;
+    double testC;
+    double testD;
+    double nbPoint;
+    double whichPlane;
+    Point vertex[4];
 
+    vertex[0] = T.a;
+    vertex[1] = T.b;
+    vertex[2] = T.c;
+    vertex[3] = T.d;
+    nbPoint = 4;
+
+    PA = planeEquationWithPoints(T.a,T.b,T.c);
+    PB = planeEquationWithPoints(T.b,T.c,T.d);
+    PC = planeEquationWithPoints(T.a,T.b,T.c);
+    PD = planeEquationWithPoints(T.a,T.c,T.d);
+
+    IA = pointIntersectionLineAndPlane(L,PA);
+    IB = pointIntersectionLineAndPlane(L,PB);
+    IC = pointIntersectionLineAndPlane(L,PC);
+    ID = pointIntersectionLineAndPlane(L,PD);
+
+    testA = isOnPolygon(vertex, IA, nbPoint);
+    testB = isOnPolygon(vertex, IB, nbPoint);
+    testC = isOnPolygon(vertex, IC, nbPoint);
+    testD = isOnPolygon(vertex, ID, nbPoint);
+    
+    if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
+        testA = 0;
+    }
+    if(isnan(IB.x) || isnan(IB.y) || isnan(IB.z)) {
+        testB = 0;
+    }
+    if(isnan(IC.x) || isnan(IC.y) || isnan(IC.z)) {
+        testC = 0;
+    }
+    if(isnan(ID.x) || isnan(ID.y) || isnan(ID.z)) {
+        testD = 0;
+    }
+
+    if(testA != 0 && testB != 0){
+       // whichPlane = firstPlaneSeen(L,); //TODO: change the function firstPlaneSeen to have 1 or two in return => place of the planes
+                             // change vector & point O with Line
+        if(whichPlane == 1){
+            
+        }
+   } 
+}
 
 /**
 * Encode an tetrahedrom as an array
@@ -54,7 +110,6 @@ double * encodeTetrahedrom(Tetrahedrom T){
 */
 Tetrahedrom decodeTetrahedrom(double * tetrahedrom){
     Tetrahedrom T;
-    double tetrahedrom[12];
     T.a.x = tetrahedrom[0];
     T.a.y = tetrahedrom[1];
     T.a.z = tetrahedrom[2];
