@@ -64,7 +64,6 @@ double * encodeBrick(Brick B){
 */
 Brick decodeBrick(double * brick){
     Brick B;
-    double brick[8];
 
     B.a.x = brick[0];
     B.a.y = brick[1];
@@ -78,18 +77,18 @@ Brick decodeBrick(double * brick){
     B.d.x = brick[9];
     B.d.y = brick[10];
     B.d.z = brick[11];
-    B.e.x = brick[0];
-    B.e.y = brick[1];
-    B.e.z = brick[2];
-    B.f.x = brick[3];
-    B.f.y = brick[4];
-    B.f.z = brick[5];
-    B.g.x = brick[6];
-    B.g.y = brick[7];
-    B.g.z = brick[8];
-    B.h.x = brick[9];
-    B.h.y = brick[10];
-    B.h.z = brick[11];
+    B.e.x = brick[12];
+    B.e.y = brick[13];
+    B.e.z = brick[14];
+    B.f.x = brick[15];
+    B.f.y = brick[16];
+    B.f.z = brick[17];
+    B.g.x = brick[18];
+    B.g.y = brick[19];
+    B.g.z = brick[20];
+    B.h.x = brick[21];
+    B.h.y = brick[22];
+    B.h.z = brick[23];
 
     return B;
 }
