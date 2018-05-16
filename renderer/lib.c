@@ -259,7 +259,8 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 * @param L: Line
 * @param B: First plane
 *
-* @return the plane the observer sees first
+* @return the intersection between a line and a plane
+* @return point with NaN coordinates if the point doesn't exist
 */
 Point pointIntersectionLineAndPlane(Line L, Plane P) {
     double t = 0;
@@ -298,16 +299,17 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
 *
 * @return the plane the observer sees first
 */
-Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
+Plane firstPlaneSeen(Line L, Plane P, Plane Q) {
+    Point O;
+    Vector direction;
     Plane test;
-    Line L;
     Point IA;
     Point IB;
     Vector OIA;
     Vector OIB;
 
-    L.pt = O;
-    L.directionVector = direction;
+    O = L.pt;
+    direction = L.directionVector;
 
     IA = pointIntersectionLineAndPlane(L, P);
     IB = pointIntersectionLineAndPlane(L, Q);
@@ -422,4 +424,34 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
     }
     refracted.directionVector = rayRefracted;
     return refracted;
+}
+
+/**
+* Check if the point is on the polygon
+*
+* @param A: list of point
+* @param B: test point
+*                    ->
+* @return the vector AB
+*/
+int isOnPolygon(Point *li,double numberOfPoint,Point t){
+  double *listOfNorm;
+  listOfNorm=(double*)malloc(sizeof(double)*numberOfPoint);
+  for (int actualPoint = 0; actualPoint < numberOfPoint; actualPoint++){
+    for (int otherPoint = 0; otherPoint < numberOfPoint; otherPoint++) {
+      if(actualPoint!=otherPoint){
+        if(listOfNorm[actualPoint]<norm(pointsToVector(li[actualPoint],li[otherPoint]))){
+          listOfNorm[actualPoint]=norm(pointsToVector(li[actualPoint],li[otherPoint]));
+        }
+      }
+    }
+  }
+  for (size_t testPoint = 0; testPoint < numberOfPoint; testPoint++) {
+    if(listOfNorm[testPoint]<norm(pointsToVector(li[testPoint],t))){
+      free(listOfNorm);
+      return FALSE;
+    }
+  }
+  free(listOfNorm);
+  return TRUE;
 }

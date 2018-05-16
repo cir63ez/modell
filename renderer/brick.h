@@ -1,14 +1,14 @@
 #include "lib.h"
 
 typedef struct Brick_ {
-    double a;
-    double b;
-    double c;
-    double d;
-    double e;
-    double f;
-    double g;
-    double h;
+    Point a;
+    Point b;
+    Point c;
+    Point d;
+    Point e;
+    Point f;
+    Point g;
+    Point h;
 } Brick;
 
 // Give the point of contact between a line and a brick

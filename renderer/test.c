@@ -87,9 +87,9 @@ int main() {
 	//planeEquationFromPoints
 
 	Plane P;
-	P=planeEquationWithPoints(PA,PB,PC);
+	P=planeEquationFromPoints(PA,PB,PC);
 	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes wrong\n",P.a,P.b,P.c,P.x,P.y,P.z);
-	P=planeEquationWithPoints(PA,PB,PD);
+	P=planeEquationFromPoints(PA,PB,PD);
 	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes well\n",P.a,P.b,P.c,P.x,P.y,P.z);
 
 // pointIntersectionLineAndPlane
@@ -112,10 +112,50 @@ int main() {
 	U=pointIntersectionLineAndPlane(l,W);
 	printf("%lf,%lf,%lf\n",U.x,U.y,U.z);
 
-	//firstPlaneSeen
+	//reflectedRay
+	Line Li;
+	Vector R;
+	Li=reflectedRay(PA,pointsToVector(A,B),pointsToVector(PA,PB),1.5,1.2);
+	printf("%lf,%lf,%lf",Li.pt.x,Li.pt.y,Li.pt.z);
+	printf("%lf,%lf,%lf\n",Li.directionVector.x,Li.directionVector.y,Li.directionVector.z);
+	Li=refractedRay(PA,pointsToVector(A,B),pointsToVector(PA,PB),1.5,1.2);
+	printf("%lf,%lf,%lf",Li.pt.x,Li.pt.y,Li.pt.z);
+	printf("%lf,%lf,%lf\n",Li.directionVector.x,Li.directionVector.y,Li.directionVector.z);
 
+	//isOnPolygon
+	double numberOfPoint = 4;
+	Point* lp;
+	lp=malloc(sizeof(Point)*numberOfPoint);
+	Point ppa;
+	ppa.x=1;
+	ppa.y=1;
+	ppa.z=1;
+	Point ppb;
+	ppb.x=6;
+	ppb.y=6;
+	ppb.z=6;
+	Point ppc;
+	ppc.x=-2;
+	ppc.y=-2;
+	ppc.z=-2;
+	Point ppd;
+	ppd.x=1;
+	ppd.y=6;
+	ppd.z=4;
+	Point ppt;
+	ppt.x=2;
+	ppt.y=1;
+	ppt.z=2;
 
+	lp[0]=ppa;
+	lp[1]=ppb;
+	lp[2]=ppc;
+	lp[3]=ppd;
+	printf("%d\n",isOnPolygon(lp,numberOfPoint,ppt));
 
-
+	ppt.x=99;
+	ppt.y=99;
+	ppt.z=99;
+	printf("%d\n",isOnPolygon(lp,numberOfPoint,ppt));
 	return 0;
 }
