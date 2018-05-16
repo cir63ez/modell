@@ -11,4 +11,8 @@ typedef struct Ellipse_ {
     double z;
 } Ellipse;
 
+//Give the point of contact between a line and an ellipse
 Point contactEllipseWithLine(Ellipse E, Line L);
+
+//Encode an ellipse as an array
+double * encodeEllipse(Ellipse E);

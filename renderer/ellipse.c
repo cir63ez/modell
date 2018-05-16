@@ -10,7 +10,7 @@
 * @return the closest point of contact between an ellipse and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Point contactEllipseWithLine(Ellipse E, Line L){
+Point contactEllipseWithLine(Ellipse E, Line L) {
     double A;
     double B;
     double C;
@@ -53,4 +53,17 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     I.z = L.directionVector.z * t + L.pt.z;
 
     return I;
+}
+
+
+
+/**
+* Encode an ellipse as an array
+*
+* @param E: Ellipse's name
+*
+* @return an array of double which contain the informations about the ellipse
+*/
+double * encodeEllipse(Ellipse E){
+
 }
