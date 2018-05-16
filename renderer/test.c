@@ -118,10 +118,9 @@ int main() {
 	Li=reflectedRay(PA,pointsToVector(A,B),pointsToVector(PA,PB),1.5,1.2);
 	printf("%lf,%lf,%lf",Li.pt.x,Li.pt.y,Li.pt.z);
 	printf("%lf,%lf,%lf\n",Li.directionVector.x,Li.directionVector.y,Li.directionVector.z);
-	Li=refractedRay(PA,pointsToVector(A,B),pointsToVector(PA,PB),1.5,1.2);
-
+	Li=refractedRay(PA,pointsToVector(A,B),pointsToVector(PA,PB),1.5,1.2);s
 	printf("%lf,%lf,%lf",Li.pt.x,Li.pt.y,Li.pt.z);
 	printf("%lf,%lf,%lf\n",Li.directionVector.x,Li.directionVector.y,Li.directionVector.z);
-	
+
 	return 0;
 }
