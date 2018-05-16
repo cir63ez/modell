@@ -7,16 +7,18 @@ BMP *newBMP(int height, int width) {
     image->height = height;
     image->width = width;
     image->pixels = pixelsGrid;
+
+    return image;
 }
 
 // /**
 //  * Set the color of the pixel of a BMP image array
-//  * 
+//  *
 //  * @param image: array image
 //  * @param x: x position of the pixel (heigtj axe)
 //  * @param y: y position of the pixel (width axe)
 //  * @param color: Rbg color
-//  * 
+//  *
 //  * @return void
 //  */
 // void BMPSetColor(unsigned char image[MAX_IMAGE_HEIGHT][MAX_IMAGE_WIDTH][BYTES_PER_PIXEL], int x, int y, Rgb color) {
@@ -67,12 +69,12 @@ void exportBMPImageToFile(BMP *image, char *filename) {
 
 // /**
 //  * Generate an image file from an array image
-//  * 
+//  *
 //  * @param image: array image
 //  * @param height: Height of the image
 //  * @param width: Width of the image
 //  * @param imageFileName: Filename of the output image
-//  * 
+//  *
 //  * @return void
 //  */
 // void generateBitmapImage(unsigned char *image, int height, int width, char* imageFileName) {
@@ -98,11 +100,11 @@ void exportBMPImageToFile(BMP *image, char *filename) {
 
 /**
  * Generate the Bitmap File Header
- * 
+ *
  * @param height: Height of the image
- * @param width: Width of the image 
- * 
- * @return unsigned char*: 
+ * @param width: Width of the image
+ *
+ * @return unsigned char*:
  */
 unsigned char *createBitmapFileHeader(int height, int width) {
     int fileSize = FILE_HEADER_SIZE + INFO_HEADER_SIZE + BYTES_PER_PIXEL * height * width;
@@ -127,10 +129,10 @@ unsigned char *createBitmapFileHeader(int height, int width) {
 
 /**
  * Generate the Bitmap Info Header
- * 
+ *
  * @param height: Height of the image
  * @param width: Width of the image
- * 
+ *
  * @return unsigned char*
  */
 unsigned char *createBitmapInfoHeader(int height, int width) {
