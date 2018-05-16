@@ -299,16 +299,17 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
 *
 * @return the plane the observer sees first
 */
-Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
+Plane firstPlaneSeen(Line L, Plane P, Plane Q) {
+    Point O;
+    Vector direction;
     Plane test;
-    Line L;
     Point IA;
     Point IB;
     Vector OIA;
     Vector OIB;
 
-    L.pt = O;
-    L.directionVector = direction;
+    O = L.pt;
+    direction = L.directionVector;
 
     IA = pointIntersectionLineAndPlane(L, P);
     IB = pointIntersectionLineAndPlane(L, Q);
