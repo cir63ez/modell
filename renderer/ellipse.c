@@ -64,7 +64,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 * @return an array of double which contain the informations about the ellipse
 */
 double * encodeEllipse(Ellipse E){
-    double ellipse;
+    double *ellipse;
     ellipse = malloc(6 * sizeof(int));
     ellipse[0] = E.a;
     ellipse[1] = E.b;
