@@ -259,7 +259,8 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 * @param L: Line
 * @param B: First plane
 *
-* @return the plane the observer sees first
+* @return the intersection between a line and a plane
+* @return point with NaN coordinates if the point doesn't exist
 */
 Point pointIntersectionLineAndPlane(Line L, Plane P) {
     double t = 0;

@@ -75,3 +75,5 @@ Plane planeEquationFromPoints(Point A, Point B, Point C);
 Point imagePointOnPlane(Point O, Point B, Plane Q);
 Point pointIntersectionLineAndPlane(Line L, Plane P);
 Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q);
+Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
+Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
