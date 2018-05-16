@@ -52,13 +52,20 @@ Element * createElementBrick(Brick B) {
 *
 * @return void
 */
-void deleteElementList(List * tete){
-    List * curElement = tete;
-    if (!isEmpty(tete)) {
-      while (curElement != NULL) {
-        curElement = curElement->tete->next;
-      }
-      free(curElement);
-      tete->nbElement--;
+void deleteElementList(List * list) {
+    if(list->tete != NULL) {
+        Element *previous = NULL;
+        Element *current = list->tete;
+
+        while(current->next != NULL) {
+            previous = current;
+            current = current->next;
+        }
+
+        if(previous != NULL) {
+            previous->next = NULL;
+        }
+        
+        free(current);
     }
 }
