@@ -13,20 +13,26 @@
 * @return the closest point of contact between an tetrahedrom and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Point contactTetrahedromWithLine(Tetrahedrom T, Line L){
+Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
     // TODO: develop the function (with plane with 3 points & on the polygon!!! & point of contact & first plane seen)
     Plane PA;
     Plane PB;
     Plane PC;
     Plane PD;
+    Plane firstPlaneA;
+    Plane firstPlaneB;
+    Plane firstPlaneC;
+    Plane firstPlaneD;
+    Plane firstPlaneE;
+    Plane firstPlaneF;
     Point IA;
     Point IB;
     Point IC;
     Point ID;
-    double testA;
-    double testB;
-    double testC;
-    double testD;
+    int testA;
+    int testB;
+    int testC;
+    int testD;
     double nbPoint;
     double whichPlane;
     Point vertex[4];
@@ -37,20 +43,20 @@ Point contactTetrahedromWithLine(Tetrahedrom T, Line L){
     vertex[3] = T.d;
     nbPoint = 4;
 
-    PA = planeEquationWithPoints(T.a,T.b,T.c);
-    PB = planeEquationWithPoints(T.b,T.c,T.d);
-    PC = planeEquationWithPoints(T.a,T.b,T.c);
-    PD = planeEquationWithPoints(T.a,T.c,T.d);
+    PA = planeEquationFromPoints(T.a,T.b,T.c);
+    PB = planeEquationFromPoints(T.b,T.c,T.d);
+    PC = planeEquationFromPoints(T.a,T.b,T.c);
+    PD = planeEquationFromPoints(T.a,T.c,T.d);
 
     IA = pointIntersectionLineAndPlane(L,PA);
     IB = pointIntersectionLineAndPlane(L,PB);
     IC = pointIntersectionLineAndPlane(L,PC);
     ID = pointIntersectionLineAndPlane(L,PD);
 
-    testA = isOnPolygon(vertex, IA, nbPoint);
-    testB = isOnPolygon(vertex, IB, nbPoint);
-    testC = isOnPolygon(vertex, IC, nbPoint);
-    testD = isOnPolygon(vertex, ID, nbPoint);
+    testA = isOnPolygon(vertex, nbPoint, IA);
+    testB = isOnPolygon(vertex, nbPoint, IB);
+    testC = isOnPolygon(vertex, nbPoint, IC);
+    testD = isOnPolygon(vertex, nbPoint, ID);
     
     if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
         testA = 0;
@@ -66,12 +72,24 @@ Point contactTetrahedromWithLine(Tetrahedrom T, Line L){
     }
 
     if(testA != 0 && testB != 0){
-       // whichPlane = firstPlaneSeen(L,); //TODO: change the function firstPlaneSeen to have 1 or two in return => place of the planes
+       firstPlaneA = firstPlaneSeen(L,PA,PB); //TODO: change the function firstPlaneSeen to have 1 or two in return => place of the planes
                              // change vector & point O with Line
-        if(whichPlane == 1){
-            
-        }
    } 
+   if(testB != 0 && testC != 0){
+        firstPlaneB = firstPlaneSeen(L,PB,PC); 
+   }
+   if(testC != 0 && testD != 0){
+        firstPlaneC = firstPlaneSeen(L,PC,PD); 
+   }
+   if(testC != 0 && testA != 0){
+        firstPlaneD = firstPlaneSeen(L,PC,PA); 
+   }
+   if(testD != 0 && testA != 0){
+        firstPlaneE = firstPlaneSeen(L,PD,PA);
+   }
+   if(testB != 0 && testD != 0){
+        firstPlaneF = firstPlaneSeen(L,PB,PD);
+   }
 }
 
 /**
