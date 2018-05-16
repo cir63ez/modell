@@ -433,11 +433,11 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 *                    ->
 * @return the vector AB
 */
-int isOnPolygon(point *li,double numberOfPoint,point t){
+int isOnPolygon(Point *li,double numberOfPoint,Point t){
   double *listOfNorm;
   listOfNorm=(double*)malloc(sizeof(double)*numberOfPoint);
-  for (int actualPoint = 0; i < numberOfPoint; actualPoint++){
-    for (int otherPoint = 0; j < numberOfPoint; otherPoint++) {
+  for (int actualPoint = 0; actualPoint < numberOfPoint; actualPoint++){
+    for (int otherPoint = 0; otherPoint < numberOfPoint; otherPoint++) {
       if(actualPoint!=otherPoint){
         if(listOfNorm[actualPoint]<norm(pointsToVector(li[actualPoint],li[otherPoint]))){
           listOfNorm[actualPoint]=norm(pointsToVector(li[actualPoint],li[otherPoint]));
