@@ -102,6 +102,7 @@ double angle(Vector AB, Vector AC) {
 
     if(normAB == 0 || normAC == 0) {
     	printf("TODO: Error div by 0");
+    	printf("TODO: Error div by 0\n");
     	return 0;
     }
 
@@ -109,6 +110,7 @@ double angle(Vector AB, Vector AC) {
 
     if (test > 1 || test < -1){
         printf("TODO: Fix test not in range (-1,1)");
+        printf("TODO: Fix test not in range (-1,1)\n");
         return 0;
     }
 
@@ -164,6 +166,7 @@ Vector normalVector(Point A, Point B, Point C) {
 
     if (arePointsAligned(A,B,C)) {
         printf("We can't make a plan equation with 3 aligned points");
+        printf("We can't make a plan equation with 3 aligned points\n");
     } else {
         V.x = ((B.y - A.y)*(C.z - A.z)-(B.z - A.z)*(C.y - A.y));
         V.y = -((B.x - A.x)*(C.z - A.z)-(B.z - A.z)*(C.x - A.x));
@@ -175,6 +178,7 @@ Vector normalVector(Point A, Point B, Point C) {
 
 /**
 * Calculate a plan equation 3 points
+* Calculate a plan equation with 3 points
 *
 * @param A: First point
 * @param B: Second point
@@ -194,6 +198,7 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 
     if (arePointsAligned(A,B,C)){
         printf("We can't make a plan equation with 3 aligned points");
+        printf("We can't make a plan equation with 3 aligned points\n");
     } else {
         V = normalVector(A,B,C);
 
@@ -211,14 +216,17 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 
 /**
 * Calculate the image of an  object on a plane
+* Calculate the image of an object on a plane
 *
 * @param O: Observateur point
 * @param B: Object point
 * @param Q: Plane
 *
 * @return the position of the  object's image on a plane
+* @return the position of the object's image on a plane
 */
 Point imagePointOnPlane(Point O, Point B, Plane Q) {
+/*Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
     double denominator;
@@ -229,10 +237,15 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
     I.z = NaN;
 
     t = 0;
+<<<<<<< HEAD
     denominator = 0;
     nominator = 0;
     nominator = (Q.a - Q.l) * B.x + (Q.b - Q.m) * O.y + (Q.c - Q.n) * O.z;
     denominator = (Q.a - Q.l) * (B.x - O.x) + (Q.b - Q.m) * (B.y - O.y)  + (Q.c - Q.n) * (B.z - O.z);
+=======
+    nominator = Q.a * B.x + Q.b * O.y + Q.c * O.z + Q.d;
+    denominator = Q.a * (B.x - O.x) + Q.b * (B.y - O.y)  + Q.c * (B.z - O.z);
+>>>>>>> b84629212b07098447fb7606119ca6a95cc74540
 
     if(denominator == 0){
         return I;
@@ -250,6 +263,7 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
         }
     }
 }
+}*/
 
 /**
 * Calculate the intersection point between a line and a plane
@@ -334,5 +348,66 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         } else {
             return P;
         }
+<<<<<<< HEAD
     }
 }
+=======
+<<<<<<< HEAD
+    }
+}
+=======
+    }   
+}
+
+
+/**
+* Calculate the reflected ray and the refracted ray if it exists
+*
+* @param O: Observateur point
+* @param normal: normal vector of the plane 
+* @param ray: ray which arrive
+* @param refractiveIndexA: refractive index of the first medium
+* @param refractiveIndexB: refractive index of the second medium
+*
+* @return the reflected ray and the refracted ray if it exists
+*/
+Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
+    double tetaA;
+    double tetaB;
+    Vector rayReflected;
+    Vector rayRefracted;
+    double radicand = 0;
+
+    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(teta1),2);
+
+    tetaA = acos(scalarProduct(ray, normal));
+    tetaB = sqrt(radicand);
+
+    if(radicand < 0){
+        rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
+        rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
+        rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+    }
+
+    else if(cos(tetaA) >= 0){
+        rayRefracted.x = (refractiveIndexA / refractiveIndexB) * ray.x + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) - cos(tetaB))* normal.x;
+        rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) - cos(tetaB))* normal.y;
+        rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) - cos(tetaB))* normal.z;
+
+        rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
+        rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
+        rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+    }
+    else {
+        rayRefracted.x = (refractiveIndexA / refractiveIndexB) * ray.x + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) + cos(tetaB))* normal.x;
+        rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) + cos(tetaB))* normal.y;
+        rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(tetaA) + cos(tetaB))* normal.z;
+
+        rayReflected.x = ray.x + (2 * cos(tetaA)) * n.x;
+        rayReflected.y = ray.y + (2 * cos(tetaA)) * n.y;
+        rayReflected.z = ray.z + (2 * cos(tetaA)) * n.z;
+    }
+
+}
+>>>>>>> 462fa2c4395d65a3b108b2f5bf3c7330c2f143a8
+>>>>>>> b84629212b07098447fb7606119ca6a95cc74540
