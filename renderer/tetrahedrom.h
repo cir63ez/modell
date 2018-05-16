@@ -1,14 +1,14 @@
 #include "lib.h"
 
 typedef struct Tetrahedrom_ {
-    double a;
-    double b;
-    double c;
-    double d;
+    Point a;
+    Point b;
+    Point c;
+    Point d;
 } Tetrahedrom;
 
 // Give the point of contact between a line and a tetrahedrom
-Toint contactTetrahedromWithLine(Tetrahedrom T, Line L);
+Point contactTetrahedromWithLine(Tetrahedrom T, Line L);
 
 //Encode a tetrahedrom as an array
 double * encodeTetrahedrom(Tetrahedrom T);

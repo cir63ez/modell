@@ -13,7 +13,7 @@
 * @return the closest point of contact between an tetrahedrom and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Toint contactTetrahedromWithLine(Tetrahedrom T, Line L){
+Point contactTetrahedromWithLine(Tetrahedrom T, Line L){
    // TODO: develop the function (with plane with 3 points & point of contact & first plane seen)
 }
 
@@ -26,11 +26,20 @@ Toint contactTetrahedromWithLine(Tetrahedrom T, Line L){
 * @return an array of double which contain the informations about the tetrahedrom
 */
 double * encodeTetrahedrom(Tetrahedrom T){
-    double tetrahedrom[8];
-    tetrahedrom[0] = T.a;
-    tetrahedrom[1] = T.b;
-    tetrahedrom[2] = T.c;
-    tetrahedrom[3] = T.d;
+    double tetrahedrom[12];
+    tetrahedrom[0] = T.a.x;
+    tetrahedrom[1] = T.a.y;
+    tetrahedrom[2] = T.a.z;
+    tetrahedrom[3] = T.b.x;
+    tetrahedrom[4] = T.b.y;
+    tetrahedrom[5] = T.b.z;
+    tetrahedrom[6] = T.c.x;
+    tetrahedrom[7] = T.c.y;
+    tetrahedrom[8] = T.c.z;
+    tetrahedrom[9] = T.d.x;
+    tetrahedrom[10] = T.d.y;
+    tetrahedrom[11] = T.d.z;
+
 
     return tetrahedrom;
 }
@@ -45,12 +54,19 @@ double * encodeTetrahedrom(Tetrahedrom T){
 */
 Tetrahedrom decodeTetrahedrom(double * tetrahedrom){
     Tetrahedrom T;
-    double tetrahedrom[8];
-
-    T.a = tetrahedrom[0];
-    T.b = tetrahedrom[1];
-    T.c = tetrahedrom[2];
-    T.d = tetrahedrom[3];
+    double tetrahedrom[12];
+    T.a.x = tetrahedrom[0];
+    T.a.y = tetrahedrom[1];
+    T.a.z = tetrahedrom[2];
+    T.b.x = tetrahedrom[3];
+    T.b.y = tetrahedrom[4];
+    T.b.z = tetrahedrom[5];
+    T.c.x = tetrahedrom[6];
+    T.c.y = tetrahedrom[7];
+    T.c.z = tetrahedrom[8];
+    T.d.x = tetrahedrom[9];
+    T.d.y = tetrahedrom[10];
+    T.d.z = tetrahedrom[11];
 
     return T;
 }
