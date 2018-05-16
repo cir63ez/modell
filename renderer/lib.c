@@ -424,3 +424,33 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
     refracted.directionVector = rayRefracted;
     return refracted;
 }
+
+/**
+* Check if the point is on the polygon
+*
+* @param A: list of point
+* @param B: test point
+*                    ->
+* @return the vector AB
+*/
+int isOnPolygon(point *li,double numberOfPoint,point t){
+  double *listOfNorm;
+  listOfNorm=(double*)malloc(sizeof(double)*numberOfPoint);
+  for (int actualPoint = 0; i < numberOfPoint; actualPoint++){
+    for (int otherPoint = 0; j < numberOfPoint; otherPoint++) {
+      if(actualPoint!=otherPoint){
+        if(listOfNorm[actualPoint]<norm(pointsToVector(li[actualPoint],li[otherPoint]))){
+          listOfNorm[actualPoint]=norm(pointsToVector(li[actualPoint],li[otherPoint]));
+        }
+      }
+    }
+  }
+  for (size_t testPoint = 0; testPoint < numberOfPoint; testPoint++) {
+    if(listOfNorm[testPoint]<norm(pointsToVector(li[testPoint],t))){
+      free(listOfNorm);
+      return FALSE;
+    }
+  }
+  free(listOfNorm);
+  return TRUE;
+}
