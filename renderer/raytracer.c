@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "bmp.h"
 #include "raytracer.h"
-#include "lib.h"
 
 /*Missing : paramètres d'entrée du main
 *          Ellipse E : the ellipsoid
@@ -35,10 +34,9 @@ Line calculateFirstRay (Plane image, Point origin){
     return firstRay;
 }
 
+ /*Add parameter Light *list,*/
 
-Rgb* rayTracer(Ellipse E, /*Light *list*/, Plane observer, Point imageOrigin, int resolution){
-    BMPFile *finalImage;
-    Rgb *image;
+void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
     Point contactPoint;
 
     Rgb white;
@@ -51,10 +49,13 @@ Rgb* rayTracer(Ellipse E, /*Light *list*/, Plane observer, Point imageOrigin, in
     black.green = 0;
     black.blue = 0;
 
-    firstRay = calculateFirstRay(O, origin);
+    Line firstRay;
+    firstRay = calculateFirstRay(observer,imageOrigin);
     Line tmpLine = firstRay;
-    image = (Rgb*)malloc(sizeof(Rgb) * resolution * resolution);
-    finalImage = newBMP(resolution,resolution);
+
+    unsigned char BMPimage[resolution][resolution][BYTES_PER_PIXEL];
+    char* imageFileName = "bitmapImage.bmp";
+
 
     int x, y;
 
@@ -79,15 +80,14 @@ Rgb* rayTracer(Ellipse E, /*Light *list*/, Plane observer, Point imageOrigin, in
         if(isnan(contactPoint.x)
             || isnan(contactPoint.y)
             || isnan(contactPoint.z)){
-            
-            BMPSetColor(finalImage, x, y, white);
+
+                        BMPSetColor(BMPimage , x, y, white);
         }
         else{
-            BMPSetColor(finalImage, x, y, black);
+            BMPSetColor(BMPimage, x, y, black);
         }
 
         tmpLine = firstRay;
     }
-    tempPrint(finalImage);
-    return image;
+    generateBitmapImage((unsigned char *)BMPimage, resolution, resolution, imageFileName);
 }
