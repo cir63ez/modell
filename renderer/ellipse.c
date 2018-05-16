@@ -84,7 +84,6 @@ double * encodeEllipse(Ellipse E){
 */
 Ellipse decodeEllipse(double * ellipse){
     Ellipse E;
-    double ellipse[6];
 
     E.a = ellipse[0];
     E.b = ellipse[1];
