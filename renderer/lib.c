@@ -220,7 +220,7 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 * @return the position of the  object's image on a plane
 * @return the position of the object's image on a plane
 */
-Point imagePointOnPlane(Point O, Point B, Plane Q) {
+//Point imagePointOnPlane(Point O, Point B, Plane Q) {
 /*Point imagePointOnPlane(Point O, Point B, Plane Q) {
     Point I;
     double t;
@@ -316,7 +316,6 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         test.a = NaN;
         test.b = NaN;
         test.c = NaN;
-        test.d = NaN;
         return test;
     }
 
@@ -352,28 +351,56 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
 *
 * @return the reflected ray and the refracted ray if it exists
 */
-Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
+Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
     double thetaA;
     double thetaB;
     Vector rayReflected;
-    Vector rayRefracted;
     Line reflected;
-    Line refracted;
     double radicand = 0;
 
-    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(theta1),2);
+    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(thetaA),2));
 
     thetaA = acos(scalarProduct(ray, normal));
 
 
     reflected.pt = I;
+
+    if(radicand < 0){
+        rayReflected.x = ray.x + (2 * cos(thetaA)) * normal.x;
+        rayReflected.y = ray.y + (2 * cos(thetaA)) * normal.y;
+        rayReflected.z = ray.z + (2 * cos(thetaA)) * normal.z;
+    }
+
+    else if(cos(thetaA) >= 0){
+        thetaB = sqrt(radicand);
+        rayReflected.x = ray.x + (2 * cos(thetaA)) * normal.x;
+        rayReflected.y = ray.y + (2 * cos(thetaA)) * normal.y;
+        rayReflected.z = ray.z + (2 * cos(thetaA)) * normal.z;
+    }
+    else {
+        thetaB = sqrt(radicand);
+        rayReflected.x = ray.x + (2 * cos(thetaA)) * normal.x;
+        rayReflected.y = ray.y + (2 * cos(thetaA)) * normal.y;
+        rayReflected.z = ray.z + (2 * cos(thetaA)) * normal.z;
+    }
+    reflected.directionVector = rayReflected;
+    return reflected;
+}
+
+Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
+    double thetaA;
+    double thetaB;
+    Vector rayRefracted;
+    Line refracted;
+    double radicand = 0;
+
+    radicand = 1 - pow(refractiveIndexA/refractiveIndexB,2) * (1 - pow(cos(thetaA),2));
+
+    thetaA = acos(scalarProduct(ray, normal));
+
     refracted.pt = I;
 
     if(radicand < 0){
-        rayReflected.x = ray.x + (2 * cos(thetaA)) * n.x;
-        rayReflected.y = ray.y + (2 * cos(thetaA)) * n.y;
-        rayReflected.z = ray.z + (2 * cos(thetaA)) * n.z;
-
         rayRefracted.x = NaN;
         rayRefracted.y = NaN;
         rayRefracted.z = NaN;
@@ -385,9 +412,6 @@ Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double re
         rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) - cos(thetaB))* normal.y;
         rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) - cos(thetaB))* normal.z;
 
-        rayReflected.x = ray.x + (2 * cos(thetaA)) * n.x;
-        rayReflected.y = ray.y + (2 * cos(thetaA)) * n.y;
-        rayReflected.z = ray.z + (2 * cos(thetaA)) * n.z;
     }
     else {
         thetaB = sqrt(radicand);
@@ -395,10 +419,7 @@ Line * vectorielFormSnellDescartes(Point I, Vector normal, Vector ray, double re
         rayRefracted.y = (refractiveIndexA / refractiveIndexB) * ray.y + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) + cos(thetaB))* normal.y;
         rayRefracted.z = (refractiveIndexA / refractiveIndexB) * ray.z + ((refractiveIndexA / refractiveIndexB) * cos(thetaA) + cos(thetaB))* normal.z;
 
-        rayReflected.x = ray.x + (2 * cos(thetaA)) * n.x;
-        rayReflected.y = ray.y + (2 * cos(thetaA)) * n.y;
-        rayReflected.z = ray.z + (2 * cos(thetaA)) * n.z;
     }
-    reflected.directionVector = rayReflected;
     refracted.directionVector = rayRefracted;
+    return refracted;
 }
