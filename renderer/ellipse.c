@@ -73,3 +73,24 @@ double * encodeEllipse(Ellipse E){
     ellipse[5] = E.z;
     return ellipse;
 }
+
+
+/**
+* Encode an ellipse's array as a ellipse structure
+*
+* @param ellipse: Ellipse array
+*
+* @return an ellipse
+*/
+Ellipse decodeEllipse(double * ellipse){
+    Ellipse E;
+    double ellipse[6];
+
+    E.a = ellipse[0];
+    E.b = ellipse[1];
+    E.c = ellipse[2];
+    E.x = ellipse[3];
+    E.y = ellipse[4];
+    E.z = ellipse[5];
+    return E;
+}

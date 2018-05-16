@@ -5,7 +5,7 @@
 #include "brick.h"
 
 /**
-* Give the point of contact between a line and an brick
+* Give the point of contact between a line and a brick
 *
 * @param B: Brick's name
 * @param L: Line's name
@@ -26,7 +26,7 @@ Point contactBrickWithLine(Brick B, Line L){
 * @return an array of double which contain the informations about the brick
 */
 double * encodeBrick(Brick B){
-    double brick[6];
+    double brick[8];
     brick[0] = B.a;
     brick[1] = B.b;
     brick[2] = B.c;
@@ -36,5 +36,29 @@ double * encodeBrick(Brick B){
     brick[6] = B.g;
     brick[7] = B.h;
     return brick;
+}
+
+
+/**
+* Encode a brick's array as a brick structure
+*
+* @param brick: Brick array
+*
+* @return a brick 
+*/
+Brick decodeBrick(double * brick){
+    Brick B;
+    double brick[8];
+
+    B.a = brick[0];
+    B.b = brick[1];
+    B.c = brick[2];
+    B.d = brick[3];
+    B.e = brick[4];
+    B.f = brick[5];
+    B.g = brick[6];
+    B.h = brick[7];
+
+    return B;
 }
 
