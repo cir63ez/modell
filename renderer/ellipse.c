@@ -7,7 +7,7 @@
 * @param E: Ellipse's name
 * @param B: Line's name
 *
-* @return the closest point of contact between an ellipse and a line if it exist
+* @return the closest point of contact between an ellipse and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
 Point contactEllipseWithLine(Ellipse E, Line L){
@@ -26,9 +26,9 @@ Point contactEllipseWithLine(Ellipse E, Line L){
     I.y = NaN;
     I.z = NaN;
 
-    A = pow(E.a,2);
-    B = pow(E.b,2);
-    C = pow(E.c,2);
+    A = pow((E.a - E.x),2);
+    B = pow((E.b - E.y),2);
+    C = pow((E.c - E.z),2);
 
     alpha = pow(L.directionVector.x,2)/A + pow(L.directionVector.y,2)/B + pow(L.directionVector.z,2)/C;
     beta = (L.directionVector.x * L.pt.x)/A + (L.directionVector.y * L.pt.y)/B + (L.directionVector.z * L.pt.z)/C;

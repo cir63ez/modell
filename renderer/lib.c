@@ -196,11 +196,14 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
         printf("We can't make a plan equation with 3 aligned points");
     } else {
         V = normalVector(A,B,C);
-        
+
         P.a = V.x;
         P.b = V.y;
         P.c = V.z;
-        P.d = P.a * A.x + P.b * A.y + P.c * A.z;
+        P.x = A.x;
+        P.y = A.y;
+        P.z = A.z;
+        //P.d = -( P.a * A.x + P.b * A.y + P.c * A.z);
     }
 
     return P;
@@ -228,8 +231,8 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
     t = 0;
     denominator = 0;
     nominator = 0;
-    nominator = Q.a * B.x + Q.b * O.y + Q.c * O.z + Q.d;
-    denominator = Q.a * (B.x - O.x) + Q.b * (B.y - O.y)  + Q.c * (B.z - O.z);
+    nominator = (Q.a - Q.l) * B.x + (Q.b - Q.m) * O.y + (Q.c - Q.n) * O.z;
+    denominator = (Q.a - Q.l) * (B.x - O.x) + (Q.b - Q.m) * (B.y - O.y)  + (Q.c - Q.n) * (B.z - O.z);
 
     if(denominator == 0){
         return I;
@@ -254,17 +257,22 @@ Point imagePointOnPlane(Point O, Point B, Plane Q) {
 * @param L: Line
 * @param B: First plane
 *
-* @return the plane the observator sees first
+* @return the plane the observer sees first
 */
 Point pointIntersectionLineAndPlane(Line L, Plane P) {
     double t = 0;
     Point I;
+    double nominator;
+    double denominator;
 
     I.x = NaN;
     I.y = NaN;
     I.z = NaN;
 
-    t = -((P.a * L.pt.x + P.b * L.pt.y + P.c * L.pt.z)/(P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z));
+    nominator = ((P.a - P.x) * L.pt.x + (P.b - P.y) * L.pt.y + (P.c - P.z) * L.pt.z);
+    denominator =((P.a - P.x) * L.directionVector.x + (P.b - P.y) * L.directionVector.y + (P.c - P.z) * L.directionVector.z);
+    t = -( nominator / denominator);
+
     if(t < 0) {
         return I;
     }
@@ -275,18 +283,18 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
         return I;
     }
 
-    
+
 }
 
 /**
-* Give the first plan that the observator sees
+* Give the first plan that the observer sees
 *
 * @param O: Observateur point
-* @param direction: vector direction of the observator
+* @param direction: vector direction of the observer
 * @param B: First plane
 * @param Q: Second plane
 *
-* @return the plane the observator sees first
+* @return the plane the observer sees first
 */
 Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
     Plane test;
@@ -309,7 +317,7 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         test.d = NaN;
         return test;
     }
-    
+
     else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
         return Q;
     }
@@ -326,5 +334,5 @@ Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q) {
         } else {
             return P;
         }
-    }   
+    }
 }
