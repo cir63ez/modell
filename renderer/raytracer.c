@@ -41,16 +41,6 @@ Rgb* rayTracer(Ellipse E, /*Light *list*/, Plane observer, Point imageOrigin, in
     Rgb *image;
     Point contactPoint;
 
-    E.a = E.b = E.c = 25;
-
-    origin.x = -100;
-    origin.y = 100;
-    origin.z = -100;
-
-    O.a = 1;
-    O.b = 1;
-    O.c = 0;
-
     Rgb white;
     white.red = 255;
     white.green = 255;
@@ -68,23 +58,28 @@ Rgb* rayTracer(Ellipse E, /*Light *list*/, Plane observer, Point imageOrigin, in
 
     int x, y;
 
-    for (int i = 0; i < 200 * 200; i++){
-        x = i % (200 - 1);
-        y = i - (i % (200 - 1)) / (200 - 1);
-        tmpLine.pt.x += x * vectorA.x;
-        tmpLine.pt.y += x * vectorA.y;
-        tmpLine.pt.z += x * vectorA.z;
+    for (int i = 0; i < resolution * resolution; i++){
+        /* tmpLine.pt.x += x * vectorA.x;
+         tmpLine.pt.y += x * vectorA.y;
+         tmpLine.pt.z += x * vectorA.z;
+         tmpLine.pt.x += y * vectorB.x;
+         tmpLine.pt.y += y * vectorB.y;
+         tmpLine.pt.z += y * vectorB.z;
+        */
 
-        tmpLine.pt.x += y * vectorB.x;
-        tmpLine.pt.y += y * vectorB.y;
-        tmpLine.pt.z += y * vectorB.z;
+        x = i % (resolution - 1);
+        y = i - (i % (resolution - 1)) / (resolution - 1);
+
+        tmpLine.pt.x += x * i;
+        tmpLine.pt.y += y * i;
+
 
         contactPoint = contactEllipseWithLine(E, tmpLine);
 
         if(isnan(contactPoint.x)
             || isnan(contactPoint.y)
             || isnan(contactPoint.z)){
-
+            
             BMPSetColor(finalImage, x, y, white);
         }
         else{
