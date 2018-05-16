@@ -87,10 +87,10 @@ int main() {
 	//planeEquationFromPoints
 
 	Plane P;
-	P=planeEquationFromPoints(PA,PB,PC);
-	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes wrong\n",P.a,P.b,P.c,P.x,P.y,p.z);
-	P=planeEquationFromPoints(PA,PB,PD);
-	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes well\n",P.a,P.b,P.c,P.x,P.y,p.z);
+	P=planeEquationWithPoints(PA,PB,PC);
+	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes wrong\n",P.a,P.b,P.c,P.x,P.y,P.z);
+	P=planeEquationWithPoints(PA,PB,PD);
+	printf("a=%lf,b=%lf,c=%lf,x=%lf,y=%lf,z=%lf, goes well\n",P.a,P.b,P.c,P.x,P.y,P.z);
 
 // pointIntersectionLineAndPlane
 
@@ -105,7 +105,6 @@ int main() {
 	W.a=9;
 	W.b=0;
 	W.c=-2;
-	W.d=0;
 	Point U;
 	U=pointIntersectionLineAndPlane(l,W);
 	printf("%lf,%lf,%lf\n",U.x,U.y,U.z);

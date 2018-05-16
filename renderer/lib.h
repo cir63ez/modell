@@ -71,7 +71,7 @@ double norm(Vector A);
 double angle(Vector AB, Vector AC);
 char arePointsAligned(Point A, Point B, Point C);
 Vector normalVector(Point A, Point B, Point C);
-Plane planEquationWithPoints(Point A, Point B, Point C);
+Plane planeEquationWithPoints(Point A, Point B, Point C);
 Point imagePointOnPlane(Point O, Point B, Plane Q);
 Point pointIntersectionLineAndPlane(Line L, Plane P);
 Plane firstPlaneSeen(Point O, Vector direction, Plane P, Plane Q);
