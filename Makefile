@@ -44,5 +44,6 @@ serve:
 clean:
 	find $(CROOT) -type f ! -name "*.*" ! -path "./Makefile" -delete
 	find $(CROOT) -type f -name "*out*" -delete
-	rm $(CROOT)/*.o
-	rm */*.bmp
+	find $(CROOT) -type f -name "*.o" -delete
+	find $(CROOT) -type f -name "*.bmp" -delete
+	find . -type f -name "*.bmp" -delete
