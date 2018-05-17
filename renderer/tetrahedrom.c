@@ -38,7 +38,7 @@ Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
     double whichPlane;
     Point vertex[4];
 
-    intersection.x = NaN;
+    intersection = initPointNaN();
 
     vertex[0] = T.a;
     vertex[1] = T.b;
