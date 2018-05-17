@@ -95,3 +95,26 @@ Ellipse decodeEllipse(double * ellipse){
     free(ellipse);
     return E;
 }
+
+
+Plane tangentePlaneEllipse(Ellipse E, Line L) {
+    Point I;
+    Vector normal;
+    Plane tangent;
+
+    I = contactEllipseWithLine(E, L);
+
+    normal.x = 2 * (I.x - E.x) / (pow(E.a, 2));
+    normal.y = 2 * (I.y - E.y) / (pow(E.b, 2));
+    normal.z = 2 * (I.z - E.z) / (pow(E.c, 2));
+
+    tangent.a = normal.x;
+    tangent.b = normal.y;
+    tangent.c = normal.z;
+    tangent.x = I.x;
+    tangent.y = I.y;
+    tangent.z = I.z;
+
+    return tangent;
+}
+
