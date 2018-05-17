@@ -26,7 +26,8 @@ Point contactBrickWithLine(Brick B, Line L){
 * @return an array of double which contain the informations about the brick
 */
 double * encodeBrick(Brick B){
-    double brick[24];
+    double *brick;
+    brick = malloc(6 * sizeof(double));
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -60,7 +61,7 @@ double * encodeBrick(Brick B){
 *
 * @param brick: Brick array
 *
-* @return a brick 
+* @return a brick
 */
 Brick decodeBrick(double * brick){
     Brick B;
@@ -89,7 +90,6 @@ Brick decodeBrick(double * brick){
     B.h.x = brick[21];
     B.h.y = brick[22];
     B.h.z = brick[23];
-
+    free(brick);
     return B;
 }
-
