@@ -30,11 +30,15 @@ Point contactBrickWithLine(Brick B, Line L) {
     Point IB;
     Point IC;
     Point ID;
+    Point IE;
+    Point IF;
     Point intersection;
     int testA;
     int testB;
     int testC;
     int testD;
+    int testE;
+    int testF;
     double nbPoint;
     double whichPlane;
     Point vertex[8];
@@ -52,22 +56,27 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     nbPoint = 8;
 
-    PA = planeEquationFromPoints(B.a,B.b,B.c);
-    PB = planeEquationFromPoints(B.b,B.c,B.g);
-    PC = planeEquationFromPoints(B.a,B.b,B.e);
-    PD = planeEquationFromPoints(B.a,B.e,B.d);
+    PA = planeEquationFromPoints(B.a, B.b, B.c);
+    PB = planeEquationFromPoints(B.b, B.c, B.g);
+    PC = planeEquationFromPoints(B.a, B.b, B.e);
+    PD = planeEquationFromPoints(B.a, B.e, B.d);
     PE = planeEquationFromPoints(B.h, B.g, B.c);
     PF = planeEquationFromPoints(B.e, B.h, B.g);
 
-    IA = pointIntersectionLineAndPlane(L,PA);
-    IB = pointIntersectionLineAndPlane(L,PB);
-    IC = pointIntersectionLineAndPlane(L,PC);
-    ID = pointIntersectionLineAndPlane(L,PD);
+    IA = pointIntersectionLineAndPlane(L, PA);
+    IB = pointIntersectionLineAndPlane(L, PB);
+    IC = pointIntersectionLineAndPlane(L, PC);
+    ID = pointIntersectionLineAndPlane(L, PD);
+    IE = pointIntersectionLineAndPlane(L, PE);
+    IF = pointIntersectionLineAndPlane(L, PF);
+
 
     testA = isOnPolygon(vertex, nbPoint, IA);
     testB = isOnPolygon(vertex, nbPoint, IB);
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
+    testE = isOnPolygon(vertex, nbPoint, IE);
+    testF = isOnPolygon(vertex, nbPoint, IF);    
     
     if(isPointNan(IA)) {
         testA = 0;
@@ -80,6 +89,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     }
     if(isPointNan(ID)) {
         testD = 0;
+    }
+    if(isPointNan(IE)) {
+        testE = 0;
+    }
+    if(isPointNan(IF)) {
+        testF = 0;
     }
 
     if(testA != 0 && testB != 0){
@@ -106,6 +121,8 @@ Point contactBrickWithLine(Brick B, Line L) {
         firstPlaneF = firstPlaneSeen(L,PB,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
     }
+    //if(testE != 0 && //testA à test F)
+    ///if(testF != 0 && "  "  ")
     if(testA){
         intersection = IA;
     }
@@ -117,6 +134,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     }
     if(testD){
         intersection = ID;
+    }
+    if(testE){
+        intersection = IE;
+    }
+    if(testF){
+        intersection = IF;
     }
     return intersection;
 }
