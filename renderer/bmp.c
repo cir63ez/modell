@@ -1,5 +1,13 @@
 #include "bmp.h"
 
+/**
+ * Generate an empty BMP image
+ * 
+ * @param height: Height of the image (in pixels)
+ * @param width: Width of the image (in pixels)
+ * 
+ * @return BMP *: Pointer to the BMP structures containing the image's height,width & pixelsGrid
+ */
 BMP *newBMP(int height, int width) {
     BMP *image = (BMP *) malloc(sizeof(BMP));
     Rgb *pixelsGrid = (Rgb *) malloc(sizeof(Rgb) * width * height);
@@ -11,22 +19,22 @@ BMP *newBMP(int height, int width) {
     return image;
 }
 
-// /**
-//  * Set the color of the pixel of a BMP image array
-//  *
-//  * @param image: array image
-//  * @param x: x position of the pixel (heigtj axe)
-//  * @param y: y position of the pixel (width axe)
-//  * @param color: Rbg color
-//  *
-//  * @return void
-//  */
-// void BMPSetColor(unsigned char image[MAX_IMAGE_HEIGHT][MAX_IMAGE_WIDTH][BYTES_PER_PIXEL], int x, int y, Rgb color) {
-// 	image[x][y][2] = (unsigned char) (color.red);
-//     image[x][y][1] = (unsigned char) (color.green);
-//     image[x][y][0] = (unsigned char) (color.blue);
-// }
-
+/**
+ * Set the pixel of an image
+ * 
+ * @param image: Pointer to the BMP element
+ * @param x: Position x of the pixel
+ * @param y: Position y of the pixel
+ * 
+ * @return void
+ *  /------x------->
+ *  |      |
+ *  |      |
+ *  y------* <---point
+ *  |
+ *  |
+ *  v
+ */
 void BMPSetColor(BMP *image, int x, int y, Rgb color) {
     int height;
     int width;
@@ -39,6 +47,14 @@ void BMPSetColor(BMP *image, int x, int y, Rgb color) {
     *(pixelsGrid + y * height + x) = color;
 }
 
+/**
+ * Export a BMP Image to a BMP File
+ * 
+ * @param image: Pointer to the BMP element
+ * @param filename: BMP filename (with extension)
+ * 
+ * @return void
+ */
 void exportBMPImageToFile(BMP *image, char *filename) {
     int height;
     int width;
@@ -64,45 +80,14 @@ void exportBMPImageToFile(BMP *image, char *filename) {
         for(int j = 0; j < width; j++) {
             pixel = *(pixelsGrid + i * width + j);
 
-            fwrite(&(pixel.red), sizeof(char), 1, imageFile);
-            fwrite(&(pixel.green), sizeof(char), 1, imageFile);
             fwrite(&(pixel.blue), sizeof(char), 1, imageFile);
+            fwrite(&(pixel.green), sizeof(char), 1, imageFile);
+            fwrite(&(pixel.red), sizeof(char), 1, imageFile);
         }
     }
 
     fclose(imageFile);
 }
-
-// /**
-//  * Generate an image file from an array image
-//  *
-//  * @param image: array image
-//  * @param height: Height of the image
-//  * @param width: Width of the image
-//  * @param imageFileName: Filename of the output image
-//  *
-//  * @return void
-//  */
-// void generateBitmapImage(unsigned char *image, int height, int width, char* imageFileName) {
-
-//     unsigned char* fileHeader = createBitmapFileHeader(height, width);
-//     unsigned char* infoHeader = createBitmapInfoHeader(height, width);
-//     unsigned char padding[3] = {0, 0, 0};
-//     int paddingSize = (4-(width*BYTES_PER_PIXEL)%4)%4;
-
-//     FILE* imageFile = fopen(imageFileName, "wb");
-
-//     fwrite(fileHeader, 1, FILE_HEADER_SIZE, imageFile);
-//     fwrite(infoHeader, 1, INFO_HEADER_SIZE, imageFile);
-
-//     int i;
-//     for(i = 0; i < height; i++){
-//         fwrite(image+(i*width*BYTES_PER_PIXEL), BYTES_PER_PIXEL, width, imageFile);
-//         fwrite(padding, 1, paddingSize, imageFile);
-//     }
-
-//     fclose(imageFile);
-// }
 
 /**
  * Generate the Bitmap File Header
