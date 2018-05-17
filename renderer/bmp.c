@@ -40,13 +40,19 @@ void BMPSetColor(BMP *image, int x, int y, Rgb color) {
 }
 
 void exportBMPImageToFile(BMP *image, char *filename) {
+    int height;
+    int width;
     unsigned char *fileHeader;
     unsigned char *infoHeader;
     Rgb *pixelsGrid;
     Rgb pixel;
 
+    height = image->height;
+    width = image->width;
+
     fileHeader = createBitmapFileHeader(height, width);
     infoHeader = createBitmapInfoHeader(height, width);
+
     pixelsGrid = image->pixels;
 
     FILE *imageFile = fopen(filename, "wb");
