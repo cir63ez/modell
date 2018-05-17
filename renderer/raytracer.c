@@ -38,11 +38,12 @@ Line calculateFirstRay (Plane image, Point origin){
 
 void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
     Point contactPoint;
-
+    BMP *imageFile;
+    imageFile = newBMP(resolution, resolution);
     Rgb white;
-    white.red = 255;
-    white.green = 255;
-    white.blue = 255;
+    white.red = 127;
+    white.green = 127;
+    white.blue = 127    ;
 
     Rgb black;
     black.red = 0;
@@ -53,7 +54,6 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
     firstRay = calculateFirstRay(observer,imageOrigin);
     Line tmpLine = firstRay;
 
-    unsigned char BMPimage[resolution][resolution][BYTES_PER_PIXEL];
     char* imageFileName = "bitmapImage.bmp";
 
 
@@ -69,7 +69,7 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
         */
 
         x = i % (resolution);
-        y = i - ((i /resolution) / (resolution) );
+        y = (i - x)/resolution;
 
         tmpLine.pt.x += x * i;
         tmpLine.pt.y += y * i;
@@ -81,13 +81,13 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
             || isnan(contactPoint.y)
             || isnan(contactPoint.z)){
 
-            BMPSetColor(BMPimage , x, y, white);
+            BMPSetColor(imageFile , x, y, white);
         }
         else{
-            BMPSetColor(BMPimage, x, y, black);
+            BMPSetColor(imageFile, x, y, black);
         }
 
         tmpLine = firstRay;
     }
-    generateBitmapImage((unsigned char *)BMPimage, resolution, resolution, imageFileName);
+    exportBMPImageToFile(imageFile, imageFileName);
 }
