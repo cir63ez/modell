@@ -63,18 +63,46 @@ typedef struct Pixel_ {
 
 // Functions
 
+//create a vector from points
 Vector pointsToVector(Point A, Point B);
+
+//sum of two vectors
 Vector sumVectors(Vector A, Vector B);
+
+//difference of two vectors
 Vector differenceVectors(Vector A, Vector B);
+
+//Calculate the scalar product
 double scalarProduct(Vector A, Vector B);
+
+//Calculate the norm
 double norm(Vector A);
+
+//calculate the angle between two vectors
 double angle(Vector AB, Vector AC);
+
+//check if the three points are aligned
 char arePointsAligned(Point A, Point B, Point C);
+
+//calculate the normal vector from a point created by 3 points
 Vector normalVector(Point A, Point B, Point C);
+
+//create a plane from three points
 Plane planeEquationFromPoints(Point A, Point B, Point C);
-Point imagePointOnPlane(Point O, Point B, Plane Q);
+
+//Point imagePointOnPlane(Point O, Point B, Plane Q);
+
+//Calculate the intersection point between a line and a plane
 Point pointIntersectionLineAndPlane(Line L, Plane P);
+
+//return the first plane seen by a line
 Plane firstPlaneSeen(Line L, Plane P, Plane Q);
+
+//calculate the reflected ray
 Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
+
+//calculate the refracted ray
 Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
+
+//check if a point is in a polygon
 int isOnPolygon(Point *li,double numberOfPoint,Point t);

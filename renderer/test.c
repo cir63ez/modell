@@ -161,7 +161,8 @@ int main() {
 }
 
 /*
-TODO wait the end of the list of object 
+TODO wait the end of the list of object
+
 int isLit(Point c,Object *listOfObject,double numberOfObject,Light *listOfLight,double numberOfLight){
 	Object* objectWithContact;
 	int actualLight=0;
