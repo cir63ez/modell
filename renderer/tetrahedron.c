@@ -2,18 +2,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "tetrahedrom.h"
+#include "tetrahedron.h"
 
 /**
-* Give the point of contact between a line and a tetrahedrom
+* Give the point of contact between a line and a tetrahedron
 *
-* @param T: Tetrahedrom's name
+* @param T: Tetrahedron's name
 * @param L: Line's name
 *
-* @return the closest point of contact between an tetrahedrom and a line if it exists
+* @return the closest point of contact between an tetrahedron and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
+Point contactTetrahedronFromLine(Tetrahedron T, Line L){
     // TODO: develop the function (with plane with 3 points & on the polygon!!! & point of contact & first plane seen)
     Plane PA;
     Plane PB;
@@ -113,53 +113,53 @@ Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
 }
 
 /**
-* Encode an tetrahedrom as an array
+* Encode an tetrahedron as an array
 *
-* @param T: Tetrahedrom's name
+* @param T: Tetrahedron's name
 *
-* @return an array of double which contain the informations about the tetrahedrom
+* @return an array of double which contain the informations about the tetrahedron
 */
-double * encodeTetrahedrom(Tetrahedrom T){
-    double tetrahedrom[12];
-    tetrahedrom[0] = T.a.x;
-    tetrahedrom[1] = T.a.y;
-    tetrahedrom[2] = T.a.z;
-    tetrahedrom[3] = T.b.x;
-    tetrahedrom[4] = T.b.y;
-    tetrahedrom[5] = T.b.z;
-    tetrahedrom[6] = T.c.x;
-    tetrahedrom[7] = T.c.y;
-    tetrahedrom[8] = T.c.z;
-    tetrahedrom[9] = T.d.x;
-    tetrahedrom[10] = T.d.y;
-    tetrahedrom[11] = T.d.z;
+double * encodeTetrahedron(Tetrahedron T){
+    double tetrahedron[12];
+    tetrahedron[0] = T.a.x;
+    tetrahedron[1] = T.a.y;
+    tetrahedron[2] = T.a.z;
+    tetrahedron[3] = T.b.x;
+    tetrahedron[4] = T.b.y;
+    tetrahedron[5] = T.b.z;
+    tetrahedron[6] = T.c.x;
+    tetrahedron[7] = T.c.y;
+    tetrahedron[8] = T.c.z;
+    tetrahedron[9] = T.d.x;
+    tetrahedron[10] = T.d.y;
+    tetrahedron[11] = T.d.z;
 
 
-    return tetrahedrom;
+    return tetrahedron;
 }
 
 
 /**
-* Encode a tetrahedrom's array as a tetrahedrom structure
+* Encode a tetrahedron's array as a tetrahedron structure
 *
-* @param tetrahedrom: Tetrahedrom array
+* @param tetrahedron: Tetrahedron array
 *
-* @return a tetrahedrom 
+* @return a tetrahedron 
 */
-Tetrahedrom decodeTetrahedrom(double * tetrahedrom){
-    Tetrahedrom T;
-    T.a.x = tetrahedrom[0];
-    T.a.y = tetrahedrom[1];
-    T.a.z = tetrahedrom[2];
-    T.b.x = tetrahedrom[3];
-    T.b.y = tetrahedrom[4];
-    T.b.z = tetrahedrom[5];
-    T.c.x = tetrahedrom[6];
-    T.c.y = tetrahedrom[7];
-    T.c.z = tetrahedrom[8];
-    T.d.x = tetrahedrom[9];
-    T.d.y = tetrahedrom[10];
-    T.d.z = tetrahedrom[11];
+Tetrahedron decodeTetrahedron(double * tetrahedron){
+    Tetrahedron T;
+    T.a.x = tetrahedron[0];
+    T.a.y = tetrahedron[1];
+    T.a.z = tetrahedron[2];
+    T.b.x = tetrahedron[3];
+    T.b.y = tetrahedron[4];
+    T.b.z = tetrahedron[5];
+    T.c.x = tetrahedron[6];
+    T.c.y = tetrahedron[7];
+    T.c.z = tetrahedron[8];
+    T.d.x = tetrahedron[9];
+    T.d.y = tetrahedron[10];
+    T.d.z = tetrahedron[11];
 
     return T;
 }
