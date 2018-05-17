@@ -6,10 +6,10 @@
 
 int main(){
     Ellipse E;
-    E.a = E.b = E.c = 25;
+    E.a = E.b = E.c = 0.00000000000000000025;
 
     E.x = E.z = 0;
-    E.y = 50;
+    E.y = 0;
 
     Plane observer;
     observer.a = observer.b = 0;
@@ -17,11 +17,11 @@ int main(){
     observer.x = observer.y = observer.z = 0;
 
     Point imageOrigin;
-    imageOrigin.x = -100;
-    imageOrigin.y = 100;
+    imageOrigin.x = -1000;
+    imageOrigin.y = 1000;
     imageOrigin.z = 0;
 
-    int resolution = 200;
+    int resolution = 2000;
 
     rayTracer(E, observer, imageOrigin, resolution);
 
