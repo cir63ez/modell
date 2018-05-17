@@ -462,7 +462,7 @@ int isOnPolygon(Point *li,double numberOfPoint,Point t){
 /**
 * Init a point to NaN
 *
-*                    
+*
 * @return a point initialized at NaN
 */
 Point initPointNaN() {
@@ -476,7 +476,7 @@ Point initPointNaN() {
 /**
 * Init a vector to NaN
 *
-*                    
+*
 * @return a point initialized at NaN
 */
 Vector initVectorNaN() {
@@ -488,9 +488,9 @@ Vector initVectorNaN() {
 }
 
 /**
-* Verify if a point have NaN coordinates 
+* Verify if a point have NaN coordinates
 *
-*                    
+*
 * @return a point initialized at NaN
 */
 int isPointNaN(Point P) {
@@ -502,3 +502,49 @@ int isPointNaN(Point P) {
     }
 }
 
+//en travaux
+
+int testIfLightCutEllipse(double *object,light li,point c){
+    Ellipse e;
+    e=decodeEllipse(object);
+
+    free(e);
+}
+
+int testIfLightCutBrick(double *object,light li,point c){
+    Brick b;
+    b=decodeBrick(object);
+
+    free(b);
+}
+
+int testIfLightCutTetrahedron(double *object,light li,point c){
+    Brick t;
+    t=decode(object);
+
+    free(t);
+}
+
+int testIfLightCutObject(light li,List listOfObject,point c){
+    for (int actualObject = 0; actualObject < *(listOfObject)->nbElement; actualObject++) {
+        if(*(listOfObject+actualObject)->type==ELLIPSE_TYPE){
+
+        }
+        else if(*(listOfObject+actualObject)->type==BRICK_TYPE){
+
+        }
+        else if(*(listOfObject+actualObject)->type==TETRAHEDRON_TYPE)){
+        }
+    }
+}
+
+int isLit(Point c,liste *listOfObject,Light *listOfLight,double numberOfLight){
+	Object* objectWithContact;
+	int actualLight=0;
+		for (int actualObject = 0; actualObject < *(listOfObject)->nbElement; actualObject++) {
+			if(pointsToVector(c,listOfLight[actualLight])){
+				break;
+			}
+		}
+	return FALSE;
+ }

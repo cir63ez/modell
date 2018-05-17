@@ -159,18 +159,3 @@ int main() {
 	printf("%d\n",isOnPolygon(lp,numberOfPoint,ppt));
 	return 0;
 }
-
-/*
-TODO wait the end of the list of object
-
-int isLit(Point c,Object *listOfObject,double numberOfObject,Light *listOfLight,double numberOfLight){
-	Object* objectWithContact;
-	int actualLight=0;
-		for (int actualObject = 0; actualObject < numberOfObject; actualObject++) {
-			if(pointsToVector(c,listOfLight[actualLight])){
-				break;
-			}
-		}
-	return FALSE;
- }
-*/
