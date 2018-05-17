@@ -1,5 +1,8 @@
 #include "ellipse.h"
-
+#include "lib.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
 * Give the point of contact between a line and an ellipse
@@ -22,9 +25,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 
     Point I;
 
-    I.x = NaN;
-    I.y = NaN;
-    I.z = NaN;
+    I = initPointNaN();
 
     A = pow((E.a - E.x),2);
     B = pow((E.b - E.y),2);
@@ -95,3 +96,26 @@ Ellipse decodeEllipse(double * ellipse){
     free(ellipse);
     return E;
 }
+
+
+Plane tangentePlaneEllipse(Ellipse E, Line L) {
+    Point I;
+    Vector normal;
+    Plane tangent;
+
+    I = contactEllipseWithLine(E, L);
+
+    normal.x = 2 * (I.x - E.x) / (pow(E.a, 2));
+    normal.y = 2 * (I.y - E.y) / (pow(E.b, 2));
+    normal.z = 2 * (I.z - E.z) / (pow(E.c, 2));
+
+    tangent.a = normal.x;
+    tangent.b = normal.y;
+    tangent.c = normal.z;
+    tangent.x = I.x;
+    tangent.y = I.y;
+    tangent.z = I.z;
+
+    return tangent;
+}
+

@@ -158,9 +158,7 @@ char arePointsAligned(Point A, Point B, Point C) {
 Vector normalVector(Point A, Point B, Point C) {
     Vector V;
 
-    V.x = NaN;
-    V.y = NaN;
-    V.z = NaN;
+    V = initVectorNaN();
 
     if (arePointsAligned(A,B,C)) {
         printf("We can't make a plane equation with 3 aligned points\n");
@@ -292,8 +290,7 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
 /**
 * Give the first plan that the observer sees
 *
-* @param O: Observateur point
-* @param direction: vector direction of the observer
+* @param L: Ray
 * @param B: First plane
 * @param Q: Second plane
 *
@@ -314,18 +311,18 @@ Plane firstPlaneSeen(Line L, Plane P, Plane Q) {
     IA = pointIntersectionLineAndPlane(L, P);
     IB = pointIntersectionLineAndPlane(L, Q);
 
-    if((isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) && (isnan(IB.x) || isnan(IB.y) || isnan(IB.z))) {
+    if(isPointNaN(IA) && isPointNaN(IB)) {
         test.a = NaN;
         test.b = NaN;
         test.c = NaN;
         return test;
     }
 
-    else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
+    else if(isPointNaN(IA)) {
         return Q;
     }
 
-    else if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
+    else if(isPointNaN(IB)) {
         return P;
     }
 
@@ -403,9 +400,7 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
     refracted.pt = I;
 
     if(radicand < 0){
-        rayRefracted.x = NaN;
-        rayRefracted.y = NaN;
-        rayRefracted.z = NaN;
+        rayRefracted = initVectorNaN();
     }
 
     else if(cos(thetaA) >= 0){
@@ -435,23 +430,75 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 * @return the vector AB
 */
 int isOnPolygon(Point *li,double numberOfPoint,Point t){
-  double *listOfNorm;
-  listOfNorm=(double*)malloc(sizeof(double)*numberOfPoint);
-  for (int actualPoint = 0; actualPoint < numberOfPoint; actualPoint++){
-    for (int otherPoint = 0; otherPoint < numberOfPoint; otherPoint++) {
-      if(actualPoint!=otherPoint){
-        if(listOfNorm[actualPoint]<norm(pointsToVector(li[actualPoint],li[otherPoint]))){
-          listOfNorm[actualPoint]=norm(pointsToVector(li[actualPoint],li[otherPoint]));
+    double *listOfNorm;
+
+    if(isPointNaN(t)) {
+        return FALSE;
+    }
+
+    listOfNorm = (double*)malloc(sizeof(double) * numberOfPoint);
+
+    for (int actualPoint = 0; actualPoint < numberOfPoint; actualPoint++) {
+        for (int otherPoint = 0; otherPoint < numberOfPoint; otherPoint++) {
+            if(actualPoint != otherPoint){
+                if(listOfNorm[actualPoint] < norm(pointsToVector(li[actualPoint], li[otherPoint]))) {
+                    listOfNorm[actualPoint] = norm(pointsToVector(li[actualPoint], li[otherPoint]));
+                }
+            }
         }
-      }
     }
-  }
-  for (size_t testPoint = 0; testPoint < numberOfPoint; testPoint++) {
-    if(listOfNorm[testPoint]<norm(pointsToVector(li[testPoint],t))){
-      free(listOfNorm);
-      return FALSE;
+
+    for (int testPoint = 0; testPoint < numberOfPoint; testPoint++) {
+        if(listOfNorm[testPoint] < norm(pointsToVector(li[testPoint],t))){
+            free(listOfNorm);
+            return FALSE;
+        }
     }
-  }
-  free(listOfNorm);
-  return TRUE;
+
+    free(listOfNorm);
+    return TRUE;
 }
+
+/**
+* Init a point to NaN
+*
+*                    
+* @return a point initialized at NaN
+*/
+Point initPointNaN() {
+    Point P;
+    P.x = NaN;
+    P.y = NaN;
+    P.z = NaN;
+    return P;
+}
+
+/**
+* Init a vector to NaN
+*
+*                    
+* @return a point initialized at NaN
+*/
+Vector initVectorNaN() {
+    Vector V;
+    V.x = NaN;
+    V.y = NaN;
+    V.z = NaN;
+    return V;
+}
+
+/**
+* Verify if a point have NaN coordinates 
+*
+*                    
+* @return a point initialized at NaN
+*/
+int isPointNaN(Point P) {
+    if(isnan(P.x) || isnan(P.y) || isnan(P.z)) {
+        return FALSE;
+    }
+    else {
+        return TRUE;
+    }
+}
+

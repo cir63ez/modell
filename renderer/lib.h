@@ -106,3 +106,6 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 
 //check if a point is in a polygon
 int isOnPolygon(Point *li,double numberOfPoint,Point t);
+Point initPointNaN();
+Vector initVectorNaN();
+int isPointNaN(Point P);

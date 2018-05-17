@@ -29,6 +29,7 @@ Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
     Point IB;
     Point IC;
     Point ID;
+    Point intersection;
     int testA;
     int testB;
     int testC;
@@ -36,6 +37,8 @@ Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
     double nbPoint;
     double whichPlane;
     Point vertex[4];
+
+    intersection = initPointNaN();
 
     vertex[0] = T.a;
     vertex[1] = T.b;
@@ -53,43 +56,60 @@ Point contactTetrahedromFromLine(Tetrahedrom T, Line L){
     IC = pointIntersectionLineAndPlane(L,PC);
     ID = pointIntersectionLineAndPlane(L,PD);
 
-    testA = isOnPolygon(vertex, nbPoint, IA);
     testB = isOnPolygon(vertex, nbPoint, IB);
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
     
-    if(isnan(IA.x) || isnan(IA.y) || isnan(IA.z)) {
+    if(isPointNan(IA)) {
         testA = 0;
     }
-    if(isnan(IB.x) || isnan(IB.y) || isnan(IB.z)) {
+    if(isPointNan(IB)) {
         testB = 0;
     }
-    if(isnan(IC.x) || isnan(IC.y) || isnan(IC.z)) {
+    if(isPointNan(IC)) {
         testC = 0;
     }
-    if(isnan(ID.x) || isnan(ID.y) || isnan(ID.z)) {
+    if(isPointNan(ID)) {
         testD = 0;
     }
 
     if(testA != 0 && testB != 0){
-       firstPlaneA = firstPlaneSeen(L,PA,PB); //TODO: change the function firstPlaneSeen to have 1 or two in return => place of the planes
-                             // change vector & point O with Line
-   } 
-   if(testB != 0 && testC != 0){
-        firstPlaneB = firstPlaneSeen(L,PB,PC); 
-   }
-   if(testC != 0 && testD != 0){
+        firstPlaneA = firstPlaneSeen(L, PA, PB); 
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
+    } 
+    if(testB != 0 && testC != 0){
+        firstPlaneB = firstPlaneSeen(L,PB,PC);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
+    }
+    if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD); 
-   }
-   if(testC != 0 && testA != 0){
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
+    }
+    if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA); 
-   }
-   if(testD != 0 && testA != 0){
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
+    }
+    if(testD != 0 && testA != 0){
         firstPlaneE = firstPlaneSeen(L,PD,PA);
-   }
-   if(testB != 0 && testD != 0){
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneE);
+    }
+    if(testB != 0 && testD != 0){
         firstPlaneF = firstPlaneSeen(L,PB,PD);
-   }
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testA){
+        intersection = IA;
+    }
+    if(testB){
+        intersection = IB;
+    }
+    if(testC){
+        intersection = IC;
+    }
+    if(testD){
+        intersection = ID;
+    }
+    return intersection;
 }
 
 /**

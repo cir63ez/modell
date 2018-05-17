@@ -15,3 +15,4 @@ typedef struct List_
     Element *tete;
     double nbElement;
 } List;
+
