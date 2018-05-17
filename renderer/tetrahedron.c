@@ -14,7 +14,6 @@
 * @return a point with NaN coordinates if the point doesn't exist
 */
 Point contactTetrahedronFromLine(Tetrahedron T, Line L){
-    // TODO: develop the function (with plane with 3 points & on the polygon!!! & point of contact & first plane seen)
     Plane PA;
     Plane PB;
     Plane PC;
@@ -48,7 +47,7 @@ Point contactTetrahedronFromLine(Tetrahedron T, Line L){
 
     PA = planeEquationFromPoints(T.a,T.b,T.c);
     PB = planeEquationFromPoints(T.b,T.c,T.d);
-    PC = planeEquationFromPoints(T.a,T.b,T.c);
+    PC = planeEquationFromPoints(T.a,T.b,T.d);
     PD = planeEquationFromPoints(T.a,T.c,T.d);
 
     IA = pointIntersectionLineAndPlane(L,PA);
@@ -56,6 +55,7 @@ Point contactTetrahedronFromLine(Tetrahedron T, Line L){
     IC = pointIntersectionLineAndPlane(L,PC);
     ID = pointIntersectionLineAndPlane(L,PD);
 
+    testA = isOnPolygon(vertex, nbPoint, IA);
     testB = isOnPolygon(vertex, nbPoint, IB);
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);

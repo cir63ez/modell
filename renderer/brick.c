@@ -13,9 +13,114 @@
 * @return the closest point of contact between an brick and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Point contactBrickWithLine(Brick B, Line L){
-   // TODO: develop the function (with plane with 3 points & point of contact & first plane seen)
+Point contactBrickWithLine(Brick B, Line L) {
+    Plane PA;
+    Plane PB;
+    Plane PC;
+    Plane PD;
+    Plane PE;
+    Plane PF;
+    Plane firstPlaneA;
+    Plane firstPlaneB;
+    Plane firstPlaneC;
+    Plane firstPlaneD;
+    Plane firstPlaneE;
+    Plane firstPlaneF;
+    Point IA;
+    Point IB;
+    Point IC;
+    Point ID;
+    Point intersection;
+    int testA;
+    int testB;
+    int testC;
+    int testD;
+    double nbPoint;
+    double whichPlane;
+    Point vertex[8];
+
+    intersection = initPointNaN();
+
+    vertex[0] = B.a;
+    vertex[1] = B.b;
+    vertex[2] = B.c;
+    vertex[3] = B.d;
+    vertex[4] = B.e;
+    vertex[5] = B.f;
+    vertex[6] = B.g;
+    vertex[7] = B.h;
+
+    nbPoint = 8;
+
+    PA = planeEquationFromPoints(B.a,B.b,B.c);
+    PB = planeEquationFromPoints(B.b,B.c,B.g);
+    PC = planeEquationFromPoints(B.a,B.b,B.e);
+    PD = planeEquationFromPoints(B.a,B.e,B.d);
+    PE = planeEquationFromPoints(B.h, B.g, B.c);
+    PF = planeEquationFromPoints(B.e, B.h, B.g);
+
+    IA = pointIntersectionLineAndPlane(L,PA);
+    IB = pointIntersectionLineAndPlane(L,PB);
+    IC = pointIntersectionLineAndPlane(L,PC);
+    ID = pointIntersectionLineAndPlane(L,PD);
+
+    testA = isOnPolygon(vertex, nbPoint, IA);
+    testB = isOnPolygon(vertex, nbPoint, IB);
+    testC = isOnPolygon(vertex, nbPoint, IC);
+    testD = isOnPolygon(vertex, nbPoint, ID);
+    
+    if(isPointNan(IA)) {
+        testA = 0;
+    }
+    if(isPointNan(IB)) {
+        testB = 0;
+    }
+    if(isPointNan(IC)) {
+        testC = 0;
+    }
+    if(isPointNan(ID)) {
+        testD = 0;
+    }
+
+    if(testA != 0 && testB != 0){
+        firstPlaneA = firstPlaneSeen(L, PA, PB); 
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
+    } 
+    if(testB != 0 && testC != 0){
+        firstPlaneB = firstPlaneSeen(L,PB,PC);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
+    }
+    if(testC != 0 && testD != 0){
+        firstPlaneC = firstPlaneSeen(L,PC,PD); 
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
+    }
+    if(testC != 0 && testA != 0){
+        firstPlaneD = firstPlaneSeen(L,PC,PA); 
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
+    }
+    if(testD != 0 && testA != 0){
+        firstPlaneE = firstPlaneSeen(L,PD,PA);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneE);
+    }
+    if(testB != 0 && testD != 0){
+        firstPlaneF = firstPlaneSeen(L,PB,PD);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testA){
+        intersection = IA;
+    }
+    if(testB){
+        intersection = IB;
+    }
+    if(testC){
+        intersection = IC;
+    }
+    if(testD){
+        intersection = ID;
+    }
+    return intersection;
 }
+
 
 
 /**
