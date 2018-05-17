@@ -1,5 +1,8 @@
 #include "ellipse.h"
-
+#include "lib.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
 * Give the point of contact between a line and an ellipse
@@ -22,9 +25,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 
     Point I;
 
-    I.x = NaN;
-    I.y = NaN;
-    I.z = NaN;
+    I = initPointNaN();
 
     A = pow((E.a - E.x),2);
     B = pow((E.b - E.y),2);

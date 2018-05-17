@@ -78,3 +78,6 @@ Plane firstPlaneSeen(Line L, Plane P, Plane Q);
 Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
 Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
 int isOnPolygon(Point *li,double numberOfPoint,Point t);
+Point initPointNaN();
+Vector initVectorNaN();
+int isPointNaN(Point P);
