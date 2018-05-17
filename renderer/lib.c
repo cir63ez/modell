@@ -504,47 +504,140 @@ int isPointNaN(Point P) {
 
 //en travaux
 
-int testIfLightCutEllipse(double *object,light li,point c){
-    Ellipse e;
+
+
+
+/**
+* check if a point see the light
+*
+* @param A: Object
+* @param B: point of light
+* @param C: contact points
+*
+* @return TRUE if the light cut an ellipse before point c
+* @return FALSE if the light dont cut an ellipse before point c
+*/
+
+int testIfLightCutEllipse(double *object,Light li,Point c){
+    Ellipse *e;
     e=decodeEllipse(object);
-
-    free(e);
-}
-
-int testIfLightCutBrick(double *object,light li,point c){
-    Brick b;
-    b=decodeBrick(object);
-
-    free(b);
-}
-
-int testIfLightCutTetrahedron(double *object,light li,point c){
-    Brick t;
-    t=decode(object);
-
-    free(t);
-}
-
-int testIfLightCutObject(light li,List listOfObject,point c){
-    for (int actualObject = 0; actualObject < *(listOfObject)->nbElement; actualObject++) {
-        if(*(listOfObject+actualObject)->type==ELLIPSE_TYPE){
-
-        }
-        else if(*(listOfObject+actualObject)->type==BRICK_TYPE){
-
-        }
-        else if(*(listOfObject+actualObject)->type==TETRAHEDRON_TYPE)){
-        }
+    Line l;
+    l.pt=c;
+    l.directionVector=pointsToVector(c,li.lightSource);
+    if(contactEllipseWithLine(e,l)==TRUE){
+        free(e);
+        return TRUE;
+    }
+    else{
+        free(e);
+        return FALSE;
     }
 }
 
-int isLit(Point c,liste *listOfObject,Light *listOfLight,double numberOfLight){
+/**
+* check if a point see the light
+*
+* @param A: Object
+* @param B: point of light
+* @param C: contact points
+*
+* @return TRUE if the light cut an brick before point c
+* @return FALSE if the light doesnt cut an brick before point c
+*/
+
+int testIfLightCutBrick(double *object,Light li,Point c){
+    Brick *b;
+    b=decodeBrick(object);
+    Line l;
+    l.pt=c;
+    l.directionVector=pointsToVector(c,li.lightSource);
+    if(contactBrickWithLine(b,l)==TRUE){
+        free(b);
+        return TRUE;
+    }
+    else{
+        free(b);
+        return FALSE;
+    }
+}
+
+/**
+* check if a point see the light
+*
+* @param A: Object
+* @param B: point of light
+* @param C: contact points
+*
+* @return TRUE if the light cut an tetrahedron before point c
+* @return FALSE if the light doesnt cut an tetrahedron before point c
+*/
+
+int testIfLightCutTetrahedron(double *object,Light li,Point c){
+    Tetrahedron *t;
+    t=decodeTetrahedron(object);
+    Line l;
+    l.pt=c;
+    l.directionVector=pointsToVector(c,li.lightSource);
+    if(contactTetrahedronWithLine(t,l)==TRUE){
+        free(t);
+        return TRUE;
+    }
+    else{
+        free(t);
+        return FALSE;
+    }
+}
+
+/**
+* launch the check fontion depend of the object
+*
+* @param A: point of light
+* @param B: list of object
+* @param C: contact points
+*
+* @return TRUE if the light cut an object before point c
+* @return FALSE if the light doesnt cut an object before point c
+*/
+
+int testIfLightCutObject(Light li,List listOfObject,Point c){
+    for (int actualObject = 0; actualObject < *(listOfObject)->nbElement; actualObject++) {
+        if(*(listOfObject+actualObject)->type==ELLIPSE_TYPE){
+            if(testIfLightCutEllipse(*(listOfObject+actualObject)->object,li,c)!=TRUE){
+                return TRUE;
+            }
+        }
+        else if(*(listOfObject+actualObject)->type==BRICK_TYPE){
+            if(testIfLightCutBrick(*(listOfObject+actualObject)->object,li,c)!=TRUE){
+                return TRUE;
+            }
+        }
+        else if(*(listOfObject+actualObject)->type==TETRAHEDRON_TYPE)){
+            if(testIfLightCutTetrahedron(*(listOfObject+actualObject)->object,li,c)!=TRUE){
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+
+/**
+* launch the check fonctions for each point of light
+*
+* @param A: contact point
+* @param B: list of object
+* @param C: list of light
+* @param D: numberOfLight
+*
+* @return TRUE if the point c see the light
+* @return FALSE if the point c desnt see the light
+*/
+
+int isLit(Point c,List *listOfObject,Light *listOfLight,double numberOfLight){
 	Object* objectWithContact;
-	int actualLight=0;
-		for (int actualObject = 0; actualObject < *(listOfObject)->nbElement; actualObject++) {
-			if(pointsToVector(c,listOfLight[actualLight])){
-				break;
-			}
-		}
-	return FALSE;
- }
+	for (int actualLight = 0; actualLight < numberOfLight; actualLight++) {
+        if(testIfLightCutObject(*(listOfLight+actualLight),listOfObject,c)==TRUE){
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
