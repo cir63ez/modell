@@ -44,6 +44,9 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
     white.red = 127;
     white.green = 127;
     white.blue = 127    ;
+    white.red = 255;
+    white.green = 255;
+    white.blue = 255;
 
     Rgb black;
     black.red = 0;

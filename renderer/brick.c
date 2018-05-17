@@ -121,8 +121,42 @@ Point contactBrickWithLine(Brick B, Line L) {
         firstPlaneF = firstPlaneSeen(L,PB,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
     }
-    //if(testE != 0 && //testA à test F)
-    ///if(testF != 0 && "  "  ")
+    if(testE != 0 && testA != 0) {
+        firstPlaneF = firstPlaneSeen(L,PA,PE);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testE != 0 && testB != 0) {
+        firstPlaneF = firstPlaneSeen(L,PB,PE);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testE != 0 && testC != 0) {
+        firstPlaneF = firstPlaneSeen(L,PE,PC);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testE != 0 && testD != 0) {
+        firstPlaneF = firstPlaneSeen(L,PE,PD);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testE != 0 && testF != 0) {
+        firstPlaneF = firstPlaneSeen(L,PE,PF);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testA != 0 && testF != 0) {
+        firstPlaneF = firstPlaneSeen(L,PA,PF);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testB != 0 && testF != 0) {
+        firstPlaneF = firstPlaneSeen(L,PB,PF);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testC != 0 && testF != 0) {
+        firstPlaneF = firstPlaneSeen(L,PB,PF);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
+    if(testD != 0 && testF != 0) {
+        firstPlaneF = firstPlaneSeen(L,PB,PF);
+        intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+    }
     if(testA){
         intersection = IA;
     }

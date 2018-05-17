@@ -1,4 +1,10 @@
 #include "lib.h"
+#include "lib.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include "brick.h"
+#include "tetrahedron.h"
 
 /**
 * Calculate a vector with from two points

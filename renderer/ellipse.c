@@ -30,10 +30,15 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     A = pow((E.a - E.x),2);
     B = pow((E.b - E.y),2);
     C = pow((E.c - E.z),2);
+    A = pow((E.a),2);
+    B = pow((E.b),2);
+    C = pow((E.c),2);
 
     alpha = pow(L.directionVector.x,2)/A + pow(L.directionVector.y,2)/B + pow(L.directionVector.z,2)/C;
     beta = (L.directionVector.x * L.pt.x)/A + (L.directionVector.y * L.pt.y)/B + (L.directionVector.z * L.pt.z)/C;
     gamma = (pow(L.pt.x,2)/A + pow(L.pt.y,2)/B + pow(L.pt.z,2)/C) - 1;
+    beta = (L.directionVector.x * (L.pt.x - E.x)) / A + (L.directionVector.y * (L.pt.y - E.y)) / B + (L.directionVector.z * (L.pt.z - E.z)) / C;
+    gamma = pow((L.pt.x - E.x),2) / A + pow((L.pt.y - E.y),2) / B + pow((L.pt.z - E.z),2) / C - 1;
 
     delta = pow(beta,2) - 4 * alpha * gamma;
 
@@ -99,6 +104,15 @@ Ellipse decodeEllipse(double * ellipse){
 
 
 Plane tangentePlaneEllipse(Ellipse E, Line L) {
+/**
+* Get the tangent plane at the first point of intersection between a line and an Ellipse
+*
+*@param E : the Ellipse
+*@param L : the Line
+*
+*@return the tangent plane
+*/
+Plane tangentPlaneEllipse(Ellipse E, Line L) {
     Point I;
     Vector normal;
     Plane tangent;
