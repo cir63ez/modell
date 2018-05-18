@@ -1,5 +1,8 @@
 #pragma once
 #include "lib.h"
+#include "ellipse.h"
+#include "tetrahedron.h"
+#include "brick.h"
 
 #define ELLIPSE_TYPE 0
 #define BRICK_TYPE 1
