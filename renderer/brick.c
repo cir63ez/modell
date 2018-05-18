@@ -321,7 +321,6 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
     else {
         return FALSE;
     }
-<<<<<<< HEAD
 }
 
 /**
@@ -341,6 +340,3 @@ Element * createElementBrick(Brick B) {
         element->next = NULL;
     }
 }
-=======
-}
->>>>>>> fa9b9e4e1b652d62466bf748e5c7434e46d38b8c
