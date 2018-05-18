@@ -321,26 +321,4 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
     else {
         return FALSE;
     }
-<<<<<<< HEAD
 }
-
-/**
-* Create an Brick element for the list
-* @param B: Brick's name
-*
-* @return an element Brick created
-*/
-Element * createElementBrick(Brick B) {
-    Element * element = (Element *)malloc(sizeof(Element));
-    if (element == NULL) {
-        return NULL; //TODO: exit ?;
-    }
-    else {
-        element->type = BRICK_TYPE;
-        element->object = encodeBrick(B);
-        element->next = NULL;
-    }
-}
-=======
-}
->>>>>>> fa9b9e4e1b652d62466bf748e5c7434e46d38b8c
