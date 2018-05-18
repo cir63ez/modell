@@ -1,6 +1,53 @@
 #include "brick.h"
 #include "list.h"
 /**
+* Verify if the brick could exist
+*
+* @param B: Brick's name
+*
+* @return 1 if it could exist
+* @return 0 if it could not exist
+*/
+int DoesBrickExist(Brick B) {
+    Plane PA;
+    Plane PB;
+    Plane PC;
+    Plane PD;
+    Plane PE;
+    Plane PF;
+    double test;
+
+    PA = planeEquationFromPoints(B.a, B.b, B.c);
+    PB = planeEquationFromPoints(B.b, B.c, B.g);
+    PC = planeEquationFromPoints(B.a, B.b, B.e);
+    PD = planeEquationFromPoints(B.a, B.e, B.d);
+    PE = planeEquationFromPoints(B.h, B.g, B.c);
+    PF = planeEquationFromPoints(B.e, B.h, B.g);
+
+
+    if(!isPointOnPlane(B.d, PA)) {
+        test++;
+    }
+    if(!isPointOnPlane(B.f, PB)) {
+        test++;
+    }
+    if(!isPointOnPlane(B.f, PC)) {
+        test++;
+    }
+    if(!isPointOnPlane(B.h, PD)) {
+        test++;
+    }
+    if(!isPointOnPlane(B.d, PE)) {
+        test++;
+    }
+    if(!isPointOnPlane(B.f, PF)) {
+        test++;
+    }
+}
+
+
+
+/**
 * Give the point of contact between a line and a brick
 *
 * @param B: Brick's name
@@ -262,18 +309,19 @@ Brick decodeBrick(double *brick){
 * @return FALSE if the light doesn't cut a brick before point c
 */
 
-int testIfLightCutsBrick(double *object,Light Li,Point C){
+int testIfLightCutsBrick(double *object,Light Li,Point C) {
     Brick B;
     B = decodeBrick(object);
     Line L;
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
-    if(isPointNaN(contactBrickWithLine(B, L)) == TRUE){
+    if(isPointNaN(contactBrickWithLine(B, L)) == TRUE) {
         return TRUE;
     }
-    else{
+    else {
         return FALSE;
     }
+<<<<<<< HEAD
 }
 
 /**
@@ -293,3 +341,6 @@ Element * createElementBrick(Brick B) {
         element->next = NULL;
     }
 }
+=======
+}
+>>>>>>> fa9b9e4e1b652d62466bf748e5c7434e46d38b8c
