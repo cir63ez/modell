@@ -25,7 +25,7 @@ int main() {
 	vB.y = 2;
 	vB.z = 3;
 
-	Vector vC = differenceVectors(v, vB);
+	Vector vC = substractVectors(v, vB);
 
 	printf("(%lf, %lf, %lf)\n", vC.x, vC.y, vC.z);
 
