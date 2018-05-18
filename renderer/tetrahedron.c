@@ -1,5 +1,5 @@
 #include "tetrahedron.h"
-
+#include "list.h"
 /**
 * Give the point of contact between a line and a tetrahedron
 *
@@ -184,5 +184,23 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
     }
     else{
         return FALSE;
+    }
+}
+
+/**
+* Create an tetrahedron element for the list
+* @param B: tetrahedron's name
+*
+* @return an element Brick created
+*/
+Element * createElementTetrahedron(Tetrahedron T) {
+    Element * element = (Element *)malloc(sizeof(Element));
+    if (element == NULL) {
+        return NULL; //TODO: exit ?;
+    }
+    else {
+        element->type = TETRAHEDRON_TYPE;
+        element->object = encodeTetrahedron(T);
+        element->next = NULL;
     }
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "lib.h"
+#include "list.h"
 
 typedef struct Tetrahedron_ {
     Point a;
@@ -18,3 +19,5 @@ double * encodeTetrahedron(Tetrahedron T);
 Tetrahedron decodeTetrahedron(double *tetrahedron);
 
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
+
+Element * createElementTetrahedron(Tetrahedron B);

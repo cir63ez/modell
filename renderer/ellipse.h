@@ -1,5 +1,6 @@
 #pragma once
 #include "lib.h"
+#include "list.h"
 
 typedef struct Ellipse_ {
     //radii of the ellipsoid
@@ -25,3 +26,5 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C);
 
 
 Plane tangentPlaneEllipse(Ellipse E, Line L);
+
+Element * createElementEllipse(Ellipse E);

@@ -1,5 +1,5 @@
 #include "ellipse.h"
-
+#include "list.h"
 /**
 * Give the point of contact between a line and an ellipse
 *
@@ -149,5 +149,24 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
     }
     else{
         return FALSE;
+    }
+}
+
+/**
+* Create an ellipse element for the list
+* @param E: Ellipse's name
+*
+* @return an element ellipse created
+*/
+Element * createElementEllipse(Ellipse E) {
+    Element * element = (Element *)malloc(sizeof(Element));
+    if (element == NULL) {
+        return NULL; //TODO: exit ?;
+    }
+    else {
+        element->type = ELLIPSE_TYPE;
+        element->object = encodeEllipse(E);
+        element->next = NULL;
+        return element;
     }
 }

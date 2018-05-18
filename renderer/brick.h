@@ -1,5 +1,6 @@
 #pragma once
 #include "lib.h"
+#include "list.h"
 
 typedef struct Brick_ {
     Point a;
@@ -22,3 +23,5 @@ double * encodeBrick(Brick B);
 Brick decodeBrick(double * brick);
 
 int testIfLightCutsBrick(double *object,Light Li,Point C);
+
+Element * createElementBrick(Brick B);
