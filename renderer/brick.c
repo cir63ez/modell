@@ -323,17 +323,17 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
     }
 }
 
+
 /**
-* Create an Brick element for the list
-* @param B: Brick's name
+* Create a brick element for the list
+* @param B: brick
 *
 * @return an element Brick created
 */
-Element * createElementBrick(Brick B) {
+Element * createElementTetrahedron(Tetrahedron T) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-       exit(-1);
-       return NULL;
+        exit(-1);
     }
     else {
         element->type = BRICK_TYPE;

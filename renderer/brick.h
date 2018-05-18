@@ -2,6 +2,7 @@
 #include "lib.h"
 #include "list.h"
 
+
 typedef struct Brick_ {
     Point a;
     Point b;
