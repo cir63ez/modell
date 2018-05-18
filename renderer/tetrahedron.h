@@ -17,4 +17,5 @@ double * encodeTetrahedron(Tetrahedron T);
 //Encode a tetrahedron's array as a tetrahedron structure
 Tetrahedron decodeTetrahedron(double *tetrahedron);
 
+// Check if there is a direct path between the point and light
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);

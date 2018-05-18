@@ -28,7 +28,7 @@ Element * createElementEllipse(Ellipse E) {
 Element * createElementBrick(Brick B) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+        exit(-1);
     }
     else {
         element->type = BRICK_TYPE;
@@ -43,10 +43,10 @@ Element * createElementBrick(Brick B) {
 *
 * @return an element ellipse created
 */
-Element * createElementTetrahedron(Tetrahedron B) {
+Element * createElementTetrahedron(Tetrahedron T) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+        exit(-1);
     }
     else {
         element->type = TETRAHEDRON_TYPE;

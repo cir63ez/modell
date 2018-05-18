@@ -309,16 +309,16 @@ Brick decodeBrick(double *brick){
 * @return FALSE if the light doesn't cut a brick before point c
 */
 
-int testIfLightCutsBrick(double *object,Light Li,Point C){
+int testIfLightCutsBrick(double *object,Light Li,Point C) {
     Brick B;
     B = decodeBrick(object);
     Line L;
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
-    if(isPointNaN(contactBrickWithLine(B, L)) == TRUE){
+    if(isPointNaN(contactBrickWithLine(B, L)) == TRUE) {
         return TRUE;
     }
-    else{
+    else {
         return FALSE;
     }
 }
