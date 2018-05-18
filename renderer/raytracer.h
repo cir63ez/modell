@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include "lib.h"
 #include "bmp.h"
-#include "list.h"
-#include "ellipse.h"
-#include "brick.h"
-#include "tetrahedron.h"
+#include "objects.h"
 
 //Calculates the ray corresponding to the (0,0) pixel
 Line calculateFirstRay (Plane image, Point origin);
