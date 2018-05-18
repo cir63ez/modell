@@ -13,7 +13,7 @@ $i = 0;
 // Look for place to put a semi-column
 foreach($_POST as $element => $value) {
     // If value is not a number, then use semi-column (seperate objects)
-    $semiColumns[$i] = ((intval($value) == 0) && ($value != 0)) ? true : false;
+    $semiColumns[$i] = ((intval($value) == 0) && ($value !== 0)) ? true : false;
 
     $i++;
 }
