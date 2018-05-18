@@ -460,6 +460,28 @@ int isOnPolygon(Point *li,double numberOfPoint,Point t){
 }
 
 /**
+* Check if the point is on the plane
+*
+* @param I: Point
+* @param P: Plane
+*                    
+* @return 1 if the point is on the plane
+* @return 0 if the point is not on the plane
+*/
+int isPointOnPlane(Point I, Plane P) {
+    double test;
+
+    test = P.a * (I.x - P.x) + P.b * (I.y - P.y) + P.c * (I.z - P.z);
+
+    if(test == 0) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+/**
 * Init a point to NaN
 *
 *

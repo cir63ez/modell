@@ -12,6 +12,9 @@ typedef struct Brick_ {
     Point h;
 } Brick;
 
+//Verify if the brick could exist
+int DoesBrickExist(Brick B);
+
 // Give the point of contact between a line and a brick
 Point contactBrickWithLine(Brick B, Line L);
 
