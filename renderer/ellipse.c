@@ -103,7 +103,7 @@ Ellipse decodeEllipse(double * ellipse){
 }
 
 
-Plane tangentePlaneEllipse(Ellipse E, Line L) {
+
 /**
 * Get the tangent plane at the first point of intersection between a line and an Ellipse
 *
