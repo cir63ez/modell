@@ -38,6 +38,9 @@ build: $(CROOT)/$(TARGET).c $(LOCAL_LIBS)
 run: build
 	./$(CROOT)/$(TARGET)
 
+dev-serve:
+	$(PHP) -c /etc/php/7.2/apache2/php.ini -S $(HOST):$(PORT) -t $(PHPROOT)
+
 serve:
 	$(PHP) -S $(HOST):$(PORT) -t $(PHPROOT)
 

@@ -36,6 +36,12 @@ make build CFLAGS=-lm -Wall -g
 make build TARGET=test LOCAL_LIBS=mylib.o lib2.o
 ```
 
+### Build & Run instantly
+
+```bash
+make run TARGET=test
+```
+
 ### Run PHP Server
 
 ```php
@@ -52,4 +58,20 @@ Exemples:
 ```bash
 make serve PORT=3000
 make serve HOST=10.122.36.54 PORT=3001
+```
+
+#### Dev-serve
+
+It is the same as serve but loading the local `php.ini` file on the computer, then running XDebug if it is installed
+
+```bash
+make dev-serve
+```
+
+### Clean
+
+This recipe cleans the project from objects and compiled/rendered files
+
+```bash
+make clean
 ```
