@@ -330,7 +330,7 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
 *
 * @return an element Brick created
 */
-Element * createElementTetrahedron(Tetrahedron T) {
+Element * createElementBrick(Brick B) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
         exit(-1);
