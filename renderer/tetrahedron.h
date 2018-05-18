@@ -1,5 +1,6 @@
 #pragma once
 #include "lib.h"
+#include "list.h"
 
 typedef struct Tetrahedron_ {
     Point a;
@@ -19,3 +20,5 @@ Tetrahedron decodeTetrahedron(double *tetrahedron);
 
 // Check if there is a direct path between the point and light
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
+
+Element * createElementTetrahedron(Tetrahedron B);

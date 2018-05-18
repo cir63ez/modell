@@ -1,5 +1,6 @@
 #pragma once
 #include "lib.h"
+#include "list.h"
 
 typedef struct Ellipse_ {
     //radii of the ellipsoid
@@ -26,3 +27,5 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C);
 
 // Give the tangente plane of a intersection point between a plane and an ellipse
 Plane tangentPlaneEllipse(Ellipse E, Line L);
+
+Element * createElementEllipse(Ellipse E);

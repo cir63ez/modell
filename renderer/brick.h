@@ -1,5 +1,6 @@
 #pragma once
 #include "lib.h"
+#include "list.h"
 
 typedef struct Brick_ {
     Point a;
@@ -26,3 +27,5 @@ Brick decodeBrick(double * brick);
 
 // Check if there is a direct path between the point and light
 int testIfLightCutsBrick(double *object,Light Li,Point C);
+
+Element * createElementBrick(Brick B);
