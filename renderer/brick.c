@@ -332,7 +332,8 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
 Element * createElementBrick(Brick B) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+       exit(-1);
+       return NULL;
     }
     else {
         element->type = BRICK_TYPE;
