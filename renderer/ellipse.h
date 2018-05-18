@@ -21,7 +21,7 @@ Ellipse decodeEllipse(double * ellipse);
 double * encodeEllipse(Ellipse E);
 
 //Test line of sight with light
-int testIfLightCutEllipse(double *object, Light li, Point c);
+int testIfLightCutsEllipse(double *object, Light Li, Point C);
 
 
 Plane tangentPlaneEllipse(Ellipse E, Line L);

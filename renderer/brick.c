@@ -1,4 +1,3 @@
-#pragma once
 #include "brick.h"
 
 /**
@@ -75,22 +74,22 @@ Point contactBrickWithLine(Brick B, Line L) {
     testE = isOnPolygon(vertex, nbPoint, IE);
     testF = isOnPolygon(vertex, nbPoint, IF);
 
-    if(isPointNan(IA)) {
+    if(isPointNaN(IA)) {
         testA = 0;
     }
-    if(isPointNan(IB)) {
+    if(isPointNaN(IB)) {
         testB = 0;
     }
-    if(isPointNan(IC)) {
+    if(isPointNaN(IC)) {
         testC = 0;
     }
-    if(isPointNan(ID)) {
+    if(isPointNaN(ID)) {
         testD = 0;
     }
-    if(isPointNan(IE)) {
+    if(isPointNaN(IE)) {
         testE = 0;
     }
-    if(isPointNan(IF)) {
+    if(isPointNaN(IF)) {
         testF = 0;
     }
 
@@ -222,9 +221,8 @@ double * encodeBrick(Brick B){
 *
 * @return a brick
 */
-Brick decodeBrick(double * brick){
+Brick decodeBrick(double *brick){
     Brick B;
-
     B.a.x = brick[0];
     B.a.y = brick[1];
     B.a.z = brick[2];
@@ -264,18 +262,16 @@ Brick decodeBrick(double * brick){
 * @return FALSE if the light doesn't cut a brick before point c
 */
 
-int testIfLightCutBrick(double *object,Light li,Point c){
-    Brick *b;
-    b = decodeBrick(object);
-    Line l;
-    l.pt = c;
-    l.directionVector = pointsToVector(c, li.lightSource);
-    if(contactBrickWithLine(b, l) == TRUE){
-        free(b);
+int testIfLightCutsBrick(double *object,Light Li,Point C){
+    Brick B;
+    B = decodeBrick(object);
+    Line L;
+    L.pt = C;
+    L.directionVector = pointsToVector(C, Li.lightSource);
+    if(isPointNaN(contactBrickWithLine(B, L)) == TRUE){
         return TRUE;
     }
     else{
-        free(b);
         return FALSE;
     }
 }

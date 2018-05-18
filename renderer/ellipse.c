@@ -1,4 +1,3 @@
-#pragma once
 #include "ellipse.h"
 
 /**
@@ -88,7 +87,6 @@ double * encodeEllipse(Ellipse E){
 */
 Ellipse decodeEllipse(double * ellipse){
     Ellipse E;
-
     E.a = ellipse[0];
     E.b = ellipse[1];
     E.c = ellipse[2];
@@ -140,20 +138,16 @@ Plane tangentPlaneEllipse(Ellipse E, Line L) {
 * @return FALSE if the light doesn't cut an ellipse before point c
 */
 
-int testIfLightCutEllipse(double *object, Light li, Point c){
+int testIfLightCutsEllipse(double *object, Light Li, Point C){
     Ellipse E;
     E = decodeEllipse(object);
-    Line l;
-    l.pt = c;
-    l.directionVector = pointsToVector(c, li.lightSource);
-    if( isnan(contactEllipseWithLine(E, l).x)
-        || isnan(contactEllipseWithLine(E, l).y)
-        || isnan(contactEllipseWithLine(E, l).z)){
-        free(object);
+    Line L;
+    L.pt = C;
+    L.directionVector = pointsToVector(C, Li.lightSource);
+    if(isPointNaN(contactEllipseWithLine(E, L))) {
         return TRUE;
     }
     else{
-        free(object);
         return FALSE;
     }
 }

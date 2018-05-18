@@ -21,4 +21,4 @@ double * encodeBrick(Brick B);
 //Encode a brick's array as a brick structure
 Brick decodeBrick(double * brick);
 
-int testIfLightCutBrick(double *object,Light li,Point c);
+int testIfLightCutsBrick(double *object,Light Li,Point C);

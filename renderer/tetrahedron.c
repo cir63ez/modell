@@ -1,12 +1,3 @@
-#pragma once
-<<<<<<< HEAD
-=======
-#include "lib.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include "list.h"
->>>>>>> 5b502f1d0048de04ebe3b79719e49277e0562c23
 #include "tetrahedron.h"
 
 /**
@@ -65,16 +56,16 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
 
-    if(isPointNan(IA)) {
+    if(isPointNaN(IA)) {
         testA = 0;
     }
-    if(isPointNan(IB)) {
+    if(isPointNaN(IB)) {
         testB = 0;
     }
-    if(isPointNan(IC)) {
+    if(isPointNaN(IC)) {
         testC = 0;
     }
-    if(isPointNan(ID)) {
+    if(isPointNaN(ID)) {
         testD = 0;
     }
 
@@ -182,18 +173,16 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
 * @return FALSE if the light doesnt cut a tetrahedron before point c
 */
 
-int testIfLightCutTetrahedron(double *object, Light li, Point c){
-    Tetrahedron *t;
-    t = decodeTetrahedron(object);
-    Line l;
-    l.pt = c;
-    l.directionVector = pointsToVector(c, li.lightSource);
-    if(contactTetrahedronWithLine(t, l) == TRUE){
-        free(t);
+int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
+    Tetrahedron T;
+    T = decodeTetrahedron(object);
+    Line L;
+    L.pt = C;
+    L.directionVector = pointsToVector(C, Li.lightSource);
+    if(isPointNaN(contactTetrahedronWithLine(T, L)) == TRUE) {
         return TRUE;
     }
     else{
-        free(t);
         return FALSE;
     }
 }

@@ -104,20 +104,20 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
 * @return FALSE if the light doesnt cuts an object before point c
 */
 
-int testIfLightCutObject(Light li, List *listOfObject, Point c){
+int testIfLightCutsBricktObject(Light li, List *listOfObject, Point c){
     while(listOfObject->tete->next != NULL) {
         if(listOfObject->tete->type == ELLIPSE_TYPE){
-            if(testIfLightCutEllipse(listOfObject->tete->object, li, c) != TRUE){
+            if(testIfLightCutsEllipse(listOfObject->tete->object, li, c) != TRUE){
                 return TRUE;
             }
         }
         else if(listOfObject->tete->type == BRICK_TYPE){
-            if(testIfLightCutBrick(listOfObject->tete->object, li, c) != TRUE){
+            if(testIfLightCutsBrick(listOfObject->tete->object, li, c) != TRUE){
                 return TRUE;
             }
         }
         else if(listOfObject->tete->type == TETRAHEDRON_TYPE){
-            if(testIfLightCutTetrahedron(listOfObject->tete->object, li, c) != TRUE){
+            if(testIfLightCutsTetrahedron(listOfObject->tete->object, li, c) != TRUE){
                 return TRUE;
             }
         }
@@ -140,7 +140,7 @@ int testIfLightCutObject(Light li, List *listOfObject, Point c){
 
 int isLit(Point c, List *listOfObject, Light *listOfLights, int numberofLights){
 	for (int i = 0; i < numberofLights; i++) {
-        if(testIfLightCutObject(*(listOfLights + i), listOfObject, c) == TRUE){
+        if(testIfLightCutsObject(*(listOfLights + i), listOfObject, c) == TRUE){
             return TRUE;
         }
     }
