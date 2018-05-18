@@ -1,5 +1,4 @@
 #include "lib.h"
-#include "lib.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -606,22 +605,23 @@ int testIfLightCutTetrahedron(double *object,Light li,Point c){
 */
 
 int testIfLightCutObject(Light li,List listOfObject,Point c){
-    for (int actualObject = 0; actualObject < *(listOfObject)->nbElement; actualObject++) {
-        if(*(listOfObject+actualObject)->type==ELLIPSE_TYPE){
-            if(testIfLightCutEllipse(*(listOfObject+actualObject)->object,li,c)!=TRUE){
+    while(*listOfObject->tete->next!=NULL) {
+        if(*listOfObject->tete->type==ELLIPSE_TYPE){
+            if(testIfLightCutEllipse(*listOfObject->tete->object,li,c)!=TRUE){
                 return TRUE;
             }
         }
-        else if(*(listOfObject+actualObject)->type==BRICK_TYPE){
-            if(testIfLightCutBrick(*(listOfObject+actualObject)->object,li,c)!=TRUE){
+        else if(*listOfObject->tete->type==BRICK_TYPE){
+            if(testIfLightCutBrick(*listOfObject->tete->object,li,c)!=TRUE){
                 return TRUE;
             }
         }
-        else if(*(listOfObject+actualObject)->type==TETRAHEDRON_TYPE)){
-            if(testIfLightCutTetrahedron(*(listOfObject+actualObject)->object,li,c)!=TRUE){
+        else if(*listOfObject->tete->type==TETRAHEDRON_TYPE)){
+            if(testIfLightCutTetrahedron(*listOfObject->tete->object,li,c)!=TRUE){
                 return TRUE;
             }
         }
+        *(listOfObject)->tete=*(listOfObject)->tete->next
     }
     return FALSE;
 }
