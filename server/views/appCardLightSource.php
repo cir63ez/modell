@@ -11,7 +11,7 @@
         <input type="number" class="form-control" name="<?= $id; ?>_posZ" placeholder="Z" required>
 
         <div class="text-right mt-3">
-            <a href="#objects" class="btn btn-danger" data-remove="<?= $id; ?>"><i class="fas fa-trash"></i> Remove</a>
+            <a href="#lights" class="btn btn-danger" data-remove="<?= $id; ?>"><i class="fas fa-trash"></i> Remove</a>
         </div>
     </div>
 </div>

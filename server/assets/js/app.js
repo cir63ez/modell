@@ -1,11 +1,3 @@
-/*
-TODO: Pop modal "addObject"
-TODO: Append on modal apply
-TODO: Remove object
-
-TODO: Same as above for light sources
-*/
-
 var debug = true;
 
 var objectId = 0;
@@ -42,55 +34,48 @@ function popObectModal() {
     });
 }
 
-function addObjectCard(objectType, id) {
-    objectType = objectType.charAt(0).toUpperCase() + objectType.slice(1);
-
+function addCardAjax(url, container, dropdown, type, id, slideTime) {
     $.ajax({
-        url: "./?card=object" + objectType + "&id=" + id
+        'url': url
     }).done(function(data) {
-        if (data === "NULL") {
-            console.log("Error while loading card");
+        if (data == "NULL") {
+            console.log("Error while loading: ", url);
         } else {
+            var iterator = 0;
             var card = $(data);
 
-            $('fieldset#objects').append(card);
-            objectsDropdown.append('<a class="dropdown-item" href="#' + id + '">' + objectType + ' #' + id + '</a>');
+            container.append(card);
+            dropdown.append('<a class="dropdown-item" href="#' + id + '">' + type + ' #' + id + '</a>');
             card.hide().slideDown(200);
 
-            $('[data-remove]').click(function() {
+            var timer = setInterval(function() {
+                if (iterator == slideTime) { clearInterval(timer); }
+                card[0].scrollIntoView();
+                iterator++;
+            }, 1);
+
+            card.find('[data-remove]').click(function() {
                 var id = $(this).attr('data-remove');
 
                 removeCard(id);
             });
         }
-    });
+    })
+}
+
+function addObjectCard(objectType, id) {
+    objectType = objectType.charAt(0).toUpperCase() + objectType.slice(1);
+    var url = "./?card=object" + objectType + "&id=" + id;
+
+    addCardAjax(url, $('fieldset#objects'), objectsDropdown, objectType, id, 200);
 }
 
 function addLightCard() {
-    var id = lightId;
-    var cardId = "light-" + id;
+    var id = "light-" + lightId;
+    var url = './?card=lightSource&id=' + id;
+    addCardAjax(url, $('fieldset#lights'), lightsDropdown, 'Light', id, 200);
 
-    $.ajax({
-        url: "./?card=lightSource&id=" + cardId
-    }).done(function(data) {
-        if (data == "NULL") {
-            console.log("Error while loading card");
-        } else {
-            var card = $(data);
-
-            $('fieldset#lights').append(card);
-            lightsDropdown.append('<a class="dropdown-item" href="#' + cardId + '">Light #' + cardId + '</a>');
-            card.hide().slideDown(200);
-
-            $('[data-remove]').click(function() {
-                var id = $(this).attr('data-remove');
-
-                removeCard(id);
-            });
-        }
-
-        lightId++;
-    });
+    lightId++;
 }
 
 function removeCard(id) {
