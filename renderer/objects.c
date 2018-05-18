@@ -1,5 +1,5 @@
-#include "list.h"
-#include "object.h"
+#include "lib.h"
+#include "objects.h"
 
 // List.c
 
