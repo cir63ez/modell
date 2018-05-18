@@ -1,5 +1,5 @@
 #include "raytracer.h"
-
+#include "list.h"
 /*Missing : paramètres d'entrée du main
 *          Ellipse E : the ellipsoid
 *          Line firstRay : the ray corresponding to the (0,0) pixel

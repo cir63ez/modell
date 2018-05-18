@@ -189,7 +189,7 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
 
 /**
 * Create an tetrahedron element for the list
-* @param B: tetrahedron's name
+* @param T: tetrahedron's name
 *
 * @return an element Brick created
 */
