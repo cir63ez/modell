@@ -10,11 +10,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Hello World, my "id" is <?= $id; ?></p>
+                <h6>Select the type of the object :</h6>
+                <select name="objectType" class="custom-select">
+                    <option value="ellipsoid" selected>Ellipsoid</option>
+                    <option value="tetrahedron" disabled>Tetrahedron</option>
+                </select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-apply>Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

@@ -10,10 +10,17 @@ define('APP_VERSION', '1.0.0-dev');
 require('./helpers/additionalContent.php');
 
 // Basic routing
-if(isset($_GET['modal'])) {
-    require('./controllers/modal.php');
-} elseif(isset($_GET['app'])) {
-    require('./controllers/app.php');
-} else {
-    require('./controllers/home.php');
-}
+
+// Ajax
+
+if(isset($_GET['modal'])) { die(require('./controllers/modal.php')); }
+if(isset($_GET['card'])) { die(require('./controllers/card.php')); }
+
+// App
+if(isset($_GET['app'])) { die(require('./controllers/app.php')); }
+
+// App process
+if(isset($_GET['process'])) { die(require('./controllers/process.php')); }
+
+// Home
+die(require('./controllers/home.php'));

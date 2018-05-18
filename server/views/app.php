@@ -11,71 +11,80 @@
 
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-video"></i> Camera</a></li>
+            <li class="nav-item"><a href="#image" class="nav-link"><i class="far fa-image"></i> Image</a></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                     <i class="fas fa-cubes"></i> Objects
                 </a>
-                <div class="dropdown-menu">
-                    <!-- Dropdown exemple -->
-                    <h6 class="dropdown-header">Dropdown header</h6>
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+                <div class="dropdown-menu" id="objectsDropdown"></div>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-lightbulb"></i> Lights</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-star"></i> Animate</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                <i class="fas fa-lightbulb"></i> Lights
+                </a>
+                <div class="dropdown-menu" id="lightsDropdown"></div>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <form action="./" mehod="post">
-        <input type="text" name="process" value="true" hidden="hidden">
-        <fieldset id="camera">
+    <form action="./?process" method="post" id="main">
+        <fieldset id="image">
             <div class="card">
-                <div class="card-header bg-primary h2 text-white"><i class="fas fa-video"></i> Camera</div>
+                <div class="card-header bg-primary h2 text-white"><i class="far fa-image"></i> Image</div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-6">
-                                <h4>Position</h4>
-                                <input type="number" class="form-control" name="cameraPositionX" placeholder="X">
-                                <input type="number" class="form-control" name="cameraPositionY" placeholder="Y">
-                                <input type="number" class="form-control" name="cameraPositionZ" placeholder="Z">
-                            </div>
-                            <div class="col-6">
-                                <h4>Vector</h4>
-                                <input type="number" class="form-control" name="cameraVectorX" placeholder="X">
-                                <input type="number" class="form-control" name="cameraVectorY" placeholder="Y">
-                                <input type="number" class="form-control" name="cameraVectorZ" placeholder="Z">
-                            </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>Top Left Corner</h4>
+
+                            <input type="number" class="form-control" name="topLeftCornerPosX" placeholder="X" required>
+                            <input type="number" class="form-control" name="topLeftCornerPosY" placeholder="Y" required>
+                            <input type="number" class="form-control" name="topLeftCornerPosZ" placeholder="Z" required>
+                        </div><!-- ./col-6 -->
+                        <div class="col-6 mt-3">
+                            <h4>Image dimension</h4>
+
+                            <input type="number" class="form-control" name="imageHeight" placeholder="Height" required>
+                            <input type="number" class="form-control" name="imageWidth" placeholder="Width" required>
                         </div>
                     </div>
 
-                    <h4>Field of view</h4>
-                    <div class="form-group">
-                        <input type="number" class="form-control" name="cameraFieldOfView" placeholder="Field of view">
+                    <h4>Plane</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Normal vector</h5>
+
+                            <input type="number" class="form-control" name="plane" placeholder="a" required>
+                            <input type="number" class="form-control" name="planeB" placeholder="b" required>
+                            <input type="number" class="form-control" name="planeC" placeholder="c" required>
+                        </div>
+                        <div class="col-6">
+                            <h5>Point in plane</h5>
+                            <input type="number" class="form-control" name="planeX" placeholder="x" required>
+                            <input type="number" class="form-control" name="planeY" placeholder="y" required>
+                            <input type="number" class="form-control" name="planeZ" placeholder="z"required>
+                        </div>
                     </div>
                 </div>
             </div>
         </fieldset>
 
         <fieldset id="objects">
-            <div class="text-center mt-3" id="addCamera">
-                <a href="#" class="btn btn-success"><i class="fas fa-plus"></i> Add an object</a>
-            </div>
         </fieldset>
+        
+        <div class="text-center mt-3" id="addObject">
+            <a href="#addObject" class="btn btn-success btn-small-block" data-open="objectModal"><i class="fas fa-plus"></i> Add an object</a>
+        </div>
 
         <fieldset id="lights">
-            <div class="text-center mt-3" id="addCamera">
-                <a href="#" class="btn btn-success"><i class="fas fa-plus"></i> Add a light source</a>
-            </div>
         </fieldset>
 
-        <div class="text-center my-3"><input class="btn btn-primary" type="submit" value="Render 🚀"></div>
+        <div class="text-center mt-3" id="addLightSource">
+            <a href="#addLightSource" class="btn btn-success btn-small-block" data-apply="lightCard"><i class="fas fa-plus"></i> Add a light source</a>
+        </div>
+
+        <div class="text-center my-3"><input class="btn btn-primary btn-small-block" type="submit" value="Render 🚀"></div>
     </form>
 </div>
 
