@@ -15,5 +15,13 @@ typedef struct Ellipse_ {
 //Give the point of contact between a line and an ellipse
 Point contactEllipseWithLine(Ellipse E, Line L);
 
+Ellipse decodeEllipse(double * ellipse);
+
 //Encode an ellipse as an array
 double * encodeEllipse(Ellipse E);
+
+//Test line of sight with light
+int testIfLightCutEllipse(double *object, Light li, Point c);
+
+
+Plane tangentPlaneEllipse(Ellipse E, Line L);

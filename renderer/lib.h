@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "ellipse.h"
-#include "brick.h"
-#include "tetrahedron.h"
 // Defines
 
 #define TRUE 1
@@ -66,28 +63,28 @@ typedef struct Pixel_ {
 
 // Functions
 
-//create a vector from points
+//create a vector from two points
 Vector pointsToVector(Point A, Point B);
 
 //sum of two vectors
 Vector sumVectors(Vector A, Vector B);
 
-//difference of two vectors
-Vector differenceVectors(Vector A, Vector B);
+//Substract two vectors
+Vector substractVectors(Vector A, Vector B);
 
-//Calculate the scalar product
+//Calculate the scalar product between two vectors
 double scalarProduct(Vector A, Vector B);
 
-//Calculate the norm
+//Calculate the norm of a vector
 double norm(Vector A);
 
 //calculate the angle between two vectors
 double angle(Vector AB, Vector AC);
 
-//check if the three points are aligned
+//check if three points are aligned
 char arePointsAligned(Point A, Point B, Point C);
 
-//calculate the normal vector from a point created by 3 points
+//calculate the normal vector from a plane created by 3 points
 Vector normalVector(Point A, Point B, Point C);
 
 //create a plane from three points

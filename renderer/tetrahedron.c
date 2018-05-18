@@ -1,8 +1,4 @@
 #pragma once
-#include "lib.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 #include "tetrahedron.h"
 
 /**
@@ -164,4 +160,32 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
     T.d.z = tetrahedron[11];
     free(tetrahedron);
     return T;
+}
+
+
+/**
+* Check if a point sees the light
+*
+* @param A: Object
+* @param B: Light source
+* @param C: Contact points
+*
+* @return TRUE if the light cut a tetrahedron before point c
+* @return FALSE if the light doesnt cut a tetrahedron before point c
+*/
+
+int testIfLightCutTetrahedron(double *object, Light li, Point c){
+    Tetrahedron *t;
+    t = decodeTetrahedron(object);
+    Line l;
+    l.pt = c;
+    l.directionVector = pointsToVector(c, li.lightSource);
+    if(contactTetrahedronWithLine(t, l) == TRUE){
+        free(t);
+        return TRUE;
+    }
+    else{
+        free(t);
+        return FALSE;
+    }
 }

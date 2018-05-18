@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "bmp.h"
 #include "raytracer.h"
 
 
@@ -22,7 +19,7 @@ int main(){
     imageOrigin.y =  100;
     imageOrigin.z =    0;
 
-    int resolution = 200;
+    int resolution = 5000;
 
     rayTracer(E, observer, imageOrigin, resolution);
 

@@ -1,13 +1,4 @@
-#include "lib.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 #include "list.h"
-#include "ellipse.h"
-#include "brick.h"
-#include "tetrahedron"
-
-
 
 /**
 * Create an ellipse element for the list
@@ -84,7 +75,7 @@ void deleteElementList(List * list) {
         if(previous != NULL) {
             previous->next = NULL;
         }
-        
+
         free(current);
     }
 }

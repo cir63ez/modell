@@ -15,4 +15,6 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L);
 double * encodeTetrahedron(Tetrahedron T);
 
 //Encode a tetrahedron's array as a tetrahedron structure
-Tetrahedron decodeTetrahedron(double * tetrahedron);
+Tetrahedron decodeTetrahedron(double *tetrahedron);
+
+int testIfLightCutTetrahedron(double *object, Light li, Point c);

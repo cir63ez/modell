@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "bmp.h"
 #include "raytracer.h"
 
 /*Missing : paramètres d'entrée du main
@@ -93,4 +90,59 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
         tmpLine = firstRay;
     }
     exportBMPImageToFile(imageFile, imageFileName);
+}
+
+
+/**
+* Launch the check function depending of the object
+*
+* @param A: Light source
+* @param B: list of object
+* @param C: contact points
+*
+* @return TRUE if the light cuts an object before point c
+* @return FALSE if the light doesnt cuts an object before point c
+*/
+
+int testIfLightCutObject(Light li, List *listOfObject, Point c){
+    while(listOfObject->tete->next != NULL) {
+        if(listOfObject->tete->type == ELLIPSE_TYPE){
+            if(testIfLightCutEllipse(listOfObject->tete->object, li, c) != TRUE){
+                return TRUE;
+            }
+        }
+        else if(listOfObject->tete->type == BRICK_TYPE){
+            if(testIfLightCutBrick(listOfObject->tete->object, li, c) != TRUE){
+                return TRUE;
+            }
+        }
+        else if(listOfObject->tete->type == TETRAHEDRON_TYPE){
+            if(testIfLightCutTetrahedron(listOfObject->tete->object, li, c) != TRUE){
+                return TRUE;
+            }
+        }
+        *(listOfObject)->tete = *(listOfObject)->tete->next;
+    }
+    return FALSE;
+}
+
+/**
+* launch the check fonctions for each point of light
+*
+* @param A: contact point
+* @param B: list of object
+* @param C: list of light
+* @param D: numberOfLight
+*
+* @return TRUE if the point c see the light
+* @return FALSE if the point c desnt see the light
+*/
+
+int isLit(Point c, List *listOfObject, Light *listOfLights, int numberofLights){
+	for (int i = 0; i < numberofLights; i++) {
+        if(testIfLightCutObject(*(listOfLights + i), listOfObject, c) == TRUE){
+            return TRUE;
+        }
+    }
+    return FALSE;
 }

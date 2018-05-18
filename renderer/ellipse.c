@@ -1,9 +1,5 @@
 #pragma once
 #include "ellipse.h"
-#include "lib.h"
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 /**
 * Give the point of contact between a line and an ellipse
@@ -104,7 +100,6 @@ Ellipse decodeEllipse(double * ellipse){
 }
 
 
-Plane tangentePlaneEllipse(Ellipse E, Line L) {
 /**
 * Get the tangent plane at the first point of intersection between a line and an Ellipse
 *
@@ -132,4 +127,33 @@ Plane tangentPlaneEllipse(Ellipse E, Line L) {
     tangent.z = I.z;
 
     return tangent;
+}
+
+/**
+* Check if a point sees the light
+*
+* @param A: Object
+* @param B: point of light
+* @param C: contact points
+*
+* @return TRUE if the light cuts an ellipse before point c
+* @return FALSE if the light doesn't cut an ellipse before point c
+*/
+
+int testIfLightCutEllipse(double *object, Light li, Point c){
+    Ellipse E;
+    E = decodeEllipse(object);
+    Line l;
+    l.pt = c;
+    l.directionVector = pointsToVector(c, li.lightSource);
+    if( isnan(contactEllipseWithLine(E, l).x)
+        || isnan(contactEllipseWithLine(E, l).y)
+        || isnan(contactEllipseWithLine(E, l).z)){
+        free(object);
+        return TRUE;
+    }
+    else{
+        free(object);
+        return FALSE;
+    }
 }

@@ -1,8 +1,4 @@
 #pragma once
-#include "lib.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 #include "brick.h"
 
 /**
@@ -255,4 +251,31 @@ Brick decodeBrick(double * brick){
     B.h.z = brick[23];
     free(brick);
     return B;
+}
+
+/**
+* Checks if a point sees the light
+*
+* @param A: Object
+* @param B: Light source
+* @param C: contact points
+*
+* @return TRUE if the light cut an brick before point c
+* @return FALSE if the light doesn't cut a brick before point c
+*/
+
+int testIfLightCutBrick(double *object,Light li,Point c){
+    Brick *b;
+    b = decodeBrick(object);
+    Line l;
+    l.pt = c;
+    l.directionVector = pointsToVector(c, li.lightSource);
+    if(contactBrickWithLine(b, l) == TRUE){
+        free(b);
+        return TRUE;
+    }
+    else{
+        free(b);
+        return FALSE;
+    }
 }
