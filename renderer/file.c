@@ -1,20 +1,38 @@
 #include "file.h"
 
 
-int nbLettreMotLong = 0;
-char* motLePlusLong;
-char* motEnCours;
-
+/**
+*  Change caracteres into a number from a file
+* 
+* @param f: file
+*
+* @return the number from the caracteres
+*/
 int caractereToNumber(FILE * f) {
     int number = 0;
+    int test = 0;
     char curCaractere = '\0';
      while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
         curCaractere = fgetc(f);
+        if(curCaractere == '-') {
+            test = 1;
+        }
         number = number * 10 + atoi(curCaractere);
+    }
+    if(test) {
+        number = number * (-1);
     }
     return number;
 }
 
+
+/**
+*  Give point in the image plane from a file
+* 
+* @param f: file
+*
+* @return a point in the image plane
+*/
 Point pointPlaneFile (FILE * f) {
     rewind(f);
     Point P;
@@ -24,8 +42,14 @@ Point pointPlaneFile (FILE * f) {
     return P;
 }
 
-
-Vector vectorPlaneFile (FILE * f) {
+/**
+*  Give the normal vector of the image plane from a file
+* 
+* @param f: file
+*
+* @return a point in the image plane
+*/
+Vector normalVectorPlaneFile (FILE * f) {
     Vector V;
     V.x = caractereToNumber(f);
     V.y = caractereToNumber(f);
@@ -33,6 +57,13 @@ Vector vectorPlaneFile (FILE * f) {
     return V;
 }
 
+/**
+*  Give the number of caractere of a number or a word between txo ','
+* 
+* @param f: file
+*
+* @return the number of caractere
+*/
 int numberCaractere(FILE * f) {
     int nbCaractere = 0;
     char curCaractere = '\0';
@@ -44,36 +75,34 @@ int numberCaractere(FILE * f) {
     return nbCaractere;
 }
 
+/**
+*  Give an ellipse from a file
+* 
+* @param f: file
+*
+* @return an ellipse 
+*/
 Ellipse fileToEllipse(FILE * f) {
-
+    Ellipse E;
+    E.x = caractereToNumber(f);
+    E.y = caractereToNumber(f);
+    E.z = caractereToNumber(f);
+    E.a = caractereToNumber(f);
+    E.b = caractereToNumber(f);
+    E.c = caractereToNumber(f);
 }
 
-
-
-int main(){
-  motLePlusLong = (char *)malloc(sizeof(char));
-  motEnCours = (char *)malloc(sizeof(char));
-  char caractere;
-  int nbLettre = 0;
-  nbLettre = 0;
-  FILE * f = NULL;
-  f = fopen("textWiki.txt","r");
-  if (f == NULL) {
-    printf("Impossible de trouver le fichier\n");
-    free(motLePlusLong);
-    free(motEnCours);
-    exit(1);
-  }
-  else {
-    while (caractere != EOF) {
-      caractere = fgetc(f);
-      nbLettre = nombreLettreF(f,caractere);
-      motLong(nbLettre);
-    }
-  }
-  printf("%s\n", motLePlusLong);
-  fclose(f);
-  free(motLePlusLong);
-  free(motEnCours);
-  return 0;
+/**
+*  Give the position of a light from a file
+* 
+* @param f: file
+*
+* @return an ellipse 
+*/
+Light fileToLight(FILE * f) {
+    Light L;
+    L.lightSource.x = caractereToNumber(f);
+    L.lightSource.y = caractereToNumber(f);
+    L.lightSource.z = caractereToNumber(f);
+    return L;
 }
