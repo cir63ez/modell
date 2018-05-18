@@ -1,3 +1,4 @@
+#pragma once
 #include "lib.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,7 +15,7 @@
 * @return the closest point of contact between an tetrahedron and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
 */
-Point contactTetrahedronFromLine(Tetrahedron T, Line L){
+Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     Plane PA;
     Plane PB;
     Plane PC;
@@ -60,7 +61,7 @@ Point contactTetrahedronFromLine(Tetrahedron T, Line L){
     testB = isOnPolygon(vertex, nbPoint, IB);
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
-    
+
     if(isPointNan(IA)) {
         testA = 0;
     }
@@ -75,19 +76,19 @@ Point contactTetrahedronFromLine(Tetrahedron T, Line L){
     }
 
     if(testA != 0 && testB != 0){
-        firstPlaneA = firstPlaneSeen(L, PA, PB); 
+        firstPlaneA = firstPlaneSeen(L, PA, PB);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
-    } 
+    }
     if(testB != 0 && testC != 0){
         firstPlaneB = firstPlaneSeen(L,PB,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
     }
     if(testC != 0 && testD != 0){
-        firstPlaneC = firstPlaneSeen(L,PC,PD); 
+        firstPlaneC = firstPlaneSeen(L,PC,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
     }
     if(testC != 0 && testA != 0){
-        firstPlaneD = firstPlaneSeen(L,PC,PA); 
+        firstPlaneD = firstPlaneSeen(L,PC,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
     }
     if(testD != 0 && testA != 0){
@@ -121,7 +122,8 @@ Point contactTetrahedronFromLine(Tetrahedron T, Line L){
 * @return an array of double which contain the informations about the tetrahedron
 */
 double * encodeTetrahedron(Tetrahedron T){
-    double tetrahedron[12];
+    double *tetrahedron;
+    tetrahedron=(double*)malloc(12 * sizeof(double));
     tetrahedron[0] = T.a.x;
     tetrahedron[1] = T.a.y;
     tetrahedron[2] = T.a.z;
@@ -145,7 +147,7 @@ double * encodeTetrahedron(Tetrahedron T){
 *
 * @param tetrahedron: Tetrahedron array
 *
-* @return a tetrahedron 
+* @return a tetrahedron
 */
 Tetrahedron decodeTetrahedron(double * tetrahedron){
     Tetrahedron T;
@@ -161,7 +163,6 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
     T.d.x = tetrahedron[9];
     T.d.y = tetrahedron[10];
     T.d.z = tetrahedron[11];
-
+    free(tetrahedron);
     return T;
 }
-

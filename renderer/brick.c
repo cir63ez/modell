@@ -1,3 +1,4 @@
+#pragma once
 #include "lib.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -76,8 +77,8 @@ Point contactBrickWithLine(Brick B, Line L) {
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
     testE = isOnPolygon(vertex, nbPoint, IE);
-    testF = isOnPolygon(vertex, nbPoint, IF);    
-    
+    testF = isOnPolygon(vertex, nbPoint, IF);
+
     if(isPointNan(IA)) {
         testA = 0;
     }
@@ -98,19 +99,19 @@ Point contactBrickWithLine(Brick B, Line L) {
     }
 
     if(testA != 0 && testB != 0){
-        firstPlaneA = firstPlaneSeen(L, PA, PB); 
+        firstPlaneA = firstPlaneSeen(L, PA, PB);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
-    } 
+    }
     if(testB != 0 && testC != 0){
         firstPlaneB = firstPlaneSeen(L,PB,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
     }
     if(testC != 0 && testD != 0){
-        firstPlaneC = firstPlaneSeen(L,PC,PD); 
+        firstPlaneC = firstPlaneSeen(L,PC,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
     }
     if(testC != 0 && testA != 0){
-        firstPlaneD = firstPlaneSeen(L,PC,PA); 
+        firstPlaneD = firstPlaneSeen(L,PC,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
     }
     if(testD != 0 && testA != 0){
@@ -189,7 +190,7 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
-    brick = malloc(6 * sizeof(double));
+    brick =(double*)malloc(6 * sizeof(double));
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;

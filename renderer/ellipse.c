@@ -1,3 +1,4 @@
+#pragma once
 #include "ellipse.h"
 #include "lib.h"
 #include <math.h>
@@ -71,7 +72,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 */
 double * encodeEllipse(Ellipse E){
     double *ellipse;
-    ellipse = malloc(6 * sizeof(double));
+    ellipse =(double*)malloc(6 * sizeof(double));
     ellipse[0] = E.a;
     ellipse[1] = E.b;
     ellipse[2] = E.c;
@@ -132,4 +133,3 @@ Plane tangentPlaneEllipse(Ellipse E, Line L) {
 
     return tangent;
 }
-

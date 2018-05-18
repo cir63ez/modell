@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "ellipse.h"
+#include "brick.h"
+#include "tetrahedron.h"
 // Defines
 
 #define TRUE 1
