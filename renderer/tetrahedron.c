@@ -1,12 +1,9 @@
 #pragma once
-<<<<<<< HEAD
-=======
 #include "lib.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include "list.h"
->>>>>>> 5b502f1d0048de04ebe3b79719e49277e0562c23
 #include "tetrahedron.h"
 
 /**
