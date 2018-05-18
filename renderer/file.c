@@ -25,6 +25,27 @@ int caractereToNumber(FILE * f) {
     return number;
 }
 
+/**
+ *  Change caracteres into an object name from a file
+ * 
+ * @param f: file  
+ * 
+ * @return a char array
+ */
+char * caractereToName(FILE * f) {
+    char *name;
+    name = (char *)malloc(sizeof(char));
+    int nbletter = 0;
+    int test = 0;
+    char curCaractere = '\0';
+     while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
+        nbletter++;
+        curCaractere = fgetc(f);
+        name = (char *)realloc(name, sizeof(char) * nbletter);
+        *(name + nbletter) = curCaractere;
+    }
+    return name;
+}
 
 /**
 *  Give point in the image plane from a file

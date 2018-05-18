@@ -386,41 +386,29 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     double A;
     double B;
     double C;
-    double alpha;
-    double beta;
     double delta;
-    double gamma;
     double t;
 
     Point I;
 
     I = initPointNaN();
 
-    A = pow((E.a - E.x),2);
-    B = pow((E.b - E.y),2);
-    C = pow((E.c - E.z),2);
-    A = pow((E.a),2);
-    B = pow((E.b),2);
-    C = pow((E.c),2);
-
-    alpha = pow(L.directionVector.x,2)/A + pow(L.directionVector.y,2)/B + pow(L.directionVector.z,2)/C;
-    beta = (L.directionVector.x * L.pt.x)/A + (L.directionVector.y * L.pt.y)/B + (L.directionVector.z * L.pt.z)/C;
-    gamma = (pow(L.pt.x,2)/A + pow(L.pt.y,2)/B + pow(L.pt.z,2)/C) - 1;
-    beta = (L.directionVector.x * (L.pt.x - E.x)) / A + (L.directionVector.y * (L.pt.y - E.y)) / B + (L.directionVector.z * (L.pt.z - E.z)) / C;
-    gamma = pow((L.pt.x - E.x),2) / A + pow((L.pt.y - E.y),2) / B + pow((L.pt.z - E.z),2) / C - 1;
-
-    delta = pow(beta,2) - 4 * alpha * gamma;
+    A = (pow(L.directionVector.x / E.a, 2) + pow(L.directionVector.y / E.b, 2) + pow(L.directionVector.z / E.c, 2));
+    B = (L.directionVector.x * (L.pt.x - E.x)/pow(E.a,2) + L.directionVector.y * (L.pt.y - E.y)/pow(E.b,2) + L.directionVector.z * (L.pt.z - E.z)/pow(E.c,2));
+    C = (pow((L.pt.x - E.x)/E.a,2) + pow((L.pt.y - E.y)/E.b,2)) + pow((L.pt.z - E.z)/E.c,2));
+   
+    delta = 4 * (pow(B,2) - A * C);
 
     if(delta < 0){
         return I;
     }
 
     if (delta > 0){
-        t = (-2 * beta - sqrt(delta))/(2 * alpha);
+        t = (-2 * B - sqrt(delta))/(2 * A);
     }
 
     if (delta == 0){
-        t = - beta / alpha;
+        t = - B / A;
     }
 
     I.x = L.directionVector.x * t + L.pt.x;

@@ -10,6 +10,8 @@
 // Change caracteres into a number from a file
 int caractereToNumber(FILE * f);
 
+// Change caracteres into an object name from a file
+char * caractereToName(FILE * f);
 
 // Give point in the image plane from a file
 Point pointPlaneFile (FILE * f) {

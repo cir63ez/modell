@@ -13,6 +13,8 @@ int main(int argc, char **argv){
   Point P;
   int height;
   int width;
+  int numberObject;
+  int numberLight;
   Vector V;
 
   f = fopen("arguments.txt", 'r');
@@ -20,6 +22,8 @@ int main(int argc, char **argv){
   height = caractereToNumber(f);
   width = caractereToNumber(f);
   V = normalVectorPlaneFile(f);
-  
+  numberObject = caractereToNumber(f);
+  numberLight = caractereToNumber(f);
+
   fclose(f);
 }
