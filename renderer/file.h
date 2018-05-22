@@ -25,6 +25,9 @@ int numberCaractere(FILE * f);
 // Give the type of an object
 int whichType(char * name);
 
+// Treat the object to have a string of an object
+double * objectTreatement(int type, FILE * f);
+
 // Get the list of objects from a file
 List * objectFromFile(FILE * f);
 

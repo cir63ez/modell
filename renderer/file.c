@@ -17,7 +17,7 @@ int caractereToNumber(FILE * f) {
         if(curCaractere == '-') {
             test = 1;
         }
-        number = number * 10 + atoi(curCaractere);
+        number = number * 10 + charToInt(curCaractere);
     }
     if(test) {
         number = number * (-1);

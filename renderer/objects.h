@@ -121,3 +121,13 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 
 // Creates a "tetrahedron" element to be added in a chained list
 Element * createElementTetrahedron(double * T);
+
+//Light
+// Encode a light's array as a light structure
+Light decodeLight(double * light);
+
+// Encode a light as an array
+double * encodeLight(Light L);
+
+// Create a light element for the list
+Element * createElementLight(double * L);
