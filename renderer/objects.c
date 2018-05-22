@@ -3,16 +3,52 @@
 
 // List.c
 
+
+/**
+ * Initialized the list
+ * @param L: list
+ * 
+ * @return list
+ */
+List * initList() {
+    List * L;
+    L = (List *)malloc(sizeof(List));
+    L->nbElement = 0;
+    L->head = NULL;
+    return L;
+}
+
+/**
+* Add an element in the list
+* @param e: element
+*
+* @return void
+*/
+void addElementList(Element * e, List * L) {
+    Element * curElement;
+    curElement = L->head;
+    if(L->head == NULL) {
+        L->head = e;
+    }
+    else {
+        while(curElement->next != NULL) {
+            curElement = curElement->next;
+        }
+        curElement->next = e;
+    }
+    L->nbElement++;
+}
+
 /**
 * Delete the last element of the list
-* @param B: tete's list
+* @param B: head's list
 *
 * @return void
 */
 void deleteElementList(List * list) {
-    if(list->tete != NULL) {
+    if(list->head != NULL) {
         Element *previous = NULL;
-        Element *current = list->tete;
+        Element *current = list->head;
 
         while(current->next != NULL) {
             previous = current;
@@ -741,6 +777,26 @@ Element * createElementTetrahedron(double * T) {
     else {
         element->type = TETRAHEDRON_TYPE;
         element->object = T;
+        element->next = NULL;
+    }
+}
+
+
+//LIGHTS
+/**
+* Create a light element for the list
+* @param L: light
+*
+* @return an element Light created
+*/
+Element * createElementLight(double * L) {
+    Element * element = (Element *)malloc(sizeof(Element));
+    if (element == NULL) {
+        exit(0);
+    }
+    else {
+        element->type = LIGHT_TYPE;
+        element->object = L;
         element->next = NULL;
     }
 }

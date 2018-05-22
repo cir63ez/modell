@@ -124,12 +124,14 @@ int whichType(char * name) {
     }
 }
 
-List fileNameTofind(FILE * f) {
+List * fileNameTofind(FILE * f) {
     int type;
     char *endOfFile;
     double *object;
     char *name;
-    List L;
+    Element * e;
+    List *L;
+    L = initList();
 
     strcpy(endOfFile, "endoffile");
 
@@ -139,44 +141,22 @@ List fileNameTofind(FILE * f) {
     while(strcmp(name, endOfFile)) {
         object = objectTreatement(type, f);
         if(type == BRICK_TYPE) {
-            
+            e = createElementBrick(object);
         }
         if(type == ELLIPSE_TYPE) {
-            
+            e = createElementEllipse(object);
         }
         if(type == TETRAHEDRON_TYPE) {
-            
+            e = createElementTetrahedron(object);
         }
         if(type == LIGHT_TYPE) {
-            
+            e = createElementLight(object);
+        }   
+        addElementList(e, L);
     }
     return L;
 }
 
-double * objectTreatement(int type, FILE * f) {
-    Brick B;
-    Tetrahedron T;
-    Ellipse E;
-    Light L;
-    double * object;
-    if(type == BRICK_TYPE) {
-        B = getBrick(f);
-        object = encodeBrick(B);
-    }
-    if(type == ELLIPSE_TYPE) {
-        E = getEllipse(f);
-        object = encodeEllipse(E);
-    }
-    if(type == TETRAHEDRON_TYPE) {
-        T = getTetrahedron(f);
-        object = encodeTetrahedron(T);
-    }
-    if(type == LIGHT_TYPE) {
-        L = getLight(f);
-        object = encodeLight(L);
-    }
-    return object;
-}
 
 /**
 *  Give a brick from a file
@@ -269,4 +249,29 @@ Light getLight(FILE * f) {
     L.lightSource.y = caractereToNumber(f);
     L.lightSource.z = caractereToNumber(f);
     return L;
+}
+
+double * objectTreatement(int type, FILE * f) {
+    Brick B;
+    Tetrahedron T;
+    Ellipse E;
+    Light L;
+    double * object;
+    if(type == BRICK_TYPE) {
+        B = getBrick(f);
+        object = encodeBrick(B);
+    }
+    if(type == ELLIPSE_TYPE) {
+        E = getEllipse(f);
+        object = encodeEllipse(E);
+    }
+    if(type == TETRAHEDRON_TYPE) {
+        T = getTetrahedron(f);
+        object = encodeTetrahedron(T);
+    }
+    if(type == LIGHT_TYPE) {
+        L = getLight(f);
+        object = encodeLight(L);
+    }
+    return object;
 }

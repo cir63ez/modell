@@ -18,13 +18,22 @@ typedef struct Element_
 
 typedef struct List_
 {
-    Element *tete;
+    Element *head;
     double nbElement;
 } List;
 
+//Initialized the list
+List * initList();
+
+// Add an element in the list
+void addElementList(Element * e, List * L);
+
+// Delete the last element of the list
+void deleteElementList(List * list);
+
+
 
 // Brick.h
-
 
 typedef struct Brick_ {
     Point a;
