@@ -1,6 +1,3 @@
-#pragma once
-#include "lib.h"
-#include "objects.h"
 #include "raytracer.h"
 
 int main() {
@@ -164,21 +161,21 @@ int main() {
 	// contactEllipseWithLine(Ellipse E, Line L);
 
 	Line remi;
-	remi.pt.x = 0;
-	remi.pt.y = 0;
-	remi.pt.z = 0;
-	remi.directionVector.x = 0;
-	remi.directionVector.y = 0;
-	remi.directionVector.z = 1;
+	remi.pt.x = 2;
+	remi.pt.y = 1;
+	remi.pt.z = -1;
+	remi.directionVector.x = -3;
+	remi.directionVector.y = -1;
+	remi.directionVector.z = 6;
 	Ellipse chocolat;
-	chocolat.x = 0;
-	chocolat.y = 0;
-	chocolat.z = 5;
-	chocolat.a = 0.5;
-	chocolat.b = 0.5;
-	chocolat.c = 0.5;
+	chocolat.x = -1;
+	chocolat.y = -1;
+	chocolat.z = 4;
+	chocolat.a = 2;
+	chocolat.b = 2;
+	chocolat.c = 2;
 	Point JM;
-	JM=contactEllipseWithLine(chocolat,remi);
+	JM = contactEllipseWithLine(chocolat,remi);
 	printf("%lf,%lf,%lf\n", JM.x,JM.y,JM.z);
 	return 0;
 }
