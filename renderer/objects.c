@@ -439,13 +439,15 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     if(delta < 0){
         return I;
     }
-
-    if (delta > 0){
-        t = (-2 * B - sqrt(delta))/(2 * A);
-    }
-
-    if (delta == 0){
-        t = - B / A;
+    else{
+        if (delta >= 0){
+            t = (-2 * B - sqrt(delta))/(2 * A);
+        }
+        else{
+            if (delta == 0){
+                t = - B / A;
+            }
+        }
     }
 
     if(t < 0){

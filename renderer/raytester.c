@@ -2,13 +2,13 @@
 
 
 int main(){
+
+    Ellipse object;
+    object.a = object.b = object.c = 500;
+
+    object.x = object.y = 0;
+    object.z = 1000;
     /*
-    Ellipse E;
-    E.a = E.b = E.c = 5;
-
-    E.x = E.y = 0;
-    E.z = -10;
-
     Plane object;
     object.a = object.b = 0;
     object.c = 1;
@@ -24,13 +24,13 @@ int main(){
     object.f = setPoint(100, 100, 0);
     object.g = setPoint(100, 100, 100);
     object.h = setPoint(0, 100, 100);
-    */
-    Tetrahedron object;
-    object.a = setPoint(-100,0,0);
-    object.b = setPoint(100,0,0);
-    object.c = setPoint(0,0,-100);
-    object.d = setPoint(0,50,50);
 
+    Tetrahedron object;
+    object.a = setPoint(   0,  0,   0);
+    object.b = setPoint(-200,  0,   0);
+    object.c = setPoint(-100,  0, 100);
+    object.d = setPoint(-100,-100, 50);
+    */
     Plane observer;
     observer.a = observer.b = 0;
     observer.c = 1;
