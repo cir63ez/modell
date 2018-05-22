@@ -7,6 +7,7 @@
 #define ELLIPSE_TYPE 0
 #define BRICK_TYPE 1
 #define TETRAHEDRON_TYPE 2
+#define LIGHT_TYPE 3
 
 typedef struct Element_
 {
