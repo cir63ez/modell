@@ -53,7 +53,7 @@ Brick decodeBrick(double * brick);
 int testIfLightCutsBrick(double *object,Light Li,Point C);
 
 // Creates a "brick" element to be added in a chained list
-Element * createElementBrick(Brick B);
+Element * createElementBrick(double * B);
 
 
 // Ellipse.h
@@ -85,7 +85,7 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C);
 Plane tangentPlaneEllipse(Ellipse E, Line L);
 
 // Creates an "ellipse" element to be added in a chained list
-Element * createElementEllipse(Ellipse E);
+Element * createElementEllipse(double * E);
 
 
 // Tetrahedron.h
@@ -111,4 +111,4 @@ Tetrahedron decodeTetrahedron(double *tetrahedron);
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 
 // Creates a "tetrahedron" element to be added in a chained list
-Element * createElementTetrahedron(Tetrahedron B);
+Element * createElementTetrahedron(double * T);

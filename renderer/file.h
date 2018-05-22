@@ -14,19 +14,12 @@ int caractereToNumber(FILE * f);
 char * caractereToName(FILE * f);
 
 // Give point in the image plane from a file
-Point pointPlaneFile (FILE * f) {
-    rewind(f);
-    Point P;
-    P.x = caractereToNumber(f);
-    P.y = caractereToNumber(f);
-    P.z = caractereToNumber(f);
-    return P;
-}
+Point pointPlaneFile (FILE * f);
 
 // Give the normal vector of the image plane from a file
 Vector normalVectorPlaneFile (FILE * f);
 
-// Give the number of caractere of a number or a word between txo ','
+// Give the number of caractere of a number or a word between two ','
 int numberCaractere(FILE * f);
 
 // Give an ellipse from a file

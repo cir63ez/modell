@@ -359,14 +359,14 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
 *
 * @return an element Brick created
 */
-Element * createElementBrick(Brick B) {
+Element * createElementBrick(double * B) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        exit(-1);
+        exit(0);
     }
     else {
         element->type = BRICK_TYPE;
-        element->object = encodeBrick(B);
+        element->object = B;
         element->next = NULL;
     }
 }
@@ -524,14 +524,14 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
 *
 * @return an element ellipse created
 */
-Element * createElementEllipse(Ellipse E) {
+Element * createElementEllipse(double * E) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+        exit(0);
     }
     else {
         element->type = ELLIPSE_TYPE;
-        element->object = encodeEllipse(E);
+        element->object = E;
         element->next = NULL;
         return element;
     }
@@ -733,14 +733,14 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
 *
 * @return an element Brick created
 */
-Element * createElementTetrahedron(Tetrahedron T) {
+Element * createElementTetrahedron(double * T) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+        exit(0);
     }
     else {
         element->type = TETRAHEDRON_TYPE;
-        element->object = encodeTetrahedron(T);
+        element->object = T;
         element->next = NULL;
     }
 }
