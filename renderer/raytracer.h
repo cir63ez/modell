@@ -8,8 +8,8 @@
 Line calculateFirstRay (Plane image, Point origin);
 
 //(test version) calculate pixel's color
-void rayTracer(Tetrahedron object, /*Light *list,*/ Plane observer, Point imageOrigin, int resolution);
+void rayTracer(List *objectList, /*Light *list,*/ Plane observer, Point imageOrigin, int resolution);
 
-int testIfLightCutsObject(Light li, List *listOfObject, Point c);
+int testIfLightCutsObject(Light li, List *objectList, Point c);
 
-int isLit(Point c, List *listOfObject, Light *listOfLight, int numberOfLight);
+int isLit(Point c, List *objectList, Light *listOfLight, int numberOfLight);
