@@ -786,6 +786,41 @@ Element * createElementTetrahedron(double * T) {
 
 
 //LIGHTS
+
+/**
+* Encode a light's array as a light structure
+*
+* @param light: Light array
+*
+* @return a light
+*/
+Light decodeLight(double * light){
+    Light L;
+    L.lightSource.x = light[0];
+    L.lightSource.y = light[1];
+    L.lightSource.z = light[2];
+    free(light);
+    return L;
+}
+
+/**
+* Encode a light as an array
+*
+* @param L: Light's name
+*
+* @return an array of double which contain the informations about the light
+*/
+double * encodeLight(Light L){
+    double *light;
+    light=(double*)malloc(3 * sizeof(double));
+    light[0] = L.lightSource.x;
+    light[1] = L.lightSource.y;
+    light[2] = L.lightSource.z;
+
+    return light;
+}
+
+
 /**
 * Create a light element for the list
 * @param L: light

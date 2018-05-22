@@ -17,7 +17,7 @@ int caractereToNumber(FILE * f) {
         if(curCaractere == '-') {
             test = 1;
         }
-        number = number * 10 + atoi(curCaractere);
+        number = number * 10 + charToInt(curCaractere);
     }
     if(test) {
         number = number * (-1);
@@ -101,6 +101,13 @@ int numberCaractere(FILE * f) {
     return nbCaractere;
 }
 
+/**
+*  Give the type of an object
+* 
+* @param name: name to compare
+*
+* @return the type of the object
+*/
 int whichType(char * name) {
     char *ellipse;
     char *brick;
@@ -124,7 +131,14 @@ int whichType(char * name) {
     }
 }
 
-List * fileNameTofind(FILE * f) {
+/**
+ * Get the list of objects from a file
+ * 
+ * @param f: File 
+ * 
+ * @return liste of object
+ */
+List * objectFromFile(FILE * f) {
     int type;
     char *endOfFile;
     double *object;
@@ -159,7 +173,7 @@ List * fileNameTofind(FILE * f) {
 
 
 /**
-*  Give a brick from a file
+* Give a brick from a file
 * 
 * @param f: file
 *
@@ -237,7 +251,7 @@ Ellipse getEllipse(FILE * f) {
 }
 
 /**
-*  Give a light from a file
+* Give a light from a file
 * 
 * @param f: file
 *
@@ -251,6 +265,14 @@ Light getLight(FILE * f) {
     return L;
 }
 
+/**
+* Treat the object to have a string of an object
+* 
+* @param type: object's type
+* @param f: file
+*
+* @return a the string of an object
+*/
 double * objectTreatement(int type, FILE * f) {
     Brick B;
     Tetrahedron T;

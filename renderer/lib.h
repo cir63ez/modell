@@ -121,3 +121,6 @@ int isPointNaN(Point P);
 
 //Sets the three coordinates of a pointsToVector
 Point setPoint(double x, double y, double z);
+
+// Change a caractere to an integer
+int charToInt(char caractere);

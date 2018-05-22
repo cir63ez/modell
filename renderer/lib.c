@@ -527,8 +527,11 @@ int isPointNaN(Point P) {
 /**
 * Sets a point
 *
-*
-*
+* @param x: coordinate x
+* @param y: coordinate y
+* @param z: coordinate z
+* 
+* @return the point
 */
 Point setPoint (double x, double y, double z){
     Point P;
@@ -536,4 +539,20 @@ Point setPoint (double x, double y, double z){
     P.y = y;
     P.z = z;
     return P;
+}
+
+/**
+ * Change a caractere to an integer
+ * 
+ * @param caractere: the caractere
+ * 
+ * @return the number corresponding to the caractere
+ */
+int charToInt(char caractere) {
+    int number;
+    number = (int)caractere;
+    if(number < 58 && number > 47){
+        return number - 48;
+    }
+    return 0;
 }
