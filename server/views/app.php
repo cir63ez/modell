@@ -51,21 +51,11 @@
                     </div>
 
                     <h4>Plane</h4>
-                    <div class="row">
-                        <div class="col-6">
-                            <h5>Normal vector</h5>
+                    <h5>Normal vector</h5>
 
-                            <input type="number" class="form-control" name="plane" placeholder="a" required>
-                            <input type="number" class="form-control" name="planeB" placeholder="b" required>
-                            <input type="number" class="form-control" name="planeC" placeholder="c" required>
-                        </div>
-                        <div class="col-6">
-                            <h5>Point in plane</h5>
-                            <input type="number" class="form-control" name="planeX" placeholder="x" required>
-                            <input type="number" class="form-control" name="planeY" placeholder="y" required>
-                            <input type="number" class="form-control" name="planeZ" placeholder="z"required>
-                        </div>
-                    </div>
+                    <input type="number" class="form-control" name="plane" placeholder="a" required>
+                    <input type="number" class="form-control" name="planeB" placeholder="b" required>
+                    <input type="number" class="form-control" name="planeC" placeholder="c" required>
                 </div>
             </div>
         </fieldset>
