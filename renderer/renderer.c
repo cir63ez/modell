@@ -16,6 +16,7 @@ int main(int argc, char **argv){
   int numberObject;
   int numberLight;
   Vector V;
+  List * L;
 
   f = fopen("arguments.txt", 'r');
   P = pointPlaneFile(f);
@@ -24,6 +25,6 @@ int main(int argc, char **argv){
   V = normalVectorPlaneFile(f);
   numberObject = caractereToNumber(f);
   numberLight = caractereToNumber(f);
-
+  L = objectFromFile(f);
   fclose(f);
 }

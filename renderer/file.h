@@ -22,8 +22,20 @@ Vector normalVectorPlaneFile (FILE * f);
 // Give the number of caractere of a number or a word between two ','
 int numberCaractere(FILE * f);
 
-// Give an ellipse from a file
-Ellipse fileToEllipse(FILE * f);
+// Give the type of an object
+int whichType(char * name);
 
-// Give the position of a light from a file
-Light fileToLight(FILE * f);
+// Get the list of objects from a file
+List * objectFromFile(FILE * f);
+
+// Give a brick from a file
+Brick getBrick(FILE * f);
+
+// Give a tetrahedron from a file
+Tetrahedron getTetrahedron(FILE * f);
+
+// Give an ellipse from a file
+Ellipse getEllipse(FILE * f);
+
+// Give a light from a file
+Light getLight(FILE * f);

@@ -161,21 +161,21 @@ int main() {
 	// contactEllipseWithLine(Ellipse E, Line L);
 
 	Line remi;
-	remi.pt.x = 2;
-	remi.pt.y = 1;
-	remi.pt.z = -1;
-	remi.directionVector.x = -3;
-	remi.directionVector.y = -1;
-	remi.directionVector.z = 6;
+	remi.pt.x = 0;
+	remi.pt.y = 0;
+	remi.pt.z = 0;
+	remi.directionVector.x = 1;
+	remi.directionVector.y = 1;
+	remi.directionVector.z = 1;
 	Ellipse chocolat;
-	chocolat.x = -1;
-	chocolat.y = -1;
-	chocolat.z = 4;
+	chocolat.x = 0;
+	chocolat.y = 0;
+	chocolat.z = 0;
 	chocolat.a = 2;
 	chocolat.b = 2;
 	chocolat.c = 2;
 	Point JM;
 	JM = contactEllipseWithLine(chocolat,remi);
-	printf("%lf,%lf,%lf\n", JM.x,JM.y,JM.z);
+	printf("ellipse : %lf,%lf,%lf\n", JM.x,JM.y,JM.z);
 	return 0;
 }
