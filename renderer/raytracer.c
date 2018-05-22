@@ -110,23 +110,23 @@ void rayTracer(Tetrahedron object, Plane observer, Point imageOrigin, int resolu
 */
 
 int testIfLightCutsObject(Light li, List *listOfObject, Point c){
-    while(listOfObject->tete->next != NULL) {
-        if(listOfObject->tete->type == ELLIPSE_TYPE){
-            if(testIfLightCutsEllipse(listOfObject->tete->object, li, c) != TRUE){
+    while(listOfObject->head->next != NULL) {
+        if(listOfObject->head->type == ELLIPSE_TYPE){
+            if(testIfLightCutsEllipse(listOfObject->head->object, li, c) != TRUE){
                 return TRUE;
             }
         }
-        else if(listOfObject->tete->type == BRICK_TYPE){
-            if(testIfLightCutsBrick(listOfObject->tete->object, li, c) != TRUE){
+        else if(listOfObject->head->type == BRICK_TYPE){
+            if(testIfLightCutsBrick(listOfObject->head->object, li, c) != TRUE){
                 return TRUE;
             }
         }
-        else if(listOfObject->tete->type == TETRAHEDRON_TYPE){
-            if(testIfLightCutsTetrahedron(listOfObject->tete->object, li, c) != TRUE){
+        else if(listOfObject->head->type == TETRAHEDRON_TYPE){
+            if(testIfLightCutsTetrahedron(listOfObject->head->object, li, c) != TRUE){
                 return TRUE;
             }
         }
-        *(listOfObject)->tete = *(listOfObject)->tete->next;
+        *(listOfObject)->head = *(listOfObject)->head->next;
     }
     return FALSE;
 }
