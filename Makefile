@@ -9,7 +9,7 @@ CFLAGS?=-lm -Wall
 # Main file in the "CROOT" folder ($(CROOT)/$(TARGET).c)
 TARGET?=renderer
 # Local libraries files needed for the compilation (LOCAL_LIBS=lib1.o lib2.o lib3.o) -	They will be automatically compiled
-LOCAL_LIBS?=lib.o bmp.o
+LOCAL_LIBS?=bmp.o lib.o raytracer.o objects.o
 
 # PHP Server Options
 
@@ -49,4 +49,6 @@ clean:
 	find $(CROOT) -type f -name "*out*" -delete
 	find $(CROOT) -type f -name "*.o" -delete
 	find $(CROOT) -type f -name "*.bmp" -delete
+	find $(PHPROOT) -type f -name "*.bmp" -delete
 	find . -type f -name "*.bmp" -delete
+	find . -type f -name "data.txt" -delete
