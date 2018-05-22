@@ -27,8 +27,8 @@ Line calculateFirstRay (Plane image, Point origin){
     directionVector.y = image.b;
     directionVector.z = image.c;
     firstRay.directionVector = directionVector;
-    printf("%lf %lf %lf \n", directionVector.x, directionVector.y, directionVector.z);
-    printf("%lf %lf %lf \n", origin.x, origin.y, origin.z);
+    //printf("%lf %lf %lf \n", directionVector.x, directionVector.y, directionVector.z);
+    //printf("%lf %lf %lf \n", origin.x, origin.y, origin.z);
     return firstRay;
 }
 
@@ -78,8 +78,8 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
         contactPoint = contactEllipseWithLine(E, tmpLine);
 
 
-        printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
-
+        //printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
+        //printf("%lf,%lf,%lf\n",contactPoint.x,contactPoint.y,contactPoint.z);
         if(isnan(contactPoint.x)
             || isnan(contactPoint.y)
             || isnan(contactPoint.z)){
@@ -88,6 +88,8 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
         }
         else{
             BMPSetColor(imageFile, x, y, white);
+            printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
+            printf("blanc\n");
         }
 
         tmpLine = firstRay;
