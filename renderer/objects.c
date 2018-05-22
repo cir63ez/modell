@@ -411,11 +411,16 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
         t = - B / A;
     }
 
-    I.x = L.directionVector.x * t + L.pt.x;
-    I.y = L.directionVector.y * t + L.pt.y;
-    I.z = L.directionVector.z * t + L.pt.z;
+    if(t <= 0){
+        return I;
+    }
+    else{
+        I.x = L.directionVector.x * t + L.pt.x;
+        I.y = L.directionVector.y * t + L.pt.y;
+        I.z = L.directionVector.z * t + L.pt.z;
+        return I;
+    }
 
-    return I;
 }
 
 
