@@ -1,4 +1,3 @@
-#include "lib.h"
 #include "objects.h"
 
 // List.c
