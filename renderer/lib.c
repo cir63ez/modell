@@ -524,4 +524,16 @@ int isPointNaN(Point P) {
     }
 }
 
-//en travaux
+/**
+* Sets a point
+*
+*
+*
+*/
+Point setPoint (double x, double y, double z){
+    Point P;
+    P.x = x;
+    P.y = y;
+    P.z = z;
+    return P;
+}
