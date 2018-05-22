@@ -3,16 +3,52 @@
 
 // List.c
 
+
+/**
+ * Initialized the list
+ * @param L: list
+ * 
+ * @return list
+ */
+List * initList() {
+    List * L;
+    L = (List *)malloc(sizeof(List));
+    L->nbElement = 0;
+    L->head = NULL;
+    return L;
+}
+
+/**
+* Add an element in the list
+* @param e: element
+*
+* @return void
+*/
+void addElementList(Element * e, List * L) {
+    Element * curElement;
+    curElement = L->head;
+    if(L->head == NULL) {
+        L->head = e;
+    }
+    else {
+        while(curElement->next != NULL) {
+            curElement = curElement->next;
+        }
+        curElement->next = e;
+    }
+    L->nbElement++;
+}
+
 /**
 * Delete the last element of the list
-* @param B: tete's list
+* @param B: head's list
 *
 * @return void
 */
 void deleteElementList(List * list) {
-    if(list->tete != NULL) {
+    if(list->head != NULL) {
         Element *previous = NULL;
-        Element *current = list->tete;
+        Element *current = list->head;
 
         while(current->next != NULL) {
             previous = current;
@@ -359,14 +395,14 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
 *
 * @return an element Brick created
 */
-Element * createElementBrick(Brick B) {
+Element * createElementBrick(double * B) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        exit(-1);
+        exit(0);
     }
     else {
         element->type = BRICK_TYPE;
-        element->object = encodeBrick(B);
+        element->object = B;
         element->next = NULL;
     }
 }
@@ -524,14 +560,14 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
 *
 * @return an element ellipse created
 */
-Element * createElementEllipse(Ellipse E) {
+Element * createElementEllipse(double * E) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+        exit(0);
     }
     else {
         element->type = ELLIPSE_TYPE;
-        element->object = encodeEllipse(E);
+        element->object = E;
         element->next = NULL;
         return element;
     }
@@ -733,14 +769,34 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
 *
 * @return an element Brick created
 */
-Element * createElementTetrahedron(Tetrahedron T) {
+Element * createElementTetrahedron(double * T) {
     Element * element = (Element *)malloc(sizeof(Element));
     if (element == NULL) {
-        return NULL; //TODO: exit ?;
+        exit(0);
     }
     else {
         element->type = TETRAHEDRON_TYPE;
-        element->object = encodeTetrahedron(T);
+        element->object = T;
+        element->next = NULL;
+    }
+}
+
+
+//LIGHTS
+/**
+* Create a light element for the list
+* @param L: light
+*
+* @return an element Light created
+*/
+Element * createElementLight(double * L) {
+    Element * element = (Element *)malloc(sizeof(Element));
+    if (element == NULL) {
+        exit(0);
+    }
+    else {
+        element->type = LIGHT_TYPE;
+        element->object = L;
         element->next = NULL;
     }
 }

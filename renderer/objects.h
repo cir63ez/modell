@@ -18,13 +18,22 @@ typedef struct Element_
 
 typedef struct List_
 {
-    Element *tete;
+    Element *head;
     double nbElement;
 } List;
 
+//Initialized the list
+List * initList();
+
+// Add an element in the list
+void addElementList(Element * e, List * L);
+
+// Delete the last element of the list
+void deleteElementList(List * list);
+
+
 
 // Brick.h
-
 
 typedef struct Brick_ {
     Point a;
@@ -53,7 +62,7 @@ Brick decodeBrick(double * brick);
 int testIfLightCutsBrick(double *object,Light Li,Point C);
 
 // Creates a "brick" element to be added in a chained list
-Element * createElementBrick(Brick B);
+Element * createElementBrick(double * B);
 
 
 // Ellipse.h
@@ -85,7 +94,7 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C);
 Plane tangentPlaneEllipse(Ellipse E, Line L);
 
 // Creates an "ellipse" element to be added in a chained list
-Element * createElementEllipse(Ellipse E);
+Element * createElementEllipse(double * E);
 
 
 // Tetrahedron.h
@@ -111,4 +120,4 @@ Tetrahedron decodeTetrahedron(double *tetrahedron);
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 
 // Creates a "tetrahedron" element to be added in a chained list
-Element * createElementTetrahedron(Tetrahedron B);
+Element * createElementTetrahedron(double * T);
