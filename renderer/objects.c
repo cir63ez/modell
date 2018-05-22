@@ -7,7 +7,7 @@
 /**
  * Initialized the list
  * @param L: list
- * 
+ *
  * @return list
  */
 List * initList() {
@@ -421,6 +421,7 @@ Element * createElementBrick(double * B) {
 Point contactEllipseWithLine(Ellipse E, Line L) {
     double A;
     double B;
+    double B2;
     double C;
     double delta;
     double t;
@@ -430,8 +431,9 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     I = initPointNaN();
 
     A = (pow(L.directionVector.x / E.a, 2) + pow(L.directionVector.y / E.b, 2) + pow(L.directionVector.z / E.c, 2));
-    B = (L.directionVector.x * (L.pt.x - E.x)) / pow(E.a, 2) + (L.directionVector.y * (L.pt.y - E.y))/pow(E.b, 2) + (L.directionVector.z * (L.pt.z - E.z)) / pow(E.c, 2);
-    C = pow( (L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b,2) + pow((L.pt.z - E.z) / E.c,2);
+    B2 = (L.directionVector.z * (L.pt.z - E.z)) / pow(E.c, 2);
+    B = (L.directionVector.x * (L.pt.x - E.x)) / pow(E.a, 2) + (L.directionVector.y * (L.pt.y - E.y))/pow(E.b, 2) + B2;
+    C = pow( (L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b, 2) + pow((L.pt.z - E.z) / E.c, 2) - 1;
 
     delta = 4 * (pow(B,2) - A * C);
 
@@ -447,7 +449,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
         t = - B / A;
     }
 
-    if(t <= 0){
+    if(t < 0){
         return I;
     }
     else{
