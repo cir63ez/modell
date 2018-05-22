@@ -1,5 +1,7 @@
 #pragma once
 #include "lib.h"
+#include "objects.h"
+#include "raytracer.h"
 
 int main() {
 	// pointsToVector
@@ -158,5 +160,25 @@ int main() {
 	ppt.y=99;
 	ppt.z=99;
 	printf("%d\n",isOnPolygon(lp,numberOfPoint,ppt));
+
+	// contactEllipseWithLine(Ellipse E, Line L);
+
+	Line remi;
+	remi.pt.x = 0;
+	remi.pt.y = 0;
+	remi.pt.z = 0;
+	remi.directionVector.x = 0;
+	remi.directionVector.y = 0;
+	remi.directionVector.z = 1;
+	Ellipse chocolat;
+	chocolat.x = 0;
+	chocolat.y = 0;
+	chocolat.z = 5;
+	chocolat.a = 0.5;
+	chocolat.b = 0.5;
+	chocolat.c = 0.5;
+	Point JM;
+	JM=contactEllipseWithLine(chocolat,remi);
+	printf("%lf,%lf,%lf\n", JM.x,JM.y,JM.z);
 	return 0;
 }

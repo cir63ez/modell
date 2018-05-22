@@ -1,5 +1,5 @@
 #include "raytracer.h"
-#include "list.h"
+
 /*Missing : paramètres d'entrée du main
 *          Ellipse E : the ellipsoid
 *          Line firstRay : the ray corresponding to the (0,0) pixel
@@ -27,7 +27,8 @@ Line calculateFirstRay (Plane image, Point origin){
     directionVector.y = image.b;
     directionVector.z = image.c;
     firstRay.directionVector = directionVector;
-
+    //printf("%lf %lf %lf \n", directionVector.x, directionVector.y, directionVector.z);
+    //printf("%lf %lf %lf \n", origin.x, origin.y, origin.z);
     return firstRay;
 }
 
@@ -38,9 +39,6 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
     BMP *imageFile;
     imageFile = newBMP(resolution, resolution);
     Rgb white;
-    white.red = 127;
-    white.green = 127;
-    white.blue = 127    ;
     white.red = 255;
     white.green = 255;
     white.blue = 255;
@@ -71,20 +69,27 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
         x = i % (resolution);
         y = (i - x)/resolution;
 
-        tmpLine.pt.x += x * i;
-        tmpLine.pt.y += y * i;
+        tmpLine.pt.x += x;
+        tmpLine.pt.y -= y;
+
+        //printf("x %2d  y %2d \n", x, y);
 
 
         contactPoint = contactEllipseWithLine(E, tmpLine);
 
+
+        //printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
+        //printf("%lf,%lf,%lf\n",contactPoint.x,contactPoint.y,contactPoint.z);
         if(isnan(contactPoint.x)
             || isnan(contactPoint.y)
             || isnan(contactPoint.z)){
 
-            BMPSetColor(imageFile , x, y, white);
+            BMPSetColor(imageFile , x, y, black);
         }
         else{
-            BMPSetColor(imageFile, x, y, black);
+            BMPSetColor(imageFile, x, y, white);
+            printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
+            printf("blanc\n");
         }
 
         tmpLine = firstRay;
@@ -104,7 +109,7 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
 * @return FALSE if the light doesnt cuts an object before point c
 */
 
-int testIfLightCutsBricktObject(Light li, List *listOfObject, Point c){
+int testIfLightCutsObject(Light li, List *listOfObject, Point c){
     while(listOfObject->tete->next != NULL) {
         if(listOfObject->tete->type == ELLIPSE_TYPE){
             if(testIfLightCutsEllipse(listOfObject->tete->object, li, c) != TRUE){
