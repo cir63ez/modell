@@ -1,7 +1,7 @@
 <?php $id = (isset($_GET['id'])) ? htmlspecialchars(filter_input(INPUT_GET, 'id'), ENT_QUOTES) : uniqid(); ?>
 
 <div class="card my-2" id="<?= $id; ?>">
-    <input type="text" name="<?= $id; ?>" value="brick" hidden="hidden">
+    <input type="text" name="<?= $id; ?>" value="pyramid" hidden="hidden">
     <div class="card-header bg-info h2 text-white"><i class="fas fa-cube"></i> Object - Pyramid</div>
     <div class="card-body">
     <h4>Base</h4>

@@ -2,22 +2,35 @@
 
 <div class="card my-2" id="<?= $id; ?>">
     <input type="text" name="<?= $id; ?>" value="cube" hidden="hidden">
-    <div class="card-header bg-info h2 text-white"><i class="fas fa-cube"></i> Object - Cube</div>
+    <div class="card-header bg-info h2 text-white"><i class="fas fa-cube"></i> Object - cube</div>
     <div class="card-body">
         <div class="row">
-            <div class="col-6">
-                <h4>Center</h4>
+            <div class="col-3">
+                <h4>Point A</h4>
 
-                <input type="number" class="form-control" name="<?= $id; ?>_centerX" placeholder="X" required>
-                <input type="number" class="form-control" name="<?= $id; ?>_centerY" placeholder="Y"required>
-                <input type="number" class="form-control" name="<?= $id; ?>_centerZ" placeholder="Z"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointAX" placeholder="X" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointAY" placeholder="Y"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointAZ" placeholder="Z"required>
             </div>
-            <div class="col-6">
-                <h4>Semi axis</h4>
+            <div class="col-3">
+                <h4>Point B</h4>
 
-                <input type="number" class="form-control" name="<?= $id; ?>_semiRangeA" placeholder="a" required>
-                <input type="number" class="form-control" name="<?= $id; ?>_semiRangeB" placeholder="b" required>
-                <input type="number" class="form-control" name="<?= $id; ?>_semiRangeC" placeholder="c" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointBX" placeholder="X" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointBY" placeholder="Y"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointBZ" placeholder="Z"required>
+            </div><div class="col-3">
+                <h4>Point C</h4>
+
+                <input type="number" class="form-control" name="<?= $id; ?>_pointCX" placeholder="X" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointCY" placeholder="Y"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointCZ" placeholder="Z"required>
+            </div>
+            <div class="col-3">
+                <h4>Point D</h4>
+
+                <input type="number" class="form-control" name="<?= $id; ?>_pointDX" placeholder="X" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointDY" placeholder="Y"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_pointDZ" placeholder="Z"required>
             </div>
         </div>
 

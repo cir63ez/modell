@@ -11,9 +11,44 @@ function nbObjects($serialized) {
     return $nbSemiColumns - $nbLights;
 }
 
-function generalizeCube($cube) {}
+function generalizeCube($cube) {   
+    $object = 'brick,' . $cube[1] . ',' . $cube[2] . ',' . $cube[3] . ',';
+    $object .= $cube[4] . ',' . $cube[5] . ',' . $cube[6] . ',';
+    $object .= $cube[7] . ',' . $cube[8] . ',' . $cube[9] . ',';
 
-function generalizePyramid($pyramid) {}
+    $object .= (int)$cube[4] + (int)$cube[7] - (int)$cube[1] . ',';
+    $object .= (int)$cube[5] + (int)$cube[8] - (int)$cube[2] . ',';
+    $object .= (int)$cube[6] + (int)$cube[9] - (int)$cube[3] . ',';
+    
+    $object .= $cube[10] . ',' . $cube[11] . ',' . $cube[12] . ',';
+
+    $object .= (int)$cube[10] + (int)$cube[4] - (int)$cube[1] . ',';
+    $object .= (int)$cube[11] + (int)$cube[5] - (int)$cube[2] . ',';
+    $object .= (int)$cube[12] + (int)$cube[6] - (int)$cube[3] . ',';
+
+    $object .= (int)$cube[10] + (int)$cube[7] - (int)$cube[1] . ',';
+    $object .= (int)$cube[11] + (int)$cube[8] - (int)$cube[2] . ',';
+    $object .= (int)$cube[12] + (int)$cube[9] - (int)$cube[3] . ',';
+
+    $object .= (int)$cube[10] + (int)$cube[7] + (int)$cube[4] - 2*(int)$cube[1] . ',';
+    $object .= (int)$cube[11] + (int)$cube[8] + (int)$cube[5] - 2*(int)$cube[2] . ',';
+    $object .= (int)$cube[12] + (int)$cube[9] + (int)$cube[6] - 2*(int)$cube[3];
+
+    return $object;
+}
+
+function generalizePyramid($pyramid) {
+    $object = 'brick,' . $pyramid[1] . ',' . $pyramid[2] . ',' . $pyramid[3] . ',';
+    $object .= $pyramid[4] . ',' . $pyramid[5] . ',' . $pyramid[6] . ',';
+    $object .= $pyramid[7] . ',' . $pyramid[8] . ',' . $pyramid[9] . ',';
+    $object .= $pyramid[10] . ',' . $pyramid[11] . ',' . $pyramid[12] . ',';
+    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
+    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
+    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
+    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
+
+    return $object;
+}
 
 function generalizeSphere($sphere) {
     $object = 'ellipsoid,' . $sphere[1] . ',' . $sphere[2] . ',' . $sphere[3] . ',';
@@ -30,9 +65,8 @@ function serializeForm($formInput) {
 
     foreach($formInput as $element => $value) {
         $semiColumns[$i] = false;
-    
-    
-        if((intval($value) == 0) && ($value !== 0)) {
+
+        if(!is_numeric($value)) {
             $nbSemiColumns++;
             $semiColumns[$i] = true;
         }
@@ -55,6 +89,7 @@ function serializeForm($formInput) {
         $i++;
     }
 
+
     $nbObjects = nbObjects($serializedData);
     $nbLights = nbLights($serializedData);
 
@@ -64,8 +99,9 @@ function serializeForm($formInput) {
     foreach($dataArray as $index => $element) {
         $split = explode(',', $element);
     
-        //if($split[0] == 'cube') {$dataArray[$index] = generalizeCube($element);}        // Cube -> ?
-        if($split[0] == 'sphere') {$dataArray[$index] = generalizeSphere($split);}    // Sphere -> Ellipsoid
+        if($split[0] == 'cube') { $dataArray[$index] = generalizeCube($split); }
+        if($split[0] == 'pyramid') { $dataArray[$index] = generalizePyramid($split); }
+        if($split[0] == 'sphere') { $dataArray[$index] = generalizeSphere($split); }
     }
     
     return implode(';', $dataArray);
