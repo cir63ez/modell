@@ -464,7 +464,7 @@ int isOnPolygon(Point *li,double numberOfPoint,Point t){
 *
 * @param I: Point
 * @param P: Plane
-*                    
+*
 * @return 1 if the point is on the plane
 * @return 0 if the point is not on the plane
 */
@@ -517,10 +517,10 @@ Vector initVectorNaN() {
 */
 int isPointNaN(Point P) {
     if(isnan(P.x) || isnan(P.y) || isnan(P.z)) {
-        return FALSE;
+        return TRUE;
     }
     else {
-        return TRUE;
+        return FALSE;
     }
 }
 
