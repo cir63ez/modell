@@ -34,7 +34,7 @@ Line calculateFirstRay (Plane image, Point origin){
 
  /*Add parameter Light *list,*/
 
-void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
+void rayTracer(Tetrahedron object, Plane observer, Point imageOrigin, int resolution){
     Point contactPoint;
     BMP *imageFile;
     imageFile = newBMP(resolution, resolution);
@@ -75,7 +75,7 @@ void rayTracer(Ellipse E, Plane observer, Point imageOrigin, int resolution){
         //printf("x %2d  y %2d \n", x, y);
 
 
-        contactPoint = contactEllipseWithLine(E, tmpLine);
+        contactPoint = contactTetrahedronWithLine(object, tmpLine);
 
 
         //printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
