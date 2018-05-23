@@ -358,7 +358,6 @@ Brick decodeBrick(double *brick){
     B.h.x = brick[21];
     B.h.y = brick[22];
     B.h.z = brick[23];
-    free(brick);
     return B;
 }
 
@@ -499,7 +498,6 @@ Ellipse decodeEllipse(double * ellipse){
     E.x = ellipse[3];
     E.y = ellipse[4];
     E.z = ellipse[5];
-    free(ellipse);
     return E;
 }
 
@@ -738,7 +736,6 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
     T.d.x = tetrahedron[9];
     T.d.y = tetrahedron[10];
     T.d.z = tetrahedron[11];
-    free(tetrahedron);
     return T;
 }
 
@@ -802,7 +799,6 @@ Light decodeLight(double * light){
     L.lightSource.x = light[0];
     L.lightSource.y = light[1];
     L.lightSource.z = light[2];
-    free(light);
     return L;
 }
 
