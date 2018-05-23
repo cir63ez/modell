@@ -27,7 +27,7 @@ Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
     
     V = vPrime;
 
-    vPrime.x = V.x * cos(tetaZ) + y * sin(tetaZ);
+    vPrime.x = V.x * cos(tetaZ) + V.y * sin(tetaZ);
     vPrime.y = - V.x * sin(tetaZ) + V.y * cos(tetaZ);
     vPrime.z = V.y;
 
