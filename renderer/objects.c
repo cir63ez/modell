@@ -763,7 +763,7 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
         return FALSE;
     }
     else{
-        return TRUE
+        return TRUE;
     }
 }
 

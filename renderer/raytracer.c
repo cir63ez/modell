@@ -124,7 +124,7 @@ int testIfLightCutsObject(Light li, List *objectList, Point c){
         }
     }
         objectList->head = objectList->head->next;
-    }
+    
     return FALSE;
 }
 
