@@ -5,13 +5,58 @@
 *  Calls raytracer.c
 */
 
+
+
+/////--------------A CHANGER DE PLACE--------------//////
+/**
+ * Give the vector of a rotation
+ * 
+ * @param V: vector to change
+ * @param tetaX: angle of rotation on x axe
+ * @param tetaY: angle of rotation on y axe
+ * @param tetaZ: angle of rotation on z axe
+ *  
+ * @return vector changed
+ */ 
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
+    Vector vPrime;
+    vPrime.x = V.x;
+    vPrime.y = V.y * cos(tetaX) + V.z * sin(tetaX);
+    vPrime.z = -V.y * sin(tetaX) + V.z * cos(tetaX);
+    
+    V = vPrime;
+
+    vPrime.x = V.x * cos(tetaY) - V.z * sin(tetaY);
+    vPrime.y = V.y;
+    vPrime.z = V.x * sin(tetaY) + V.z * cos(tetaY);
+    
+    V = vPrime;
+
+    vPrime.x = V.x * cos(tetaZ) + V.y * sin(tetaZ);
+    vPrime.y = - V.x * sin(tetaZ) + V.y * cos(tetaZ);
+    vPrime.z = V.y;
+
+    return vPrime;
+}
+/*
+// Give the vector of a rotation
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ);*/
+
+/////---------------------FIN----------------------//////
+
 //-----a suppr------/
+#define _PI 3.14159265359
+
 void affichePoint(Point I) {
-  printf("%lf %lf %lf", I.x, I.y, I.z);
+  printf("%lf %lf %lf\n", I.x, I.y, I.z);
+}
+
+void afficheVector(Vector I) {
+  printf("%lf %lf %lf\n", I.x, I.y, I.z);
 }
 
 void affichePlan(Plane Q) {
-  printf("point %lf %lf %lf dirVec %lf %lf %lf", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
+  printf("Plan : point %lf %lf %lf dirVec %lf %lf %lf\n", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
 }
 //----fin----//
 
@@ -116,7 +161,7 @@ int main(int argc, char **argv){
 
         I = contactBrickWithLine(B,M);
         affichePoint(I);
-        
+
         //------goat-------//
 
         printf("\n");
@@ -160,7 +205,9 @@ int main(int argc, char **argv){
 
         affichePoint(pointIntersectionLineAndPlane(gLA, gP)); printf("\n");
         affichePoint(pointIntersectionLineAndPlane(gLB, gP));
-
+        afficheVector(V);
+        afficheVector(matriceRotation(V,_PI,0,0));
+        printf("produit scalaire %lf", scalarProduct(V, matriceRotation(V,_PI,0,0)));
         //-------fin-------//
     }
     fclose(f);
