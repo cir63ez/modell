@@ -8,7 +8,7 @@
 Line calculateFirstRay (Plane image, Point origin);
 
 //(test version) calculate pixel's color
-void rayTracer(List *objectList, /*Light *list,*/ Plane observer, Point imageOrigin, int resolution);
+void rayTracer(List *objectList, /*Light *Lightlist,*/ Plane observer, Point imageOrigin, int resolution);
 
 int testIfLightCutsObject(Light li, List *objectList, Point c);
 

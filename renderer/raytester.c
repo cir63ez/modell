@@ -4,7 +4,7 @@
 int main(){
 
     Ellipse E;
-    E.a = E.b = E.c = 500;
+    E.a = E.b = E.c = 500000;
 
     E.x = E.y = 0;
     E.z = 1000;
