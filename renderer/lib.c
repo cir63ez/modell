@@ -270,10 +270,9 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
     I.y = NaN;
     I.z = NaN;
 
-    //nominator = ((P.a - P.x) * L.pt.x + (P.b - P.y) * L.pt.y + (P.c - P.z) * L.pt.z);
     nominator = P.a * (L.pt.x - P.x) + P.b * (L.pt.y - P.y) + P.c * (L.pt.z - P.z);
     denominator = P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z;
-    //denominator =((P.a - P.x) * L.directionVector.x + (P.b - P.y) * L.directionVector.y + (P.c - P.z) * L.directionVector.z);
+
     if(denominator == 0) {
         return I;
     }
