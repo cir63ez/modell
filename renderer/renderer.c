@@ -5,6 +5,16 @@
 *  Calls raytracer.c
 */
 
+//-----a suppr------/
+void affichePoint(Point I) {
+  printf("%lf %lf %lf", I.x, I.y, I.z);
+}
+
+void affichePlan(Plane Q) {
+  printf("point %lf %lf %lf dirVec %lf %lf %lf", Q.a, Q.b, Q.c, Q.x, Q.y, Q.z);
+}
+//----fin----//
+
 int main(int argc, char **argv){
     FILE * f;
 
@@ -48,6 +58,60 @@ int main(int argc, char **argv){
         printf("light %s %lf %lf %lf \n", nameL, L.lightSource.x, L.lightSource.y, L.lightSource.z);*/
         
         L = objectFromFile(f); 
+
+        //-------test-------//
+        Brick B;
+        B.a.x = 0;
+        B.a.y = 3;
+        B.a.z = 0;
+
+        B.b.x = 2;
+        B.b.y = 3;
+        B.b.z = 0;
+
+        B.c.x = 2;
+        B.c.y = 1;
+        B.c.z = 0;
+
+        B.d.x = 0;
+        B.d.y = 1;
+        B.d.z = 0;
+
+        B.e.x = 0;
+        B.e.y = 3;
+        B.e.z = 2;
+
+        B.f.x = 2;
+        B.f.y = 3;
+        B.f.z = 2;
+
+        B.g.x = 2;
+        B.g.y = 1;
+        B.g.z = 2;
+
+        B.h.x = 0;
+        B.h.y = 1;
+        B.h.z = 2;
+        printf("%d\n", DoesBrickExist(B));
+
+        Line M;
+        M.directionVector.x = 1;
+        M.directionVector.y = 1;
+        M.directionVector.z = 1;
+
+        M.pt.x = 0;
+        M.pt.y = 0;
+        M.pt.z = 0;
+
+
+        Plane Plan = planeEquationFromPoints(B.a,B.e,B.f);
+        affichePlan(Plan);
+        Point I = pointIntersectionLineAndPlane(M,Plan);
+        affichePoint(I);
+
+        I = contactBrickWithLine(B,M);
+        affichePoint(I);
+        //-------fin-------//
     }
     fclose(f);
     free(L);
