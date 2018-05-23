@@ -560,3 +560,34 @@ int charToInt(char caractere) {
     }
     return 0;
 }
+
+/**
+ * Give the vector of a rotation
+ * 
+ * @param V: vector to change
+ * @param tetaX: angle of rotation on x axe
+ * @param tetaY: angle of rotation on y axe
+ * @param tetaZ: angle of rotation on z axe
+ *  
+ * @return vector changed
+ */ 
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
+    Vector vPrime;
+    vPrime.x = V.x;
+    vPrime.y = V.y * cos(tetaX) - V.z * sin(tetaX);
+    vPrime.z = V.y * sin(tetaX) + V.z * cos(tetaX);
+    
+    V = vPrime;
+
+    vPrime.x = V.x * cos(tetaY) + V.z * sin(tetaY);
+    vPrime.y = V.y;
+    vPrime.z = -V.x * sin(tetaY) + V.z * cos(tetaY);
+    
+    V = vPrime;
+
+    vPrime.x = V.x * cos(tetaZ) - V.y * sin(tetaZ);
+    vPrime.y = V.x * sin(tetaZ) + V.y * cos(tetaZ);
+    vPrime.z = V.y;
+
+    return vPrime;
+}
