@@ -404,6 +404,7 @@ Element * createElementBrick(double * B) {
         element->object = B;
         element->next = NULL;
     }
+    return element;
 }
 
 // Ellipse.c
@@ -574,6 +575,7 @@ Element * createElementEllipse(double * E) {
         element->next = NULL;
         return element;
     }
+    return element;
 }
 
 
@@ -782,6 +784,7 @@ Element * createElementTetrahedron(double * T) {
         element->object = T;
         element->next = NULL;
     }
+    return element;
 }
 
 
@@ -837,4 +840,5 @@ Element * createElementLight(double * L) {
         element->object = L;
         element->next = NULL;
     }
+    return element;
 }

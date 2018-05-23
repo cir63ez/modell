@@ -11,13 +11,13 @@
 int caractereToNumber(FILE * f) {
     int number = 0;
     int test = 0;
-    char curCaractere = '\0';
+    char curCaractere = fgetc(f);
      while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
-        curCaractere = fgetc(f);
         if(curCaractere == '-') {
             test = 1;
         }
         number = number * 10 + charToInt(curCaractere);
+        curCaractere = fgetc(f);
     }
     if(test) {
         number = number * (-1);
@@ -39,8 +39,9 @@ char * caractereToName(FILE * f) {
     int nbletter = 0;
     int test = 0;
     char curCaractere = '\0';
+    curCaractere = fgetc(f);
      while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
-        name = (char *)realloc(name, sizeof(char) * nbletter);
+        name = (char *)realloc(name, sizeof(char) * (nbletter + 1));
         *(name + nbletter) = curCaractere;
         nbletter++;
         curCaractere = fgetc(f);
@@ -143,7 +144,7 @@ List * objectFromFile(FILE * f) {
     char *endOfFile;
     double *object;
     char *name;
-    Element * e;
+    Element *e;
     List *L;
     L = initList();
 
@@ -167,6 +168,9 @@ List * objectFromFile(FILE * f) {
             e = createElementLight(object);
         }   
         addElementList(e, L);
+        name = caractereToName(f);
+        type = whichType(name);
+
     }
     return L;
 }
@@ -181,30 +185,30 @@ List * objectFromFile(FILE * f) {
 */
 Brick getBrick(FILE * f) {
     Brick B;
-    B.a.x = caractereToNumber(f);
-    B.a.y = caractereToNumber(f);
-    B.a.z = caractereToNumber(f);
-    B.b.x = caractereToNumber(f);
-    B.b.y = caractereToNumber(f);
-    B.b.z = caractereToNumber(f);
-    B.c.x = caractereToNumber(f);
-    B.c.y = caractereToNumber(f);
-    B.c.z = caractereToNumber(f);
-    B.d.x = caractereToNumber(f);
-    B.d.y = caractereToNumber(f);
-    B.d.z = caractereToNumber(f);
-    B.e.x = caractereToNumber(f);
-    B.e.y = caractereToNumber(f);
-    B.e.z = caractereToNumber(f);
-    B.f.x = caractereToNumber(f);
-    B.f.y = caractereToNumber(f);
-    B.f.z = caractereToNumber(f);
-    B.g.x = caractereToNumber(f);
-    B.g.y = caractereToNumber(f);
-    B.g.z = caractereToNumber(f);
-    B.h.x = caractereToNumber(f);
-    B.h.y = caractereToNumber(f);
-    B.h.z = caractereToNumber(f);
+    B.a.x = (double)caractereToNumber(f);
+    B.a.y = (double)caractereToNumber(f);
+    B.a.z = (double)caractereToNumber(f);
+    B.b.x = (double)caractereToNumber(f);
+    B.b.y = (double)caractereToNumber(f);
+    B.b.z = (double)caractereToNumber(f);
+    B.c.x = (double)caractereToNumber(f);
+    B.c.y = (double)caractereToNumber(f);
+    B.c.z = (double)caractereToNumber(f);
+    B.d.x = (double)caractereToNumber(f);
+    B.d.y = (double)caractereToNumber(f);
+    B.d.z = (double)caractereToNumber(f);
+    B.e.x = (double)caractereToNumber(f);
+    B.e.y = (double)caractereToNumber(f);
+    B.e.z = (double)caractereToNumber(f);
+    B.f.x = (double)caractereToNumber(f);
+    B.f.y = (double)caractereToNumber(f);
+    B.f.z = (double)caractereToNumber(f);
+    B.g.x = (double)caractereToNumber(f);
+    B.g.y = (double)caractereToNumber(f);
+    B.g.z = (double)caractereToNumber(f);
+    B.h.x = (double)caractereToNumber(f);
+    B.h.y = (double)caractereToNumber(f);
+    B.h.z = (double)caractereToNumber(f);
     return B;
 }
 
