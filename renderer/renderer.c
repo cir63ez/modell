@@ -11,7 +11,7 @@ void affichePoint(Point I) {
 }
 
 void affichePlan(Plane Q) {
-  printf("point %lf %lf %lf dirVec %lf %lf %lf", Q.a, Q.b, Q.c, Q.x, Q.y, Q.z);
+  printf("point %lf %lf %lf dirVec %lf %lf %lf", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
 }
 //----fin----//
 
@@ -106,11 +106,61 @@ int main(int argc, char **argv){
 
         Plane Plan = planeEquationFromPoints(B.a,B.e,B.f);
         affichePlan(Plan);
+
+        printf("\n");
+
         Point I = pointIntersectionLineAndPlane(M,Plan);
         affichePoint(I);
 
+        printf("\n");
+
         I = contactBrickWithLine(B,M);
         affichePoint(I);
+        
+        //------goat-------//
+
+        printf("\n");
+        printf("\n");
+        printf("\n");
+
+        Point gA = setPoint(0,0,1);
+        Point gB = setPoint(4,2,3);
+        Point gC = setPoint(-3,1,1);
+        Point gD = setPoint(0,0,0);
+
+        affichePoint(gA);printf("\n");
+        affichePoint(gB);printf("\n");
+        affichePoint(gC);printf("\n");
+
+        Vector gV = normalVector(gA, gB, gC);
+
+        printf("%lf, %lf, %lf\n", gV.x, gV.y, gV.z);
+
+        Plane gP = planeEquationFromPoints(gA, gB, gC);
+
+        affichePlan(gP);printf("\n");
+
+        printf("Oui: %d | Non: %d\n", isPointOnPlane(gA, gP), isPointOnPlane(gD, gP));
+
+        Line gLA;
+        gLA.pt.x = 10;
+        gLA.pt.y = 10;
+        gLA.pt.z = 10;
+        gLA.directionVector.x = -1;
+        gLA.directionVector.y = -3;
+        gLA.directionVector.z = -5;
+
+        Line gLB;
+        gLB.pt.x = 20;
+        gLB.pt.y = 20;
+        gLB.pt.z = 20;
+        gLB.directionVector.x = 1;
+        gLB.directionVector.y = 2;
+        gLB.directionVector.z = 3;
+
+        affichePoint(pointIntersectionLineAndPlane(gLA, gP)); printf("\n");
+        affichePoint(pointIntersectionLineAndPlane(gLB, gP));
+
         //-------fin-------//
     }
     fclose(f);
