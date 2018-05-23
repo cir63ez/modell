@@ -141,18 +141,23 @@ int whichType(char * name) {
  */
 List * objectFromFile(FILE * f) {
     int type;
-    char *endOfFile;
+    char *endOfFile = "endoffile";
     double *object;
     char *name;
     Element *e;
     List *L;
     L = initList();
+    printf("test1\n");
 
-    strcpy(endOfFile, "endoffile");
+    //strcpy(endOfFile, "endoffile");
+        printf("test2\n");
 
     name = caractereToName(f);
+        printf("test2\n");
 
     type = whichType(name);
+            printf("test3\n");
+
     while(strcmp(name, endOfFile)) {
         object = objectTreatement(type, f);
         if(type == BRICK_TYPE) {
