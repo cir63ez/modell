@@ -110,15 +110,15 @@ int testIfLightCutsObject(Light li, List *objectList, Point c){
     while(objectList->head->next != NULL) {
         switch (objectList->head->type) {
             case ELLIPSE_TYPE:
-                if(testIfLightCutsEllipse(objectList->head->object, li, c) != TRUE){
+                if(testIfLightCutsEllipse(objectList->head->object, li, c)){
                     return TRUE;
                 }
             case BRICK_TYPE :
-                if(testIfLightCutsBrick(objectList->head->object, li, c) != TRUE){
+                if(testIfLightCutsBrick(objectList->head->object, li, c)){
                     return TRUE;
                 }
             case TETRAHEDRON_TYPE :
-                if(testIfLightCutsTetrahedron(objectList->head->object, li, c) != TRUE){
+                if(testIfLightCutsTetrahedron(objectList->head->object, li, c)){
                     return TRUE;
                 }
         }

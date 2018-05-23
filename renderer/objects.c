@@ -25,7 +25,7 @@ List * initList() {
 */
 void addElementList(Element * e, List * L) {
     Element * curElement;
-    
+
     if(L->head == NULL) {
         L->head = e;
     }
@@ -380,10 +380,10 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
     if(isPointNaN(contactBrickWithLine(B, L)) == TRUE) {
-        return TRUE;
+        return FALSE;
     }
     else {
-        return FALSE;
+        return TRUE;
     }
 }
 
@@ -550,10 +550,10 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
     if(isPointNaN(contactEllipseWithLine(E, L))) {
-        return TRUE;
+        return FALSE;
     }
     else{
-        return FALSE;
+        return TRUE;
     }
 }
 
@@ -565,7 +565,7 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
 */
 Element * createElementEllipse(double * E) {
     Element * element = (Element *)malloc(sizeof(Element));
-    
+
     if (element == NULL) {
         exit(0);
     }
@@ -760,10 +760,10 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
     if(isPointNaN(contactTetrahedronWithLine(T, L)) == TRUE) {
-        return TRUE;
+        return FALSE;
     }
     else{
-        return FALSE;
+        return TRUE
     }
 }
 
