@@ -26,7 +26,9 @@ HOST?=localhost
 
 install:
 	sudo apt-get install -y gcc
+	sudo apt-get install -y gdb
 	sudo apt-get install -y php
+	sudo apt-get install -y php-cgi
 	sudo apt-get install -y php-dev
 
 $(LOCAL_LIBS): %.o: $(CROOT)/%.c $(CROOT)/%.h
