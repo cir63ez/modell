@@ -45,14 +45,14 @@ function generalizePyramid($pyramid) {
     $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
     $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
     $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
-    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
+    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15];
 
     return $object;
 }
 
 function generalizeSphere($sphere) {
     $object = 'ellipsoid,' . $sphere[1] . ',' . $sphere[2] . ',' . $sphere[3] . ',';
-    $object .= $sphere[4] . ',' . $sphere[4] . ',' . $sphere[4] . ',';
+    $object .= $sphere[4] . ',' . $sphere[4] . ',' . $sphere[4];
 
     return $object;
 }
