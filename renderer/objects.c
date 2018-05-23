@@ -27,7 +27,6 @@ void addElementList(Element * e, List * L) {
     Element * curElement;
     
     if(L->head == NULL) {
-        printf("NULL");
         L->head = e;
     }
     else {

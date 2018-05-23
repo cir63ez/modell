@@ -110,14 +110,14 @@ int numberCaractere(FILE * f) {
 * @return the type of the object
 */
 int whichType(char * name) {
-    char *ellipse;
-    char *brick;
-    char *tetrahedron;
-    char *light;
-    strcpy(ellipse, "ellipsoid");
+    char *ellipse = "ellipsoid";
+    char *brick = "tetrahedron";
+    char *tetrahedron = "brick";
+    char *light = "light";
+    /*strcpy(ellipse, "ellipsoid");
     strcpy(tetrahedron, "tetrahedron");
     strcpy(brick, "brick");
-    strcpy(light, "light");
+    strcpy(light, "light");*/
     if(strcmp(ellipse, name)) {
         return ELLIPSE_TYPE;
     }
@@ -150,10 +150,8 @@ List * objectFromFile(FILE * f) {
     printf("test1\n");
 
     //strcpy(endOfFile, "endoffile");
-        printf("test2\n");
 
     name = caractereToName(f);
-        printf("test2\n");
 
     type = whichType(name);
             printf("test3\n");
