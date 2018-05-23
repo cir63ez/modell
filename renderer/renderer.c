@@ -46,15 +46,7 @@ int main(int argc, char **argv){
         char * nameL = caractereToName(f);
         Light L = getLight(f);
         printf("light %s %lf %lf %lf \n", nameL, L.lightSource.x, L.lightSource.y, L.lightSource.z);*/
-        double table[3];
-        table[0] = 12.3;
-        table[1] = 4.1;
-        table[2] = 1.3;
-        Element * e = createElementEllipse(table);
-        printf("%lf %lf %lf \n", (e->object)[0],(e->object)[1],(e->object)[2]);
-
-        //L = initList();
-        //addElementList(e, L);
+        
         L = objectFromFile(f); 
     }
     fclose(f);
