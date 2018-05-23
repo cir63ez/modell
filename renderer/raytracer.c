@@ -86,7 +86,7 @@ void rayTracer(List *objectList, /* Light *list,*/ Plane observer, Point imageOr
             else{
                 BMPSetColor(imageFile, x, y, white);
             }
-
+            objectList->head = objectList->head->next;
             tmpLine = firstRay;
         }
     }
@@ -108,22 +108,22 @@ void rayTracer(List *objectList, /* Light *list,*/ Plane observer, Point imageOr
 
 int testIfLightCutsObject(Light li, List *objectList, Point c){
     while(objectList->head->next != NULL) {
-        if(objectList->head->type == ELLIPSE_TYPE){
-            if(testIfLightCutsEllipse(objectList->head->object, li, c) != TRUE){
-                return TRUE;
-            }
+        switch (objectList->head->type) {
+            case ELLIPSE_TYPE:
+                if(testIfLightCutsEllipse(objectList->head->object, li, c)){
+                    return TRUE;
+                }
+            case BRICK_TYPE :
+                if(testIfLightCutsBrick(objectList->head->object, li, c)){
+                    return TRUE;
+                }
+            case TETRAHEDRON_TYPE :
+                if(testIfLightCutsTetrahedron(objectList->head->object, li, c)){
+                    return TRUE;
+                }
         }
-        else if(objectList->head->type == BRICK_TYPE){
-            if(testIfLightCutsBrick(objectList->head->object, li, c) != TRUE){
-                return TRUE;
-            }
-        }
-        else if(objectList->head->type == TETRAHEDRON_TYPE){
-            if(testIfLightCutsTetrahedron(objectList->head->object, li, c) != TRUE){
-                return TRUE;
-            }
-        }
-        *(objectList)->head = *(objectList)->head->next;
+    }
+        objectList->head = objectList->head->next;
     }
     return FALSE;
 }
@@ -136,8 +136,8 @@ int testIfLightCutsObject(Light li, List *objectList, Point c){
 * @param C: list of light
 * @param D: numberOfLight
 *
-* @return TRUE if the point c see the light
-* @return FALSE if the point c desnt see the light
+* @return TRUE if the point c sees the light
+* @return FALSE if the point c doesn't see the light
 */
 
 int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
