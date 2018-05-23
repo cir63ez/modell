@@ -25,11 +25,12 @@ List * initList() {
 */
 void addElementList(Element * e, List * L) {
     Element * curElement;
-    curElement = L->head;
+    
     if(L->head == NULL) {
         L->head = e;
     }
     else {
+        curElement = L->head;
         while(curElement->next != NULL) {
             curElement = curElement->next;
         }
@@ -358,7 +359,6 @@ Brick decodeBrick(double *brick){
     B.h.x = brick[21];
     B.h.y = brick[22];
     B.h.z = brick[23];
-    free(brick);
     return B;
 }
 
@@ -499,7 +499,6 @@ Ellipse decodeEllipse(double * ellipse){
     E.x = ellipse[3];
     E.y = ellipse[4];
     E.z = ellipse[5];
-    free(ellipse);
     return E;
 }
 
@@ -566,6 +565,7 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
 */
 Element * createElementEllipse(double * E) {
     Element * element = (Element *)malloc(sizeof(Element));
+    
     if (element == NULL) {
         exit(0);
     }
@@ -573,8 +573,8 @@ Element * createElementEllipse(double * E) {
         element->type = ELLIPSE_TYPE;
         element->object = E;
         element->next = NULL;
-        return element;
     }
+
     return element;
 }
 
@@ -738,7 +738,6 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
     T.d.x = tetrahedron[9];
     T.d.y = tetrahedron[10];
     T.d.z = tetrahedron[11];
-    free(tetrahedron);
     return T;
 }
 
@@ -802,7 +801,6 @@ Light decodeLight(double * light){
     L.lightSource.x = light[0];
     L.lightSource.y = light[1];
     L.lightSource.z = light[2];
-    free(light);
     return L;
 }
 

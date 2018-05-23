@@ -47,8 +47,7 @@ char * caractereToName(FILE * f) {
         curCaractere = fgetc(f);
     }
     if(curCaractere == EOF) { 
-        strcpy(endOfFile, "endoffile");
-        return endOfFile;
+        return "endoffile";
     }
     return name;
 }
@@ -110,14 +109,11 @@ int numberCaractere(FILE * f) {
 * @return the type of the object
 */
 int whichType(char * name) {
-    char *ellipse;
-    char *brick;
-    char *tetrahedron;
-    char *light;
-    strcpy(ellipse, "ellipsoid");
-    strcpy(tetrahedron, "tetrahedron");
-    strcpy(brick, "brick");
-    strcpy(light, "light");
+    char *ellipse = "ellipsoid";
+    char *brick = "tetrahedron";
+    char *tetrahedron = "brick";
+    char *light = "light";
+    
     if(strcmp(ellipse, name)) {
         return ELLIPSE_TYPE;
     }
@@ -141,18 +137,17 @@ int whichType(char * name) {
  */
 List * objectFromFile(FILE * f) {
     int type;
-    char *endOfFile;
+    char *endOfFile = "endoffile";
     double *object;
     char *name;
     Element *e;
     List *L;
     L = initList();
 
-    strcpy(endOfFile, "endoffile");
-
     name = caractereToName(f);
 
     type = whichType(name);
+
     while(strcmp(name, endOfFile)) {
         object = objectTreatement(type, f);
         if(type == BRICK_TYPE) {
