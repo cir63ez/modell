@@ -2,34 +2,40 @@
 
 
 int main(){
-    /*
+
     Ellipse E;
-    E.a = E.b = E.c = 5;
+    E.a = E.b = E.c = 500;
 
     E.x = E.y = 0;
-    E.z = -10;
+    E.z = 1000;
 
-    Plane object;
-    object.a = object.b = 0;
-    object.c = 1;
-    object.x = object.y = 0;
-    object.z = -10;
+    /*Plane P;
+    P.a = P.b = 0;
+    P.c = 1;
+    P.x = P.y = 0;
+    P.z = -10;
 
-    Brick object;
-    object.a = setPoint(0, 0, 0);
-    object.b = setPoint(100, 0, 0);
-    object.c = setPoint(100, 0, 100);
-    object.d = setPoint(0, 0, 100);
-    object.e = setPoint(0, 100, 0);
-    object.f = setPoint(100, 100, 0);
-    object.g = setPoint(100, 100, 100);
-    object.h = setPoint(0, 100, 100);
-    */
-    Tetrahedron object;
-    object.a = setPoint(-100,0,0);
-    object.b = setPoint(100,0,0);
-    object.c = setPoint(0,0,-100);
-    object.d = setPoint(0,50,50);
+    Brick B;
+    B.a = setPoint(0, 0, 0);
+    B.b = setPoint(100, 0, 0);
+    B.c = setPoint(100, 0, 100);
+    B.d = setPoint(0, 0, 100);
+    B.e = setPoint(0, 100, 0);
+    B.f = setPoint(100, 100, 0);
+    B.g = setPoint(100, 100, 100);
+    B.h = setPoint(0, 100, 100);
+
+    Tetrahedron T;
+    T.a = setPoint(   0,  0,   0);
+    T.b = setPoint(-200,  0,   0);
+    T.c = setPoint(-100,  0, 100);
+    T.d = setPoint(-100,-100, 50);
+*/
+    List *list;
+    list = initList();
+    Element *elmt;
+    elmt = createElementEllipse(encodeEllipse(E));
+    addElementList(elmt, list);
 
     Plane observer;
     observer.a = observer.b = 0;
@@ -44,7 +50,7 @@ int main(){
 
     int resolution = 1000;
 
-    rayTracer(object, observer, imageOrigin, resolution);
+    rayTracer(list, observer, imageOrigin, resolution);
 
     return 0;
 }
