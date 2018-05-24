@@ -161,19 +161,26 @@ int main() {
 	// contactEllipseWithLine(Ellipse E, Line L);
 
 	Line remi;
-	remi.pt.x = 0;
-	remi.pt.y = 0;
-	remi.pt.z = 0;
+	remi.pt.x = 1;
+	remi.pt.y = 1;
+	remi.pt.z = 2;
 	remi.directionVector.x = 1;
 	remi.directionVector.y = 1;
-	remi.directionVector.z = 1;
+	remi.directionVector.z = 0;
 	Ellipse chocolat;
-	chocolat.x = 0;
-	chocolat.y = 0;
-	chocolat.z = 0;
-	chocolat.a = 2;
-	chocolat.b = 2;
-	chocolat.c = 2;
+	chocolat.x = 1;
+	chocolat.y = 1;
+	chocolat.z = 2;
+	chocolat.a = 1;
+	chocolat.b = 1.5;
+	chocolat.c = 1;
+	double Az = (pow(remi.directionVector.x / chocolat.a, 2) + pow(remi.directionVector.y / chocolat.b, 2) + pow(remi.directionVector.z / chocolat.c, 2));
+	double Bz = (remi.directionVector.z * (remi.pt.z - chocolat.z)) / pow(chocolat.c, 2);
+    Bz = (remi.directionVector.x * (remi.pt.x - chocolat.x)) / pow(chocolat.a, 2) + (remi.directionVector.y * (remi.pt.y - chocolat.y))/pow(chocolat.b, 2) + Bz;
+	double Cz = pow( (remi.pt.x - chocolat.x) / chocolat.a, 2) + pow((remi.pt.y - chocolat.y) / chocolat.b, 2) + pow((remi.pt.z - chocolat.z) / chocolat.c, 2) - 1;
+	double delta = 4 * (pow(Bz,2) - Az * Cz);
+	printf("A = %lf B = %lf C = %lf delta : %lf", Az, Bz, Cz, delta);
+
 	Point JM;
 	JM = contactEllipseWithLine(chocolat,remi);
 	printf("ellipse : %lf,%lf,%lf\n", JM.x,JM.y,JM.z);

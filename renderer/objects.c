@@ -439,28 +439,60 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     double C;
     double delta;
     double t;
-
+    double t2;
+    double norm1;
+    double norm2;
     Point I;
+    Point I2;
+    Vector V1;
+    Vector V2;
 
     I = initPointNaN();
 
     A = (pow(L.directionVector.x / E.a, 2) + pow(L.directionVector.y / E.b, 2) + pow(L.directionVector.z / E.c, 2));
     B2 = (L.directionVector.z * (L.pt.z - E.z)) / pow(E.c, 2);
     B = (L.directionVector.x * (L.pt.x - E.x)) / pow(E.a, 2) + (L.directionVector.y * (L.pt.y - E.y))/pow(E.b, 2) + B2;
-    C = pow( (L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b, 2) + pow((L.pt.z - E.z) / E.c, 2) - 1;
+    B = 2 * B;
+    C = pow((L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b, 2) + pow((L.pt.z - E.z) / E.c, 2) - 1;
 
-    delta = 4 * (pow(B,2) - A * C);
+    delta = (pow(B,2) - 4 * A * C);
 
     if(delta < 0){
         return I;
     }
     else{
         if (delta >= 0){
-            t = (-2 * B - sqrt(delta))/(2 * A);
+
+            t = (- B - sqrt(delta))/(2 * A);
+            t2 = (- B + sqrt(delta))/(2 * A);
+            if(t < 0 && t2 < 0) {
+                return I;
+            }
+            if(t < 0) {
+                t = t2;
+            }
+            
+            I.x = L.directionVector.x * t + L.pt.x;
+            I.y = L.directionVector.y * t + L.pt.y;
+            I.z = L.directionVector.z * t + L.pt.z;
+
+            I2.x = L.directionVector.x * t2 + L.pt.x;
+            I2.y = L.directionVector.y * t2 + L.pt.y;
+            I2.z = L.directionVector.z * t2 + L.pt.z;
+            
+            V1 = pointsToVector(L.pt, I);
+            V2 = pointsToVector(L.pt, I2);
+            norm1 = norm(V1);
+            norm2 = norm(V2);
+            
+            if (norm1 > norm2){
+                t = t2;
+            }
+            
         }
         else{
             if (delta == 0){
-                t = - B / A;
+                t = - B / 2 * A;
             }
         }
     }
