@@ -471,7 +471,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
             if(t < 0) {
                 t = t2;
             }
-            
+
             I.x = L.directionVector.x * t + L.pt.x;
             I.y = L.directionVector.y * t + L.pt.y;
             I.z = L.directionVector.z * t + L.pt.z;
@@ -479,16 +479,16 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
             I2.x = L.directionVector.x * t2 + L.pt.x;
             I2.y = L.directionVector.y * t2 + L.pt.y;
             I2.z = L.directionVector.z * t2 + L.pt.z;
-            
+
             V1 = pointsToVector(L.pt, I);
             V2 = pointsToVector(L.pt, I2);
             norm1 = norm(V1);
             norm2 = norm(V2);
-            
+
             if (norm1 > norm2){
                 t = t2;
             }
-            
+
         }
         else{
             if (delta == 0){
