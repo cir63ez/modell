@@ -311,11 +311,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
-<<<<<<< HEAD
     brick =(double*)malloc(8 * 3 * sizeof(double));
-=======
     brick =(double*)malloc(24 * sizeof(double));
->>>>>>> 5c1d9c226529cdb2d4a9e531ae44927e31bf3f41
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -475,7 +472,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
             if(t < 0) {
                 t = t2;
             }
-            
+
             I.x = L.directionVector.x * t + L.pt.x;
             I.y = L.directionVector.y * t + L.pt.y;
             I.z = L.directionVector.z * t + L.pt.z;
@@ -483,16 +480,16 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
             I2.x = L.directionVector.x * t2 + L.pt.x;
             I2.y = L.directionVector.y * t2 + L.pt.y;
             I2.z = L.directionVector.z * t2 + L.pt.z;
-            
+
             V1 = pointsToVector(L.pt, I);
             V2 = pointsToVector(L.pt, I2);
             norm1 = norm(V1);
             norm2 = norm(V2);
-            
+
             if (norm1 > norm2){
                 t = t2;
             }
-            
+
         }
         else{
             if (delta == 0){
