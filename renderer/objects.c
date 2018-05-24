@@ -458,7 +458,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 
     delta = (pow(B,2) - 4 * A * C);
 
-    if(delta  <= 0){
+    if(delta  < 0){
         return I;
     }
     else{
