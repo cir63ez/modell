@@ -28,26 +28,26 @@ int main(){
     */
 
     Ellipse eA;
-    eA.a =  eA.b = eA.c = 100;
+    eA.a =  eA.b = eA.c = 500;
 
-    eA.x = eA.y =120;
+    eA.x = eA.y = 0;
     eA.z = 0;
 
-    Ellipse eB;
-    eB.a =  eB.b = eB.c = 100;
-
-    eB.x = eB.y = 0;
-    eB.z = 0;
+    // Ellipse eB;
+    // eB.a =  eB.b = eB.c = 100;
+    //
+    // eB.x = eB.y = 0;
+    // eB.z = 0;
 
 
     List *list;
     list = initList();
     addElementList(createElementEllipse(encodeEllipse(eA)), list);
-    addElementList(createElementEllipse(encodeEllipse(eB)), list);
+    // addElementList(createElementEllipse(encodeEllipse(eB)), list);
     // addElementList(createElementBrick(encodeBrick(object)), list);
 
     Light hope;
-    hope.lightSource = setPoint(0, 0, 1000);
+    hope.lightSource = setPoint(50000, 0, 0);
 
     Light *lightList;
     lightList = (Light*)malloc(sizeof(Light));
@@ -57,12 +57,12 @@ int main(){
     observer.a = observer.b = 0;
     observer.c = 1;
     observer.x = observer.y = 0;
-    observer.z = 0;
+    observer.z = -10000;
 
     Point imageOrigin;
     imageOrigin.x = -500;
     imageOrigin.y =  500;
-    imageOrigin.z =-1000;
+    imageOrigin.z =-1000000;
 
     int resolution = 1000;
 
