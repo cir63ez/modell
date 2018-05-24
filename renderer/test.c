@@ -1,5 +1,18 @@
 #include "raytracer.h"
 
+
+void affichePoint(Point I) {
+  printf("%lf %lf %lf\n", I.x, I.y, I.z);
+}
+
+void afficheVector(Vector I) {
+  printf("%lf %lf %lf\n", I.x, I.y, I.z);
+}
+
+void affichePlan(Plane Q) {
+  printf("Plan : vectorNormal %lf %lf %lf point %lf %lf %lf\n", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
+}
+
 int main() {
 	/*// pointsToVector
 	Point A;
@@ -215,7 +228,7 @@ int main() {
 	Vector V = vectorInPlane(PA, P);
 	int test = isPointOnPlane(PC, P);
 
-	printf("%d",test);
+	printf("%d\n",test);
 
 	P.a = 0;
 	P.c = 0;
@@ -226,7 +239,84 @@ int main() {
 	
 	V = vectorInPlane(PA, P);
 	test = isPointOnPlane(PC, P);
-	printf("%d",test);
+	printf("%d\n",test);
 
+	Line l;
+	l.pt.x = 1;
+	l.pt.y = 3;
+	l.pt.z = -1;
+	l.directionVector.x = 2;
+	l.directionVector.y = -1;
+	l.directionVector.z = 1;
+	
+	Line p;
+	p.pt.x = 19;
+	p.pt.y = -4;
+	p.pt.z = 10;
+	p.directionVector.x = 3;
+	p.directionVector.y = -1;
+	p.directionVector.z = 2;
+
+	Point BL;
+	BL.x = 13;
+	BL.y = -3;
+	BL.z = 5;
+
+	Point CL;
+	CL.x = 3;
+	CL.y = 2;
+	CL.z = 0;
+
+	Point M = pointIntersectionLineAndLine(l,p);
+	affichePoint(M);
+
+	Point Q = pointIntersectionLineAndSegment(l.pt, BL, p);
+	Point G = pointIntersectionLineAndSegment(l.pt, CL, p);
+
+	affichePoint(Q);
+	affichePoint(G);
+/*
+	Line L;
+	L.pt.x = -3;
+	L.pt.y = -1;
+	L.pt.z = 6;
+	L.directionVector.x = 2;
+	L.directionVector.y = 1;
+	L.directionVector.z = -1;
+
+	Line LB;
+	LB.pt.x = 1;
+	LB.pt.y = -2;
+	LB.pt.z = 8;
+	LB.directionVector.x = 1;
+	LB.directionVector.y = 1;
+	LB.directionVector.z = -1;
+
+	Point A,B,C,D,E;
+	A = setPoint(2,1,3);
+	B = setPoint(3,1,4);
+	C = setPoint(3,2,5);
+	D = setPoint(1,3,4);
+	E = setPoint(0,3,3);
+
+	Point ListeDePoints[5];
+	ListeDePoints[0] = A;
+	ListeDePoints[1] = B;
+	ListeDePoints[2] = C;
+	ListeDePoints[3] = D;
+	ListeDePoints[4] = E;
+
+	Plane P = planeEquationFromPoints(A,B,C);
+	Point Test = pointIntersectionLineAndPlane(L, P);
+
+	affichePoint(Test);
+	printf("%d\n", isOnPolygon(ListeDePoints, 5, Test));
+
+
+	Point TestB = pointIntersectionLineAndPlane(LB, P);
+
+	affichePoint(TestB);
+	printf("---****---\n");
+	printf("on polygone ? %d\n", isOnPolygon(ListeDePoints, 5, setPoint(4,1,3)));*/
 	return 0;
 }

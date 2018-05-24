@@ -132,12 +132,19 @@ double * encodeLight(Light L);
 // Create a light element for the list
 Element * createElementLight(double * L);
 
-
 ///-------------New--------------///
 // Test if two points are equals
 int arePointsEqual(Point O, Point I);
 
-
 // Give a vector in a plane
 Vector vectorInPlane(Point O, Plane P);
 ///-----------End new--------------------///
+
+// Give the intersection point between two lines
+Point pointIntersectionLineAndLine(Line L, Line D);
+
+// Give the intersection point between a line and a segment
+Point pointIntersectionLineAndSegment(Point A, Point B, Line L);
+
+// Check if the point is on the polygon
+int isOnPolygon(Point *list, double numberOfPoint, Point test);
