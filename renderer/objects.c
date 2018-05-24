@@ -311,11 +311,7 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
-<<<<<<< HEAD
     brick =(double*)malloc(8 * 3 * sizeof(double));
-=======
-    brick =(double*)malloc(24 * sizeof(double));
->>>>>>> 5c1d9c226529cdb2d4a9e531ae44927e31bf3f41
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -896,3 +892,71 @@ Element * createElementLight(double * L) {
     }
     return element;
 }
+
+
+///-------------New--------------///
+/**
+* Test if two points are equal
+* @param O: First point
+* @param I: Second point
+*
+* @return 1 if they are equals 
+* @return 0 if there aren't
+*/
+int arePointsEqual(Point O, Point I) {
+    if(O.x == I.x && O.y == I.y && O.z == I.z) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
+* Give a vector in a plane
+* @param O: Point
+* @param P: Plane
+*
+* @return a vector in the plane
+*/
+Vector vectorInPlane(Point O, Plane P) {
+    Point I;
+    Vector V;
+
+    I.x = P.x;
+    I.y = P.y;
+    I.z = P.z;
+
+    if(arePointsEqual(O,I)) {
+        V = pointsToVector(O,I);
+        return V;
+    }
+
+    V = initVectorNaN();
+
+    if(P.c != 0) {
+        I.x = 1;
+        I.y = 1;
+        I.z = (P.a * (I.x - P.x) + P.b * (I.y - P.y) - P.c * P.z) / P.c;
+        V = pointsToVector(O,I);
+        return V;
+    }
+    else if(P.a != 0) {
+        I.y = 1;
+        I.z = 1;
+        I.x = (- P.a * P.x + P.b * (I.y - P.y) + P.c * (I.z - P.z)) / P.a;
+        V = pointsToVector(O,I);
+        return V;
+    }
+    else if(P.b != 0) {
+        I.x = 1;
+        I.z = 1;
+        I.y = (P.a * (I.x - P.x) - P.b * P.y + P.c * (I.z - P.z)) / P.b;
+        V = pointsToVector(O,I);
+        return V;
+    }
+    
+    return V;
+
+}
+///-----------End new--------------------///

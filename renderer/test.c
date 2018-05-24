@@ -1,7 +1,7 @@
 #include "raytracer.h"
 
 int main() {
-	// pointsToVector
+	/*// pointsToVector
 	Point A;
 	Point B;
 
@@ -182,6 +182,51 @@ int main() {
 
 	Point JM;
 	JM = contactEllipseWithLine(chocolat,remi);
-	printf("ellipse : %lf,%lf,%lf\n", JM.x,JM.y,JM.z);
+	printf("ellipse : %lf,%lf,%lf\n", JM.x,JM.y,JM.z);*/
+
+	Point PA;
+
+	PA.x = 0;
+	PA.y = 0;
+	PA.z = 0;
+
+	Point PB;
+
+	PB.x = 1;
+	PB.y = 1;
+	PB.z = 1;
+
+	Point PC;
+
+	PC.x = 2;
+	PC.y = 2;
+	PC.z = 2;
+
+	Point PD;
+
+	PD.x = 2;
+	PD.y = 2;
+	PD.z = 3;
+
+	Point I;
+
+	Plane P = planeEquationFromPoints(PA,PB,PD);
+
+	Vector V = vectorInPlane(PA, P);
+	int test = isPointOnPlane(PC, P);
+
+	printf("%d",test);
+
+	P.a = 0;
+	P.c = 0;
+	P.x = 1;
+	I.x = 2;
+    I.y = 3;
+    I.z = (P.a * (I.x - P.x) + P.b * (I.y - P.y) - P.c * P.z) / P.c;
+	
+	V = vectorInPlane(PA, P);
+	test = isPointOnPlane(PC, P);
+	printf("%d",test);
+
 	return 0;
 }

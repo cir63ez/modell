@@ -131,3 +131,13 @@ double * encodeLight(Light L);
 
 // Create a light element for the list
 Element * createElementLight(double * L);
+
+
+///-------------New--------------///
+// Test if two points are equals
+int arePointsEqual(Point O, Point I);
+
+
+// Give a vector in a plane
+Vector vectorInPlane(Point O, Plane P);
+///-----------End new--------------------///
