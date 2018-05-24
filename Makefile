@@ -25,11 +25,8 @@ HOST?=localhost
 # Recipes
 
 install:
-	sudo apt-get install -y gcc
-	sudo apt-get install -y gdb
-	sudo apt-get install -y php
-	sudo apt-get install -y php-cgi
-	sudo apt-get install -y php-dev
+	sudo apt-get install -y gcc gdb
+	sudo apt-get install -y php php-cgi  php-dev
 
 $(LOCAL_LIBS): %.o: $(CROOT)/%.c $(CROOT)/%.h
 	$(CC) -c $< -o $(CROOT)/$@
