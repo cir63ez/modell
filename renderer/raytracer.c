@@ -90,7 +90,7 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
 
  /*Add parameter Light *list,*/
 
-void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int resolution, double tetaX, double tetaY, tetaZ){
+void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int resolution, double tetaX, double tetaY, double tetaZ){
     BMP *imageFile;
     imageFile = newBMP(resolution, resolution);
     char* imageFileName = "bitmapImage.bmp";
@@ -135,19 +135,31 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         tmpLine.pt.x += x;
         tmpLine.pt.y -= y;
 
-        //printf("x %2d  y %2d \n", x, y);
+        Vector V;
+        V.x = tmpLine.pt.x;
+        V.y = tmpLine.pt.y;
+        V.z = tmpLine.pt.z;
+
+        Vector rotatedV = matriceRotation(V, tetaX, tetaY, tetaZ);
+
+        rotatedLine = tmpLine;
+        rotatedLine.pt.x = rotatedV.x;
+        rotatedLine.pt.y = rotatedV.y;
+        rotatedLine.pt.z = rotatedV.z;
+
+        rotatedLine.directionVector = matriceRotation(tmpLine.directionVector, tetaX, tetaY, tetaZ);
 
         objectList->head  = listHeadCopy;
         for(int j = 0; j < objectList->nbElement; j++){
             switch (objectList->head->type) {
                 case BRICK_TYPE :
-                    contactPoint[j] = contactBrickWithLine(decodeBrick(objectList->head->object), tmpLine);
+                    contactPoint[j] = contactBrickWithLine(decodeBrick(objectList->head->object), rotatedLine);
                     break;
                 case ELLIPSE_TYPE :
-                    contactPoint[j] = contactEllipseWithLine(decodeEllipse(objectList->head->object), tmpLine);
+                    contactPoint[j] = contactEllipseWithLine(decodeEllipse(objectList->head->object), rotatedLine);
                     break;
                 case TETRAHEDRON_TYPE :
-                    contactPoint[j] = contactTetrahedronWithLine(decodeTetrahedron(objectList->head->object), tmpLine);
+                    contactPoint[j] = contactTetrahedronWithLine(decodeTetrahedron(objectList->head->object), rotatedLine);
                     break;
                 }
 

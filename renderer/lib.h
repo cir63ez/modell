@@ -8,6 +8,7 @@
 #define TRUE 1
 #define FALSE 0
 #define NaN 0./0.
+#define _PI 3.14159265358979
 
 #define FEQUAL_LIMIT 0.0000000001
 #define FEQUAL(A, B) (fabs(A - B) < FEQUAL_LIMIT) ? TRUE : FALSE
@@ -62,6 +63,9 @@ typedef struct Pixel_ {
 } Pixel;
 
 // Functions
+
+// rotate a vector around the three axes
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ);
 
 //create a vector from two points
 Vector pointsToVector(Point A, Point B);
