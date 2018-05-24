@@ -457,8 +457,6 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 
     delta = (pow(B,2) - 4 * A * C);
 
-    printf("delta dans ellipse %lf\n", delta);
-
     if(delta < 0){
         return I;
     }
@@ -474,7 +472,6 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
                 t = t2;
             }
             
-            printf("t1 = %lf et t2 = %lf\n", t,t2);
             I.x = L.directionVector.x * t + L.pt.x;
             I.y = L.directionVector.y * t + L.pt.y;
             I.z = L.directionVector.z * t + L.pt.z;

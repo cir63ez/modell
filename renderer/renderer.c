@@ -122,7 +122,7 @@ int main(int argc, char **argv){
         li[2] = B.f;
         li[3] = B.h;
         int yo = isOnPolygon(li, 4, I);
-        printf("je suis dans le polygone putain!!!!!!%d \n", yo);
+        printf("dans le polygone ? %d \n", yo);
 
         I = contactBrickWithLine(B,M);
         affichePoint(I);
