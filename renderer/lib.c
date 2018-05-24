@@ -560,3 +560,11 @@ Point setPoint (double x, double y, double z){
     P.z = z;
     return P;
 }
+
+Rgb setColor(unsigned char r, unsigned char g, unsigned char b){
+    Rgb color;
+    color.red = r;
+    color.green = g;
+    color.blue = b;
+    return color;
+}

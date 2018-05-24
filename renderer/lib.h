@@ -125,3 +125,6 @@ int isPointNaN(Point P);
 
 //Sets the three coordinates of a pointsToVector
 Point setPoint(double x, double y, double z);
+
+//Sets an RGB color
+Rgb setColor(unsigned char r, unsigned char g, unsigned char b);
