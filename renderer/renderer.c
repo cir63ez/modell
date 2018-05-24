@@ -18,6 +18,37 @@ void afficheVector(Vector I) {
 void affichePlan(Plane Q) {
   printf("Plan : vectorNormal %lf %lf %lf point %lf %lf %lf\n", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
 }
+
+void afficheObject(double * object, int size) {
+  for(int i = 0; i < size; i++) {
+    if(i != 0 && i % 3 == 0) {printf("\n");}
+    printf("%lf ", object[i]);
+  }
+}
+
+void afficheElement(Element * E) {
+  int size;
+  char * name;
+
+  if(E->type == TETRAHEDRON_TYPE) {name = "Tetrahedron"; size = 4*3;}
+  if(E->type == BRICK_TYPE) {name = "Brick"; size = 8*3;}
+  if(E->type == LIGHT_TYPE) {name = "Light"; size = 3;}
+  if(E->type == ELLIPSE_TYPE) {name = "Ellipsoid"; size = 6;}
+  printf("%s:\n", name);
+  afficheObject(E->object, size);
+  printf("\n\n");  
+}
+
+void afficheList(List * L) {
+  Element * current = L->head;
+
+  while(current != NULL) {
+    afficheElement(current);
+    current = current->next;
+  }
+
+}
+
 //----fin----//
 
 int main(int argc, char **argv){
@@ -28,10 +59,10 @@ int main(int argc, char **argv){
     int width;
     int numberObject;
     int numberLight;
-    Vector V;
-    List * L;
-
-    printf("yo\n");
+    double angleX;
+    double angleY;
+    double angleZ;
+    List * L = NULL; // Avoiding warnings
 
     f = fopen("./data.txt", "r");
     if(f == NULL){
@@ -42,9 +73,12 @@ int main(int argc, char **argv){
         printf("point %lf %lf %lf \n", P.x, P.y, P.z);
         height = caractereToNumber(f);
         width = caractereToNumber(f);
-        V = normalVectorPlaneFile(f);
+        //V = normalVectorPlaneFile(f);
+        angleX = caractereToNumber(f);
+        angleY = caractereToNumber(f);
+        angleZ = caractereToNumber(f);
         printf("dimensions %d x %d \n", height, width);
-        printf("vector %lf %lf %lf \n", V.x, V.y, V.z);
+        printf("angles X %lf Y %lf Z %lf \n", angleX, angleY, angleZ);
 
         numberObject = caractereToNumber(f);
         numberLight = caractereToNumber(f);
@@ -64,8 +98,21 @@ int main(int argc, char **argv){
         
         L = objectFromFile(f); 
 
+        afficheList(L);
+          //char * name = caractereToName(f);
+
+          /*int type = whichType(name);
+          Brick B = getBrick(f);
+          free(name);
+          printf("free");
+          name = caractereToName(f);
+          type = whichType(name);
+          printf("type1 %d", type);*/
+
+       // afficheList(L);
+        //rayTracer(L,)
         //-------test-------//
-        Brick B;
+       /* Brick B;
         B.a.x = 0;
         B.a.y = 3;
         B.a.z = 0;
@@ -177,12 +224,15 @@ int main(int argc, char **argv){
         V.x = 1; V.y = 1; V.z = 1;
         printf("\n");
 
-        afficheVector(matriceRotation(V,_PI,0,_PI));
+        afficheVector(matriceRotation(V,_PI,0,_PI));*/
         //-------fin-------//
 
         //-----------------//
  
+        return 0;
+  
     }
+
     fclose(f);
     free(L);
     return 0;

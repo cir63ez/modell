@@ -114,7 +114,6 @@ int main() {
 
 	//reflectedRay
 	Line Li;
-	Vector R;
 	Li=reflectedRay(PA,pointsToVector(A,B),pointsToVector(PA,PB),1.5,1.2);
 	printf("%lf,%lf,%lf",Li.pt.x,Li.pt.y,Li.pt.z);
 	printf("%lf,%lf,%lf\n",Li.directionVector.x,Li.directionVector.y,Li.directionVector.z);

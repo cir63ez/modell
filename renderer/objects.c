@@ -311,7 +311,7 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
-    brick =(double*)malloc(6 * sizeof(double));
+    brick =(double*)malloc(8 * 3 * sizeof(double));
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -865,7 +865,7 @@ Light decodeLight(double * light){
 */
 double * encodeLight(Light L){
     double *light;
-    light=(double*)malloc(3 * sizeof(double));
+    light = (double*)malloc(3 * sizeof(double));
     light[0] = L.lightSource.x;
     light[1] = L.lightSource.y;
     light[2] = L.lightSource.z;

@@ -40,15 +40,20 @@ char * caractereToName(FILE * f) {
     int test = 0;
     char curCaractere = '\0';
     curCaractere = fgetc(f);
-     while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
+    while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
         name = (char *)realloc(name, sizeof(char) * (nbletter + 1));
         *(name + nbletter) = curCaractere;
         nbletter++;
         curCaractere = fgetc(f);
     }
+
+    name = (char *)realloc(name, sizeof(char) * (nbletter));
+    *(name + nbletter) = '\0';
+
     if(curCaractere == EOF) { 
         return "endoffile";
     }
+    
     return name;
 }
 
@@ -110,22 +115,23 @@ int numberCaractere(FILE * f) {
 */
 int whichType(char * name) {
     char *ellipse = "ellipsoid";
-    char *brick = "tetrahedron";
-    char *tetrahedron = "brick";
+    char *brick = "brick";
+    char *tetrahedron = "tetrahedron";
     char *light = "light";
     
-    if(strcmp(ellipse, name)) {
+    if(strcmp(ellipse, name) == 0) {
         return ELLIPSE_TYPE;
     }
-    if(strcmp(tetrahedron, name)) {
+    if(strcmp(tetrahedron, name) == 0) {
         return TETRAHEDRON_TYPE;
     }
-    if(strcmp(brick, name)) {
+    if(strcmp(brick, name) == 0) {
         return BRICK_TYPE;
     }
-    if(strcmp(light, name)) {
+    if(strcmp(light, name) == 0) {
         return LIGHT_TYPE;
     }
+    return -1;
 }
 
 /**
@@ -146,10 +152,10 @@ List * objectFromFile(FILE * f) {
 
     name = caractereToName(f);
 
-    type = whichType(name);
-
-    while(strcmp(name, endOfFile)) {
+    while(strcmp(name, endOfFile) != 0) {
+        type = whichType(name);
         object = objectTreatement(type, f);
+        
         if(type == BRICK_TYPE) {
             e = createElementBrick(object);
         }
@@ -161,11 +167,10 @@ List * objectFromFile(FILE * f) {
         }
         if(type == LIGHT_TYPE) {
             e = createElementLight(object);
-        }   
+        }
+    
         addElementList(e, L);
         name = caractereToName(f);
-        type = whichType(name);
-
     }
     return L;
 }
