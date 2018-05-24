@@ -32,12 +32,74 @@ Line calculateFirstRay (Plane image, Point origin){
     return firstRay;
 }
 
+/**
+* Launch the check function depending of the object
+*
+* @param A: Light source
+* @param B: list of object
+* @param C: contact points
+*
+* @return TRUE if the light cuts an object before point c
+
+* @return FALSE if the light doesnt cuts an object before point c
+*/
+
+int testIfLightCutsObject(Light li, List *objectList, Point c){
+    while(objectList->head->next != NULL) {
+        switch (objectList->head->type) {
+            case ELLIPSE_TYPE:
+                if(testIfLightCutsEllipse(objectList->head->object, li, c)){
+                    return TRUE;
+                }
+
+            case BRICK_TYPE :
+                if(testIfLightCutsBrick(objectList->head->object, li, c)){
+                    return TRUE;
+                }
+            case TETRAHEDRON_TYPE :
+                if(testIfLightCutsTetrahedron(objectList->head->object, li, c)){
+                    return TRUE;
+                }
+        }
+        objectList->head = objectList->head->next;
+    }
+
+    return FALSE;
+}
+
+/**
+* launch the check fonctions for each point of light
+*
+* @param A: contact point
+* @param B: list of object
+* @param C: list of light
+* @param D: numberOfLight
+*
+* @return TRUE if the point c sees the light
+* @return FALSE if the point c doesn't see the light
+*/
+
+int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
+	for (int i = 0; i < numberofLights; i++) {
+        if(testIfLightCutsObject(*(listOfLights + i), objectList, c) == TRUE){
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+
  /*Add parameter Light *list,*/
 
-void rayTracer(Tetrahedron object, Plane observer, Point imageOrigin, int resolution){
-    Point contactPoint;
+void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int resolution){
     BMP *imageFile;
     imageFile = newBMP(resolution, resolution);
+    char* imageFileName = "bitmapImage.bmp";
+
+    BMP *testImage;
+    testImage = newBMP(resolution, resolution);
+    char* testImageFileName = "testImage.bmp";
+
     Rgb white;
     white.red = 255;
     white.green = 255;
@@ -52,10 +114,15 @@ void rayTracer(Tetrahedron object, Plane observer, Point imageOrigin, int resolu
     firstRay = calculateFirstRay(observer,imageOrigin);
     Line tmpLine = firstRay;
 
-    char* imageFileName = "bitmapImage.bmp";
+    double x, y;
 
+    Point rayOrigin;
+    Point nearestPoint;
+    Point *contactPoint;
+    contactPoint = (Point*)malloc(objectList->nbElement * sizeof(Point));
 
-    int x, y;
+    Element *listHeadCopy;
+    listHeadCopy = objectList->head;
 
     for (int i = 0; i < resolution * resolution; i++){
         /* tmpLine.pt.x += x * vectorA.x;
@@ -74,80 +141,63 @@ void rayTracer(Tetrahedron object, Plane observer, Point imageOrigin, int resolu
 
         //printf("x %2d  y %2d \n", x, y);
 
+        objectList->head  = listHeadCopy;
+        for(int j = 0; j < objectList->nbElement; j++){
+            switch (objectList->head->type) {
+                case BRICK_TYPE :
+                    contactPoint[j] = contactBrickWithLine(decodeBrick(objectList->head->object), tmpLine);
+                    break;
+                case ELLIPSE_TYPE :
+                    contactPoint[j] = contactEllipseWithLine(decodeEllipse(objectList->head->object), tmpLine);
+                    break;
+                case TETRAHEDRON_TYPE :
+                    contactPoint[j] = contactTetrahedronWithLine(decodeTetrahedron(objectList->head->object), tmpLine);
+                    break;
+                }
 
-        contactPoint = contactTetrahedronWithLine(object, tmpLine);
+            tmpLine = firstRay;
 
+            if(objectList->head->next != NULL){
+                objectList->head = objectList->head->next;
+            }
+            else{
+                // printf("end list :%d \n", j);
+            }
+        }
 
-        //printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
-        //printf("%lf,%lf,%lf\n",contactPoint.x,contactPoint.y,contactPoint.z);
-        if(isnan(contactPoint.x)
-            || isnan(contactPoint.y)
-            || isnan(contactPoint.z)){
+        if(isPointNaN(contactPoint[0])) {
+            BMPSetColor(imageFile, x, y, black);
+        } else {
+            BMPSetColor(imageFile, x, y, white);
+        }
 
+        if(isPointNaN(contactPoint[1])) {
+            BMPSetColor(testImage, x, y, black);
+        } else {
+            BMPSetColor(testImage, x, y, white);
+        }
+
+        /*nearestPoint = contactPoint[0];
+        for(int k = 0;  k < objectList->nbElement; k++){
+            if (!isPointNaN(contactPoint[k])){
+                if ( norm(pointsToVector(tmpLine.pt, contactPoint[k])) < norm(pointsToVector(tmpLine.pt, nearestPoint)) ){
+                    nearestPoint = contactPoint[k];
+                }
+                if (isPointNaN(nearestPoint)){
+                    nearestPoint = contactPoint[k];
+                }
+            }
+        }
+        if( isPointNaN(nearestPoint)) {
             BMPSetColor(imageFile , x, y, black);
         }
         else{
-            BMPSetColor(imageFile, x, y, white);
-            printf("%3lf %3lf %3lf \n", tmpLine.pt.x, tmpLine.pt.y, tmpLine.pt.z);
-            printf("blanc\n");
-        }
+            // if(isLit(nearestPoint, objectList, lightList, 1)){
+                BMPSetColor(imageFile, x, y, white);
+            // }
+        }*/
 
-        tmpLine = firstRay;
     }
     exportBMPImageToFile(imageFile, imageFileName);
-}
-
-
-/**
-* Launch the check function depending of the object
-*
-* @param A: Light source
-* @param B: list of object
-* @param C: contact points
-*
-* @return TRUE if the light cuts an object before point c
-* @return FALSE if the light doesnt cuts an object before point c
-*/
-
-int testIfLightCutsObject(Light li, List *listOfObject, Point c){
-    while(listOfObject->head->next != NULL) {
-        if(listOfObject->head->type == ELLIPSE_TYPE){
-            if(testIfLightCutsEllipse(listOfObject->head->object, li, c) != TRUE){
-                return TRUE;
-            }
-        }
-        else if(listOfObject->head->type == BRICK_TYPE){
-            if(testIfLightCutsBrick(listOfObject->head->object, li, c) != TRUE){
-                return TRUE;
-            }
-        }
-        else if(listOfObject->head->type == TETRAHEDRON_TYPE){
-            if(testIfLightCutsTetrahedron(listOfObject->head->object, li, c) != TRUE){
-                return TRUE;
-            }
-        }
-        *(listOfObject)->head = *(listOfObject)->head->next;
-    }
-    return FALSE;
-}
-
-/**
-* launch the check fonctions for each point of light
-*
-* @param A: contact point
-* @param B: list of object
-* @param C: list of light
-* @param D: numberOfLight
-*
-* @return TRUE if the point c see the light
-* @return FALSE if the point c desnt see the light
-*/
-
-int isLit(Point c, List *listOfObject, Light *listOfLights, int numberofLights){
-	for (int i = 0; i < numberofLights; i++) {
-        if(testIfLightCutsObject(*(listOfLights + i), listOfObject, c) == TRUE){
-            return TRUE;
-        }
-    }
-    return FALSE;
+    exportBMPImageToFile(testImage, testImageFileName);
 }

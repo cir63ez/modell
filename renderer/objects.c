@@ -25,11 +25,12 @@ List * initList() {
 */
 void addElementList(Element * e, List * L) {
     Element * curElement;
-    curElement = L->head;
+
     if(L->head == NULL) {
         L->head = e;
     }
     else {
+        curElement = L->head;
         while(curElement->next != NULL) {
             curElement = curElement->next;
         }
@@ -37,6 +38,7 @@ void addElementList(Element * e, List * L) {
     }
     L->nbElement++;
 }
+
 
 /**
 * Delete the last element of the list
@@ -207,10 +209,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     if(testA != 0 && testB != 0){
         firstPlaneA = firstPlaneSeen(L, PA, PB);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
+        return intersection;
     }
     if(testB != 0 && testC != 0){
         firstPlaneB = firstPlaneSeen(L,PB,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
+        return intersection;
     }
     if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD);
@@ -219,50 +223,62 @@ Point contactBrickWithLine(Brick B, Line L) {
     if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
+        return intersection;
     }
     if(testD != 0 && testA != 0){
         firstPlaneE = firstPlaneSeen(L,PD,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneE);
+        return intersection;
     }
     if(testB != 0 && testD != 0){
         firstPlaneF = firstPlaneSeen(L,PB,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testA != 0) {
         firstPlaneF = firstPlaneSeen(L,PA,PE);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testB != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PE);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testC != 0) {
         firstPlaneF = firstPlaneSeen(L,PE,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testD != 0) {
         firstPlaneF = firstPlaneSeen(L,PE,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PE,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testA != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PA,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testB != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testC != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testD != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testA){
         intersection = IA;
@@ -296,7 +312,7 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
-    brick =(double*)malloc(6 * sizeof(double));
+    brick =(double*)malloc(24 * sizeof(double));
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -358,7 +374,6 @@ Brick decodeBrick(double *brick){
     B.h.x = brick[21];
     B.h.y = brick[22];
     B.h.z = brick[23];
-    free(brick);
     return B;
 }
 
@@ -380,10 +395,10 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
     if(isPointNaN(contactBrickWithLine(B, L)) == TRUE) {
-        return TRUE;
+        return FALSE;
     }
     else {
-        return FALSE;
+        return TRUE;
     }
 }
 
@@ -404,6 +419,7 @@ Element * createElementBrick(double * B) {
         element->object = B;
         element->next = NULL;
     }
+    return element;
 }
 
 // Ellipse.c
@@ -424,30 +440,58 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     double C;
     double delta;
     double t;
-
+    double t2;
+    double norm1;
+    double norm2;
     Point I;
+    Point I2;
+    Vector V1;
+    Vector V2;
 
     I = initPointNaN();
 
     A = (pow(L.directionVector.x / E.a, 2) + pow(L.directionVector.y / E.b, 2) + pow(L.directionVector.z / E.c, 2));
     B2 = (L.directionVector.z * (L.pt.z - E.z)) / pow(E.c, 2);
     B = (L.directionVector.x * (L.pt.x - E.x)) / pow(E.a, 2) + (L.directionVector.y * (L.pt.y - E.y))/pow(E.b, 2) + B2;
-    C = pow( (L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b, 2) + pow((L.pt.z - E.z) / E.c, 2) - 1;
+    B = 2 * B;
+    C = pow((L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b, 2) + pow((L.pt.z - E.z) / E.c, 2) - 1;
 
-    delta = 4 * (pow(B,2) - A * C);
+    delta = (pow(B,2) - 4 * A * C);
 
-    if(delta < 0){
+    if(delta  <= 0){
         return I;
     }
     else{
         if (delta >= 0){
-            t = (-2 * B - sqrt(delta))/(2 * A);
-        }
-        else{
-            if (delta == 0){
-                t = - B / A;
+
+            t = (- B - sqrt(delta))/(2 * A);
+            t2 = (- B + sqrt(delta))/(2 * A);
+            if(t < 0 && t2 < 0) {
+                return I;
             }
+            if(t < 0) {
+                t = t2;
+            }
+
+            I.x = L.directionVector.x * t + L.pt.x;
+            I.y = L.directionVector.y * t + L.pt.y;
+            I.z = L.directionVector.z * t + L.pt.z;
+
+            I2.x = L.directionVector.x * t2 + L.pt.x;
+            I2.y = L.directionVector.y * t2 + L.pt.y;
+            I2.z = L.directionVector.z * t2 + L.pt.z;
+
+            V1 = pointsToVector(L.pt, I);
+            V2 = pointsToVector(L.pt, I2);
+            norm1 = norm(V1);
+            norm2 = norm(V2);
+
+            if (norm1 > norm2){
+                t = t2;
+            }
+
         }
+
     }
 
     if(t < 0){
@@ -461,6 +505,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
     }
 
 }
+
 
 
 /**
@@ -498,7 +543,6 @@ Ellipse decodeEllipse(double * ellipse){
     E.x = ellipse[3];
     E.y = ellipse[4];
     E.z = ellipse[5];
-    free(ellipse);
     return E;
 }
 
@@ -550,10 +594,10 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
     if(isPointNaN(contactEllipseWithLine(E, L))) {
-        return TRUE;
+        return FALSE;
     }
     else{
-        return FALSE;
+        return TRUE;
     }
 }
 
@@ -565,6 +609,7 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
 */
 Element * createElementEllipse(double * E) {
     Element * element = (Element *)malloc(sizeof(Element));
+
     if (element == NULL) {
         exit(0);
     }
@@ -572,8 +617,9 @@ Element * createElementEllipse(double * E) {
         element->type = ELLIPSE_TYPE;
         element->object = E;
         element->next = NULL;
-        return element;
     }
+
+    return element;
 }
 
 

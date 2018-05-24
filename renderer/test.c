@@ -1,6 +1,7 @@
 #include "raytracer.h"
 
 int main() {
+	/*
 	// pointsToVector
 	Point A;
 	Point B;
@@ -176,6 +177,30 @@ int main() {
 	chocolat.c = 2;
 	Point JM;
 	JM = contactEllipseWithLine(chocolat,remi);
-	printf("%lf,%lf,%lf\n", JM.x,JM.y,JM.z);
+	printf("%lf,%lf,%lf\n", JM.x,JM.y,JM.z);*/
+
+	Ellipse eA;
+	eA.a =  eA.b = eA.c = 5;
+
+	eA.x = eA.y = 0;
+	eA.z = 0;
+
+	Line L;
+	L.pt = setPoint(0,0,-5);
+	L.directionVector.x = 1;
+	L.directionVector.y = 0;
+	L.directionVector.z = 0;
+
+	Point A = contactEllipseWithLine(eA, L);
+	printf("%lf %lf %lf\n", A.x, A.y, A.z);
+
+
+
+
+
+
+
+
+
 	return 0;
 }
