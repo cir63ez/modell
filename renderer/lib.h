@@ -4,41 +4,46 @@
 #include <math.h>
 
 // Defines
+#define _PI 3.14159265359
 
 #define TRUE 1
 #define FALSE 0
-#define NaN 0./0.
+#define NaN 0. / 0.
 
 #define FEQUAL_LIMIT 0.0000000001
 #define FEQUAL(A, B) (fabs(A - B) < FEQUAL_LIMIT) ? TRUE : FALSE
 
 // Structures
 
-
-typedef struct Point_ {
+typedef struct Point_
+{
     double x;
     double y;
     double z;
 } Point;
 
-typedef struct Vector_ {
+typedef struct Vector_
+{
     double x;
     double y;
     double z;
 } Vector;
 
-typedef struct Line_ {
+typedef struct Line_
+{
     Point pt;
     Vector directionVector;
 } Line;
 
-typedef struct Rgb_ {
+typedef struct Rgb_
+{
     unsigned char red;
     unsigned char green;
     unsigned char blue;
 } Rgb;
 
-typedef struct Plane_ {
+typedef struct Plane_
+{
     double a;
     double b;
     double c;
@@ -47,15 +52,18 @@ typedef struct Plane_ {
     double z;
 } Plane;
 
-typedef struct Light_ {
+typedef struct Light_
+{
     Point lightSource;
 } Light;
 
-typedef struct Ray_ {
+typedef struct Ray_
+{
     Line rayLine;
 } Ray;
 
-typedef struct Pixel_ {
+typedef struct Pixel_
+{
     int x;
     int y;
     Rgb color;
@@ -105,7 +113,7 @@ Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
 
 //check if a point is in a polygon
-int isOnPolygon(Point *li,double numberOfPoint,Point t);
+int isOnPolygon(Point *li, double numberOfPoint, Point t);
 
 //Check if the point is on the plane
 int isPointOnPlane(Point I, Plane P);
@@ -124,3 +132,6 @@ Point setPoint(double x, double y, double z);
 
 // Change a caractere to an integer
 int charToInt(char caractere);
+
+// Give the vector of a rotation
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ);

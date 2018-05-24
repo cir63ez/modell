@@ -12,11 +12,11 @@
             <div class="modal-body">
                 <h6>Select the type of the object :</h6>
                 <select name="objectType" class="custom-select">
-                    <option value="brick">Brick</option>
+                    <option value="brick" selected>Brick</option>
                     <option value="cube">Cube</option>
-                    <option value="ellipsoid" selected>Ellipsoid</option>
+                    <option value="ellipsoid" disabled>Ellipsoid</option>
                     <option value="pyramid">Pyramid</option>
-                    <option value="sphere">Sphere</option>
+                    <option value="sphere" disabled>Sphere</option>
                     <option value="tetrahedron">Tetrahedron</option>
                 </select>
             </div>
