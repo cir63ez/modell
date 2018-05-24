@@ -424,61 +424,6 @@ Element * createElementBrick(double * B) {
 // Ellipse.c
 
 /**
-* Give the point of contact between a line and an ellipse
-*
-* @param E: Ellipse's name
-* @param B: Line's name
-*
-* @return the closest point of contact between an ellipse and a line if it exists
-* @return a point with NaN coordinates if the point doesn't exist
-*/
-Point contactEllipseWithLine(Ellipse E, Line L) {
-    double A;
-    double B;
-    double B2;
-    double C;
-    double delta;
-    double t;
-
-    Point I;
-
-    I = initPointNaN();
-
-    A = (pow(L.directionVector.x / E.a, 2) + pow(L.directionVector.y / E.b, 2) + pow(L.directionVector.z / E.c, 2));
-    B2 = (L.directionVector.z * (L.pt.z - E.z)) / pow(E.c, 2);
-    B = (L.directionVector.x * (L.pt.x - E.x)) / pow(E.a, 2) + (L.directionVector.y * (L.pt.y - E.y))/pow(E.b, 2) + B2;
-    C = pow( (L.pt.x - E.x) / E.a, 2) + pow((L.pt.y - E.y) / E.b, 2) + pow((L.pt.z - E.z) / E.c, 2) - 1;
-
-    delta = 4 * (pow(B,2) - A * C);
-
-    if(delta < 0){
-        return I;
-    }
-    else{
-        if (delta >= 0){
-            t = (-2 * B - sqrt(delta))/(2 * A);
-        }
-        else{
-            if (delta == 0){
-                t = - B / A;
-            }
-        }
-    }
-
-    if(t < 0){
-        return I;
-    }
-    else{
-        I.x = L.directionVector.x * t + L.pt.x;
-        I.y = L.directionVector.y * t + L.pt.y;
-        I.z = L.directionVector.z * t + L.pt.z;
-        return I;
-    }
-
-}
-
-
-/**
 * Encode an ellipse as an array
 *
 * @param E: Ellipse's name

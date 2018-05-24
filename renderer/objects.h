@@ -3,7 +3,6 @@
 
 // List.h
 
-
 #define ELLIPSE_TYPE 0
 #define BRICK_TYPE 1
 #define TETRAHEDRON_TYPE 2
@@ -23,19 +22,18 @@ typedef struct List_
 } List;
 
 //Initialized the list
-List * initList();
+List *initList();
 
 // Add an element in the list
-void addElementList(Element * e, List * L);
+void addElementList(Element *e, List *L);
 
 // Delete the last element of the list
-void deleteElementList(List * list);
-
-
+void deleteElementList(List *list);
 
 // Brick.h
 
-typedef struct Brick_ {
+typedef struct Brick_
+{
     Point a;
     Point b;
     Point c;
@@ -53,21 +51,21 @@ int DoesBrickExist(Brick B);
 Point contactBrickWithLine(Brick B, Line L);
 
 // Encode a brick as an array
-double * encodeBrick(Brick B);
+double *encodeBrick(Brick B);
 
 // Encode a brick's array as a brick structure
-Brick decodeBrick(double * brick);
+Brick decodeBrick(double *brick);
 
 // Check if there is a direct path between the point and light
-int testIfLightCutsBrick(double *object,Light Li,Point C);
+int testIfLightCutsBrick(double *object, Light Li, Point C);
 
 // Creates a "brick" element to be added in a chained list
-Element * createElementBrick(double * B);
-
+Element *createElementBrick(double *B);
 
 // Ellipse.h
 
-typedef struct Ellipse_ {
+typedef struct Ellipse_
+{
     //radii of the ellipsoid
     double a;
     double b;
@@ -79,13 +77,13 @@ typedef struct Ellipse_ {
 } Ellipse;
 
 //Give the point of contact between a line and an ellipse
-Point contactEllipseWithLine(Ellipse E, Line L);
+//Point contactEllipseWithLine(Ellipse E, Line L);
 
 // Encode an array as an ellipse structure
-Ellipse decodeEllipse(double * ellipse);
+Ellipse decodeEllipse(double *ellipse);
 
 //Encode an ellipse as an array
-double * encodeEllipse(Ellipse E);
+double *encodeEllipse(Ellipse E);
 
 //Test line of sight with light
 int testIfLightCutsEllipse(double *object, Light Li, Point C);
@@ -94,13 +92,12 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C);
 Plane tangentPlaneEllipse(Ellipse E, Line L);
 
 // Creates an "ellipse" element to be added in a chained list
-Element * createElementEllipse(double * E);
-
+Element *createElementEllipse(double *E);
 
 // Tetrahedron.h
 
-
-typedef struct Tetrahedron_ {
+typedef struct Tetrahedron_
+{
     Point a;
     Point b;
     Point c;
@@ -111,7 +108,7 @@ typedef struct Tetrahedron_ {
 Point contactTetrahedronWithLine(Tetrahedron T, Line L);
 
 //Encode a tetrahedron as an array
-double * encodeTetrahedron(Tetrahedron T);
+double *encodeTetrahedron(Tetrahedron T);
 
 //Encode a tetrahedron's array as a tetrahedron structure
 Tetrahedron decodeTetrahedron(double *tetrahedron);
@@ -120,14 +117,14 @@ Tetrahedron decodeTetrahedron(double *tetrahedron);
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 
 // Creates a "tetrahedron" element to be added in a chained list
-Element * createElementTetrahedron(double * T);
+Element *createElementTetrahedron(double *T);
 
 //Light
 // Encode a light's array as a light structure
-Light decodeLight(double * light);
+Light decodeLight(double *light);
 
 // Encode a light as an array
-double * encodeLight(Light L);
+double *encodeLight(Light L);
 
 // Create a light element for the list
-Element * createElementLight(double * L);
+Element *createElementLight(double *L);
