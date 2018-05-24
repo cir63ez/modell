@@ -104,5 +104,5 @@ function serializeForm($formInput) {
         if($split[0] == 'sphere') { $dataArray[$index] = generalizeSphere($split); }
     }
     
-    return implode(';', $dataArray);
+    return implode(';', $dataArray) . ';';
 }

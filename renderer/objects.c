@@ -311,7 +311,11 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
+<<<<<<< HEAD
     brick =(double*)malloc(8 * 3 * sizeof(double));
+=======
+    brick =(double*)malloc(24 * sizeof(double));
+>>>>>>> 5c1d9c226529cdb2d4a9e531ae44927e31bf3f41
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
