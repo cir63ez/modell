@@ -56,7 +56,7 @@ void afficheVector(Vector I) {
 }
 
 void affichePlan(Plane Q) {
-  printf("Plan : point %lf %lf %lf dirVec %lf %lf %lf\n", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
+  printf("Plan : vectorNormal %lf %lf %lf point %lf %lf %lf\n", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
 }
 //----fin----//
 
@@ -149,15 +149,20 @@ int main(int argc, char **argv){
         M.pt.z = 0;
 
 
-        Plane Plan = planeEquationFromPoints(B.a,B.e,B.f);
+        Plane Plan = planeEquationFromPoints(B.g,B.e,B.f);
         affichePlan(Plan);
 
         printf("\n");
 
         Point I = pointIntersectionLineAndPlane(M,Plan);
         affichePoint(I);
-
-        printf("\n");
+        Point li[4];
+        li[0] = B.g;
+        li[1] = B.e;
+        li[2] = B.f;
+        li[3] = B.h;
+        int yo = isOnPolygon(li, 4, I);
+        printf("je suis dans le polygone putain!!!!!!%d \n", yo);
 
         I = contactBrickWithLine(B,M);
         affichePoint(I);

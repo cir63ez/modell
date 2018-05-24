@@ -208,10 +208,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     if(testA != 0 && testB != 0){
         firstPlaneA = firstPlaneSeen(L, PA, PB);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
+        return intersection;
     }
     if(testB != 0 && testC != 0){
         firstPlaneB = firstPlaneSeen(L,PB,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
+        return intersection;
     }
     if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD);
@@ -220,50 +222,62 @@ Point contactBrickWithLine(Brick B, Line L) {
     if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
+        return intersection;
     }
     if(testD != 0 && testA != 0){
         firstPlaneE = firstPlaneSeen(L,PD,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneE);
+        return intersection;
     }
     if(testB != 0 && testD != 0){
         firstPlaneF = firstPlaneSeen(L,PB,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testA != 0) {
         firstPlaneF = firstPlaneSeen(L,PA,PE);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testB != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PE);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testC != 0) {
         firstPlaneF = firstPlaneSeen(L,PE,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testD != 0) {
         firstPlaneF = firstPlaneSeen(L,PE,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testE != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PE,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testA != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PA,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testB != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testC != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testD != 0 && testF != 0) {
         firstPlaneF = firstPlaneSeen(L,PB,PF);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testA){
         intersection = IA;
@@ -653,26 +667,32 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     if(testA != 0 && testB != 0){
         firstPlaneA = firstPlaneSeen(L, PA, PB);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
+        return intersection;
     }
     if(testB != 0 && testC != 0){
         firstPlaneB = firstPlaneSeen(L,PB,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
+        return intersection;
     }
     if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
+        return intersection;
     }
     if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
+        return intersection;
     }
     if(testD != 0 && testA != 0){
         firstPlaneE = firstPlaneSeen(L,PD,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneE);
+        return intersection;
     }
     if(testB != 0 && testD != 0){
         firstPlaneF = firstPlaneSeen(L,PB,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
+        return intersection;
     }
     if(testA){
         intersection = IA;
