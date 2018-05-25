@@ -108,9 +108,6 @@ Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 //calculate the refracted ray
 Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
 
-//check if a point is in a polygon
-int isOnPolygon(Point *li,double numberOfPoint,Point t);
-
 //Check if the point is on the plane
 int isPointOnPlane(Point I, Plane P);
 
