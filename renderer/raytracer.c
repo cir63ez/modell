@@ -90,9 +90,9 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
 
  /*Add parameter Light *list,*/
 
-void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int resolution, double tetaX, double tetaY, double tetaZ){
+void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int height, int width, double tetaX, double tetaY, double tetaZ){
     BMP *imageFile;
-    imageFile = newBMP(resolution, resolution);
+    imageFile = newBMP(height, width);
     char* imageFileName = "bitmapImage.bmp";
 
     Rgb backgroundColor;
@@ -120,7 +120,7 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
     Element *listHeadCopy;
     listHeadCopy = objectList->head;
 
-    for (int i = 0; i < resolution * resolution; i++){
+    for (int i = 0; i < width * height; i++){
         /* tmpLine.pt.x += x * vectorA.x;
          tmpLine.pt.y += x * vectorA.y;
          tmpLine.pt.z += x * vectorA.z;
@@ -129,8 +129,8 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
          tmpLine.pt.z += y * vectorB.z;
         */
 
-        x = i % (resolution);
-        y = (i - x)/resolution;
+        x = i % (height);
+        y = (i - x)/width;
 
         tmpLine.pt.x += x;
         tmpLine.pt.y -= y;
