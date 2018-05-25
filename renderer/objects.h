@@ -31,8 +31,6 @@ void addElementList(Element * e, List * L);
 // Delete the last element of the list
 void deleteElementList(List * list);
 
-
-
 // Brick.h
 
 typedef struct Brick_ {
@@ -125,6 +123,22 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 // Creates a "tetrahedron" element to be added in a chained list
 Element * createElementTetrahedron(double * T);
 
+//Light
+// Encode a light's array as a light structure
+Light decodeLight(double * light);
+
+// Encode a light as an array
+double * encodeLight(Light L);
+
+// Create a light element for the list
+Element * createElementLight(double * L);
+
+// Test if two points are equals
+int arePointsEqual(Point O, Point I);
+
+// Give a vector in a plane
+Vector vectorInPlane(Point O, Plane P);
+
 // Gets intersection point beteween two lines
 Point pointIntersectionLineAndLine(Line L, Line D);
 
@@ -133,9 +147,3 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L);
 
 // Checks if a point is in a polyogon
 int isOnPolygon(Point *list, double numberOfPoint, Point test);
-
-// Gives a vector in a given plane
-Vector vectorInPlane(Point O, Plane P);
-
-// Checks if two points are conjoined
-int arePointsEqual(Point O, Point I);
