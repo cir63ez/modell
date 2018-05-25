@@ -1,5 +1,7 @@
 <?php
 
+$pagename = 'Viewer';
+
 $dataFile = '../data.txt';
 $rendererExecutable = '../renderer/raytester';
 $imageFile = './bitmapImage.bmp';
@@ -11,14 +13,19 @@ if(!isset($_POST) || (sizeof($_POST) == 0)) {
     die('No form submitted.<br> <a href="?app">Back to Modell</a>');
 }
 
+// Remove previous files
 if(file_exists($dataFile)) { unlink($dataFile); }
 if(file_exists($imageFile)) { unlink($imageFile); }
 
+// Seralize data & prepare input file
 $data = serializeForm($_POST);
 file_put_contents($dataFile, $data);
 
+// Execute the renderer
 $output = exec($rendererExecutable);
 
-var_dump($output);
+// Dump errors (or temp dump output, treatment after)
+if(!file_exists($imageFile)) { $error = 'It seems that there is no rendered image, the renderer may have failed.'; }
+if(isset($output) && $output != '') { $error = 'Error code: ' . $output; }
 
-echo '<img src="' . $imageFile . '" alt="">';
+require('./views/view.php');

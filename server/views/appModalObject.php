@@ -13,7 +13,7 @@
                 <h6>Select the type of the object :</h6>
                 <select name="objectType" class="custom-select">
                     <option value="brick">Brick</option>
-                    <option value="cube" disabled>Cube</option>
+                    <option value="cube">Cube</option>
                     <option value="ellipsoid" selected>Ellipsoid</option>
                     <option value="pyramid">Pyramid</option>
                     <option value="sphere">Sphere</option>

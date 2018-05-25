@@ -63,6 +63,12 @@
             </div>
         </div>
 
+        <h4>Color</h4>
+
+        <input type="number" class="form-control"name="<?= $id; ?>_colorR" placeholder="R" required>
+        <input type="number" class="form-control"name="<?= $id; ?>_colorG" placeholder="G" required>
+        <input type="number" class="form-control"name="<?= $id; ?>_colorB" placeholder="B" required>
+
         <div class="text-right mt-3">
             <a href="#objects" class="btn btn-danger" data-remove="<?= $id; ?>"><i class="fas fa-trash"></i> Remove</a>
         </div>
