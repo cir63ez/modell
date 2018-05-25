@@ -13,11 +13,17 @@ typedef struct BMP_ {
     Rgb *pixels;
 } BMP;
 
-// http://www.fastgraph.com/help/bmp_header_format.html
-// TODO: Refaire en regardant ce qu'il y a dans bmp-internet.c, soit:
-
+// Generate an empty BMP image
 BMP *newBMP(int height, int width);
+
+// Set the pixel of an image
 void BMPSetColor(BMP *image, int x, int y, Rgb color);
+
+// Export a BMP Image to a BMP File
 void exportBMPImageToFile(BMP *image, char *filename);
+
+// Generate the Bitmap File Header
 unsigned char *createBitmapFileHeader(int height, int width);
+
+// Generate the Bitmap Info Header
 unsigned char *createBitmapInfoHeader(int height, int width);
