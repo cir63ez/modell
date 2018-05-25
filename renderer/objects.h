@@ -44,6 +44,7 @@ typedef struct Brick_ {
     Point f;
     Point g;
     Point h;
+    Rgb color;
 } Brick;
 
 // Verify if the brick could exist
@@ -76,6 +77,7 @@ typedef struct Ellipse_ {
     double x;
     double y;
     double z;
+    Rgb color;
 } Ellipse;
 
 //Give the point of contact between a line and an ellipse
@@ -105,6 +107,7 @@ typedef struct Tetrahedron_ {
     Point b;
     Point c;
     Point d;
+    Rgb color;
 } Tetrahedron;
 
 // Give the point of contact between a line and a tetrahedron

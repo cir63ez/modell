@@ -312,7 +312,7 @@ Point contactBrickWithLine(Brick B, Line L) {
 */
 double * encodeBrick(Brick B){
     double *brick;
-    brick =(double*)malloc(24 * sizeof(double));
+    brick =(double*)malloc(27 * sizeof(double));
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -337,6 +337,9 @@ double * encodeBrick(Brick B){
     brick[21] = B.h.x;
     brick[22] = B.h.y;
     brick[23] = B.h.z;
+    brick[24] = B.color.red;
+    brick[25] = B.color.green;
+    brick[26] = B.color.blue;
     return brick;
 }
 
@@ -374,6 +377,9 @@ Brick decodeBrick(double *brick){
     B.h.x = brick[21];
     B.h.y = brick[22];
     B.h.z = brick[23];
+    B.color.red =   brick[24];
+    B.color.green = brick[25];
+    B.color.blue =  brick[26];
     return B;
 }
 
@@ -458,7 +464,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 
     delta = (pow(B,2) - 4 * A * C);
 
-    if(delta  <= 0){
+    if(delta  < 0){
         return I;
     }
     else{
@@ -517,13 +523,16 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 */
 double * encodeEllipse(Ellipse E){
     double *ellipse;
-    ellipse =(double*)malloc(6 * sizeof(double));
+    ellipse =(double*)malloc(9 * sizeof(double));
     ellipse[0] = E.a;
     ellipse[1] = E.b;
     ellipse[2] = E.c;
     ellipse[3] = E.x;
     ellipse[4] = E.y;
     ellipse[5] = E.z;
+    ellipse[6] = E.color.red;
+    ellipse[7] = E.color.green;
+    ellipse[8] = E.color.blue;
     return ellipse;
 }
 
@@ -543,6 +552,9 @@ Ellipse decodeEllipse(double * ellipse){
     E.x = ellipse[3];
     E.y = ellipse[4];
     E.z = ellipse[5];
+    E.color.red   = ellipse[6];
+    E.color.green = ellipse[7];
+    E.color.blue  = ellipse[8];
     return E;
 }
 
@@ -742,7 +754,7 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
 */
 double * encodeTetrahedron(Tetrahedron T){
     double *tetrahedron;
-    tetrahedron=(double*)malloc(12 * sizeof(double));
+    tetrahedron=(double*)malloc(15 * sizeof(double));
     tetrahedron[0] = T.a.x;
     tetrahedron[1] = T.a.y;
     tetrahedron[2] = T.a.z;
@@ -755,8 +767,9 @@ double * encodeTetrahedron(Tetrahedron T){
     tetrahedron[9] = T.d.x;
     tetrahedron[10] = T.d.y;
     tetrahedron[11] = T.d.z;
-
-
+    tetrahedron[12] = T.color.red;
+    tetrahedron[13] = T.color.green;
+    tetrahedron[14] = T.color.blue;
     return tetrahedron;
 }
 
@@ -782,7 +795,9 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
     T.d.x = tetrahedron[9];
     T.d.y = tetrahedron[10];
     T.d.z = tetrahedron[11];
-    free(tetrahedron);
+    T.color.red   = tetrahedron[12];
+    T.color.green = tetrahedron[13];
+    T.color.blue  = tetrahedron[14];
     return T;
 }
 

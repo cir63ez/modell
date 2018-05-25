@@ -45,21 +45,20 @@ Line calculateFirstRay (Plane image, Point origin){
 */
 
 int testIfLightCutsObject(Light li, List *objectList, Point c){
-    while(objectList->head->next != NULL) {
+    while(objectList->head != NULL) {
         switch (objectList->head->type) {
             case ELLIPSE_TYPE:
                 if(testIfLightCutsEllipse(objectList->head->object, li, c)){
                     return TRUE;
                 }
-
-            case BRICK_TYPE :
-                if(testIfLightCutsBrick(objectList->head->object, li, c)){
-                    return TRUE;
-                }
-            case TETRAHEDRON_TYPE :
-                if(testIfLightCutsTetrahedron(objectList->head->object, li, c)){
-                    return TRUE;
-                }
+            // case BRICK_TYPE :
+            //     if(testIfLightCutsBrick(objectList->head->object, li, c)){
+            //         return TRUE;
+            //     }
+            // case TETRAHEDRON_TYPE :
+            //     if(testIfLightCutsTetrahedron(objectList->head->object, li, c)){
+            //         return TRUE;
+            //     }
         }
         objectList->head = objectList->head->next;
     }
@@ -91,14 +90,10 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
 
  /*Add parameter Light *list,*/
 
-void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int resolution){
+void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int resolution, double tetaX, double tetaY, double tetaZ){
     BMP *imageFile;
     imageFile = newBMP(resolution, resolution);
     char* imageFileName = "bitmapImage.bmp";
-
-    BMP *testImage;
-    testImage = newBMP(resolution, resolution);
-    char* testImageFileName = "testImage.bmp";
 
     Rgb white;
     white.red = 255;
@@ -113,6 +108,7 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
     Line firstRay;
     firstRay = calculateFirstRay(observer,imageOrigin);
     Line tmpLine = firstRay;
+    Line rotatedLine;
 
     double x, y;
 
@@ -139,23 +135,34 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         tmpLine.pt.x += x;
         tmpLine.pt.y -= y;
 
-        //printf("x %2d  y %2d \n", x, y);
+        Vector V;
+        V.x = tmpLine.pt.x;
+        V.y = tmpLine.pt.y;
+        V.z = tmpLine.pt.z;
+
+        Vector rotatedV = matriceRotation(V, tetaX, tetaY, tetaZ);
+
+        rotatedLine = tmpLine;
+        rotatedLine.pt.x = rotatedV.x;
+        rotatedLine.pt.y = rotatedV.y;
+        rotatedLine.pt.z = rotatedV.z;
+
+        rotatedLine.directionVector = matriceRotation(tmpLine.directionVector, tetaX, tetaY, tetaZ);
 
         objectList->head  = listHeadCopy;
         for(int j = 0; j < objectList->nbElement; j++){
             switch (objectList->head->type) {
                 case BRICK_TYPE :
-                    contactPoint[j] = contactBrickWithLine(decodeBrick(objectList->head->object), tmpLine);
+                    contactPoint[j] = contactBrickWithLine(decodeBrick(objectList->head->object), rotatedLine);
                     break;
                 case ELLIPSE_TYPE :
-                    contactPoint[j] = contactEllipseWithLine(decodeEllipse(objectList->head->object), tmpLine);
+                    contactPoint[j] = contactEllipseWithLine(decodeEllipse(objectList->head->object), rotatedLine);
                     break;
                 case TETRAHEDRON_TYPE :
-                    contactPoint[j] = contactTetrahedronWithLine(decodeTetrahedron(objectList->head->object), tmpLine);
+                    contactPoint[j] = contactTetrahedronWithLine(decodeTetrahedron(objectList->head->object), rotatedLine);
                     break;
                 }
 
-            tmpLine = firstRay;
 
             if(objectList->head->next != NULL){
                 objectList->head = objectList->head->next;
@@ -164,20 +171,10 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
                 // printf("end list :%d \n", j);
             }
         }
+        tmpLine = firstRay;
 
-        if(isPointNaN(contactPoint[0])) {
-            BMPSetColor(imageFile, x, y, black);
-        } else {
-            BMPSetColor(imageFile, x, y, white);
-        }
-
-        if(isPointNaN(contactPoint[1])) {
-            BMPSetColor(testImage, x, y, black);
-        } else {
-            BMPSetColor(testImage, x, y, white);
-        }
-
-        /*nearestPoint = contactPoint[0];
+        objectList->head = listHeadCopy;
+        nearestPoint = contactPoint[0];
         for(int k = 0;  k < objectList->nbElement; k++){
             if (!isPointNaN(contactPoint[k])){
                 if ( norm(pointsToVector(tmpLine.pt, contactPoint[k])) < norm(pointsToVector(tmpLine.pt, nearestPoint)) ){
@@ -187,17 +184,20 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
                     nearestPoint = contactPoint[k];
                 }
             }
+            if(objectList->head->next != NULL){
+                objectList->head = objectList->head->next;
+            }
         }
-        if( isPointNaN(nearestPoint)) {
-            BMPSetColor(imageFile , x, y, black);
+        objectList->head = listHeadCopy;
+        if(isLit(nearestPoint, objectList, lightList, 1) && !isPointNaN(nearestPoint)) {
+            BMPSetColor(imageFile , x, y, white);
         }
         else{
-            // if(isLit(nearestPoint, objectList, lightList, 1)){
-                BMPSetColor(imageFile, x, y, white);
-            // }
-        }*/
+            if(isPointNaN(nearestPoint)){
+                BMPSetColor(imageFile, x, y, black);
+            }
+        }
 
     }
     exportBMPImageToFile(imageFile, imageFileName);
-    exportBMPImageToFile(testImage, testImageFileName);
 }

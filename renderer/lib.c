@@ -1,5 +1,28 @@
 #include "lib.h"
 
+
+
+
+/**
+ * Give the vector of a rotation
+ *
+ * @param V: vector to change
+ * @param tetaX: angle of rotation on x axe
+ * @param tetaY: angle of rotation on y axe
+ * @param tetaZ: angle of rotation on z axe
+ *
+ * @return vector changed
+ */
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
+    Vector vPrime;
+
+    vPrime.x = cos(tetaZ) * (V.x * cos(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * sin(tetaY)) - sin(tetaZ) * (V.y * cos(tetaX) - V.z * sin(tetaX));
+    vPrime.y = sin(tetaZ) * (V.x * cos(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * sin(tetaY)) + cos(tetaZ) * (V.y * cos(tetaX) - V.z * sin(tetaX));
+    vPrime.z = -V.x * sin(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * cos(tetaY);
+
+    return vPrime;
+}
+
 /**
 * Calculate a vector with from two points
 *
