@@ -3,7 +3,7 @@
 $pagename = 'Viewer';
 
 $dataFile = '../data.txt';
-$rendererExecutable = '../renderer/raytester';
+$rendererExecutable = '../renderer/renderer';
 $imageFile = './bitmapImage.bmp';
 
 require('./models/serialize.php');
