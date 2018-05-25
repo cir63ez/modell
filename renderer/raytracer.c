@@ -96,10 +96,10 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
     char* imageFileName = "bitmapImage.bmp";
 
     Rgb backgroundColor;
-    //Sky Blue
-    backgroundColor.red = 135;
-    backgroundColor.green = 206;
-    backgroundColor.blue = 235;
+    // Deep Blue
+    backgroundColor.red = 0;
+    backgroundColor.green = 0;
+    backgroundColor.blue = 56;
 
     Line firstRay;
     firstRay = calculateFirstRay(observer,imageOrigin);
@@ -154,15 +154,15 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
             switch (objectList->head->type) {
                 case BRICK_TYPE :
                     contactPoint[j] = contactBrickWithLine(decodeBrick(objectList->head->object), rotatedLine);
-                    pointColor[j] = setColor(objectList->head->object[24], objectList->head->object[25], objectList->head->object[26]);
+                    pointColor[j] = setColor((int)objectList->head->object[24], (int)objectList->head->object[25], (int)objectList->head->object[26]);
                     break;
                 case ELLIPSE_TYPE :
                     contactPoint[j] = contactEllipseWithLine(decodeEllipse(objectList->head->object), rotatedLine);
-                    pointColor[j] = setColor(objectList->head->object[6], objectList->head->object[7], objectList->head->object[8]);
+                    pointColor[j] = setColor((int)objectList->head->object[6], (int)objectList->head->object[7],(int) objectList->head->object[8]);
                     break;
                 case TETRAHEDRON_TYPE :
                     contactPoint[j] = contactTetrahedronWithLine(decodeTetrahedron(objectList->head->object), rotatedLine);
-                    pointColor[j] = setColor(objectList->head->object[12], objectList->head->object[13], objectList->head->object[14]);
+                    pointColor[j] = setColor((int)objectList->head->object[12], (int)objectList->head->object[13], (int)objectList->head->object[14]);
                     break;
                 }
 
@@ -178,6 +178,7 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
 
         objectList->head = listHeadCopy;
         nearestPoint = contactPoint[0];
+        nearestPointColor = pointColor[0];
         for(int k = 0;  k < objectList->nbElement; k++){
             if (!isPointNaN(contactPoint[k])){
                 if ( norm(pointsToVector(tmpLine.pt, contactPoint[k])) < norm(pointsToVector(tmpLine.pt, nearestPoint)) ){
@@ -186,7 +187,7 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
                 }
                 if (isPointNaN(nearestPoint)){
                     nearestPoint = contactPoint[k];
-                    // nearestPointColor = pointColor[k];
+                    nearestPointColor = pointColor[k];
                 }
             }
             if(objectList->head->next != NULL){
@@ -201,6 +202,7 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         else{
             if(isLit(nearestPoint, objectList, lightList, 1)/* && !isPointNaN(nearestPoint)*/) {
                 BMPSetColor(imageFile , x, y, nearestPointColor);
+                // printf("%d\n", nearestPointColor.blue);
             }
             else{
                 if(!isLit(nearestPoint, objectList, lightList, 1)){

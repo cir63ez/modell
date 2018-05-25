@@ -185,7 +185,7 @@ Point contactBrickWithLine(Brick B, Line L) {
     faceD[2] = B.e;
     faceD[3] = B.h;
 
-    nbPoint = 8;
+    nbPoint = 4;
 
     PA = planeEquationFromPoints(B.a, B.b, B.c);
     PB = planeEquationFromPoints(B.b, B.c, B.g);
@@ -241,6 +241,7 @@ Point contactBrickWithLine(Brick B, Line L) {
     if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
+        return intersection;
     }
     if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA);
