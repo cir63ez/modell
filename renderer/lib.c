@@ -1,28 +1,5 @@
 #include "lib.h"
 
-
-
-
-/**
- * Give the vector of a rotation
- *
- * @param V: vector to change
- * @param tetaX: angle of rotation on x axe
- * @param tetaY: angle of rotation on y axe
- * @param tetaZ: angle of rotation on z axe
- *
- * @return vector changed
- */
-Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
-    Vector vPrime;
-
-    vPrime.x = cos(tetaZ) * (V.x * cos(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * sin(tetaY)) - sin(tetaZ) * (V.y * cos(tetaX) - V.z * sin(tetaX));
-    vPrime.y = sin(tetaZ) * (V.x * cos(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * sin(tetaY)) + cos(tetaZ) * (V.y * cos(tetaX) - V.z * sin(tetaX));
-    vPrime.z = -V.x * sin(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * cos(tetaY);
-
-    return vPrime;
-}
-
 /**
 * Calculate a vector with from two points
 *
@@ -124,15 +101,15 @@ double angle(Vector AB, Vector AC) {
     normAC = norm(AC);
 
     if(normAB == 0 || normAC == 0) {
-    	printf("TODO: Error div by 0\n");
-    	return 0;
+    	printf("Error: dividing by 0");
+    	exit(0);
     }
 
     test = productABAC/(normAB * normAC);
 
     if (test > 1 || test < -1){
-        printf("TODO: Fix test not in range (-1,1)\n");
-        return 0;
+        printf("Not in range -1;1");
+        exit(0);
     }
 
     return acos(productABAC/(normAB * normAC));
@@ -184,7 +161,7 @@ Vector normalVector(Point A, Point B, Point C) {
     V = initVectorNaN();
 
     if (arePointsAligned(A,B,C)) {
-        printf("We can't make a plane equation with 3 aligned points\n");
+        printf("We can't make a plane equation with 3 aligned points");
     } else {
         V.x = ((B.y - A.y)*(C.z - A.z)-(B.z - A.z)*(C.y - A.y));
         V.y = -((B.x - A.x)*(C.z - A.z)-(B.z - A.z)*(C.x - A.x));
@@ -293,8 +270,12 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
     I.y = NaN;
     I.z = NaN;
 
-    nominator = ((P.a - P.x) * L.pt.x + (P.b - P.y) * L.pt.y + (P.c - P.z) * L.pt.z);
-    denominator =((P.a - P.x) * L.directionVector.x + (P.b - P.y) * L.directionVector.y + (P.c - P.z) * L.directionVector.z);
+    nominator = P.a * (L.pt.x - P.x) + P.b * (L.pt.y - P.y) + P.c * (L.pt.z - P.z);
+    denominator = P.a * L.directionVector.x + P.b * L.directionVector.y + P.c * L.directionVector.z;
+
+    if(denominator == 0) {
+        return I;
+    }
     t = -( nominator / denominator);
 
     if(t < 0) {
@@ -306,8 +287,6 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
         I.z = (L.directionVector.z) * t + L.pt.z;
         return I;
     }
-
-
 }
 
 /**
@@ -409,6 +388,17 @@ Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
     return reflected;
 }
 
+/**
+* Calculate the refracted ray if it exists
+*
+* @param O: Observateur point
+* @param normal: normal vector of the plane
+* @param ray: ray which arrive
+* @param refractiveIndexA: refractive index of the first medium
+* @param refractiveIndexB: refractive index of the second medium
+*
+* @return the refracted ray and the refracted ray if it exists
+*/
 Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB) {
     double thetaA;
     double thetaB;
@@ -475,29 +465,31 @@ int isPointOnPlane(Point I, Plane P) {
 */
 Point initPointNaN() {
     Point P;
+
     P.x = NaN;
     P.y = NaN;
     P.z = NaN;
+    
     return P;
 }
 
 /**
 * Init a vector to NaN
 *
-*
 * @return a point initialized at NaN
 */
 Vector initVectorNaN() {
     Vector V;
+
     V.x = NaN;
     V.y = NaN;
     V.z = NaN;
+
     return V;
 }
 
 /**
 * Verify if a point have NaN coordinates
-*
 *
 * @return a point initialized at NaN
 */
@@ -513,21 +505,73 @@ int isPointNaN(Point P) {
 /**
 * Sets a point
 *
+* @param x: X Component of the point
+* @param y: Y Component of the point
+* @param z: Z Component of the point
 *
-*
+* @return a point (x, y, z)
 */
 Point setPoint (double x, double y, double z){
     Point P;
+
     P.x = x;
     P.y = y;
     P.z = z;
+
     return P;
 }
 
+/**
+ * Set a rgb color quickly
+ * 
+ * @param r: Red component of the color
+ * @param g: Green component of the color
+ * @param b: Blue component of the color
+ * 
+ * @return a rgb object (red = r, green = g, blue = b)
+ */
 Rgb setColor(unsigned char r, unsigned char g, unsigned char b){
     Rgb color;
     color.red = r;
     color.green = g;
     color.blue = b;
     return color;
+}
+
+/**
+ * Change a caractere to an integer
+ * 
+ * @param caractere: the caractere
+ * 
+ * @return the number corresponding to the caractere
+ */
+int charToInt(char caractere) {
+    int number;
+    number = (int)caractere;
+
+    if(number < 58 && number > 47){
+        return number - 48;
+    }
+
+    return 0;
+}
+
+/**
+ * Give the vector of a rotation
+ *
+ * @param V: vector to change
+ * @param tetaX: angle of rotation on x axe
+ * @param tetaY: angle of rotation on y axe
+ * @param tetaZ: angle of rotation on z axe
+ *
+ * @return vector changed
+ */
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
+    Vector vPrime;
+
+    vPrime.x = cos(tetaZ) * (V.x * cos(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * sin(tetaY)) - sin(tetaZ) * (V.y * cos(tetaX) - V.z * sin(tetaX));
+    vPrime.y = sin(tetaZ) * (V.x * cos(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * sin(tetaY)) + cos(tetaZ) * (V.y * cos(tetaX) - V.z * sin(tetaX));
+    vPrime.z = -V.x * sin(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * cos(tetaY);
+
+    return vPrime;
 }

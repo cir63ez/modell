@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 // Defines
@@ -64,9 +65,6 @@ typedef struct Pixel_ {
 
 // Functions
 
-// rotate a vector around the three axes
-Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ);
-
 //create a vector from two points
 Vector pointsToVector(Point A, Point B);
 
@@ -125,3 +123,6 @@ Point setPoint(double x, double y, double z);
 
 //Sets an RGB color
 Rgb setColor(unsigned char r, unsigned char g, unsigned char b);
+
+// rotate a vector around the three axes
+Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ);
