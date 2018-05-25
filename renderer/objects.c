@@ -179,6 +179,13 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
+    printf("IA %lf %lf %lf \n", IA.x, IA.y, IA.z);
+    printf("IB %lf %lf %lf \n", IB.x, IB.y, IB.z);
+    printf("IC %lf %lf %lf \n", IC.x, IC.y, IC.z);
+    printf("ID %lf %lf %lf \n", ID.x, ID.y, ID.z);
+    printf("IE %lf %lf %lf \n", IE.x, IE.y, IE.z);
+    printf("IF %lf %lf %lf \n", IF.x, IF.y, IF.z);
+
 
     testA = isOnPolygon(vertex, nbPoint, IA);
     testB = isOnPolygon(vertex, nbPoint, IB);

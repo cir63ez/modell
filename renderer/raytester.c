@@ -4,28 +4,29 @@
 int main(){
 
 
-    // Plane object;
-    // object.a = object.b = 0;
-    // object.c = 1;
-    // object.x = object.y = 0;
-    // object.z = -10;
-
-    // Brick object;
-    // object.a = setPoint(0, 0, 0);
-    // object.b = setPoint(200, 0, 0);
-    // object.c = setPoint(200, 0, 200);
-    // object.d = setPoint(0, 0, 200);
-    // object.e = setPoint(0, 200, 0);
-    // object.f = setPoint(200, 200, 0);
-    // object.g = setPoint(200, 200, 200);
-    // object.h = setPoint(0, 200, 200);
-/*
+    /*
     Tetrahedron object;
     object.a = setPoint(   0,  0,   0);
     object.b = setPoint(-200,  0,   0);
     object.c = setPoint(-100,  0, 100);
     object.d = setPoint(-100,-100, 50);
     */
+    // Plane object;
+    // object.a = object.b = 0;
+    // object.c = 1;
+    // object.x = object.y = 0;
+    // object.z = -10;
+
+    Brick B;
+    B.a = setPoint(0, 0, 100000000);
+    B.b = setPoint(200, 0, 100000000);
+    B.c = setPoint(200, 0, 100000200);
+    B.d = setPoint(0, 0, 100000200);
+    B.e = setPoint(0, 200, 100000000);
+    B.f = setPoint(200, 200, 100000000);
+    B.g = setPoint(200, 200, 100000200);
+    B.h = setPoint(0, 200, 100000200);
+    B.color = setColor(255,0,255);
 
     Ellipse eA;
     eA.a =  eA.b = eA.c = 100;
@@ -33,21 +34,24 @@ int main(){
     eA.x = eA.y = 120;
     eA.z = 100000000;
 
+    eA.color = setColor(255,0,0);
+
     Ellipse eB;
-    eB.a =  eB.b = eB.c = 500;
+    eB.a =  eB.b = eB.c = 120;
 
     eB.x = eB.y = 0;
-    eB.z = 100000000;
+    eB.z = 10000;
 
+    eB.color = setColor(0,255,0);
 
     List *list;
     list = initList();
-    addElementList(createElementEllipse(encodeEllipse(eB)), list);
+    // addElementList(createElementEllipse(encodeEllipse(eB)), list);
     // addElementList(createElementEllipse(encodeEllipse(eA)), list);
-    // addElementList(createElementBrick(encodeBrick(object)), list);
+    addElementList(createElementBrick(encodeBrick(B)), list);
 
     Light hope;
-    hope.lightSource = setPoint(1000000000, 0, 100000000);
+    hope.lightSource = setPoint(10000, 0, 0);
 
     Light *lightList;
     lightList = (Light*)malloc(sizeof(Light));
@@ -56,9 +60,9 @@ int main(){
     Plane observer;
     observer.a = observer.b = 0;
     observer.c = 1;
-    observer.x = 10000000000;
+    observer.x = 0;
     observer.y = 0;
-    observer.z = 100000000;
+    observer.z = 0;
 
     Point imageOrigin;
     imageOrigin.x = -500;
