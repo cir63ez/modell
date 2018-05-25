@@ -275,7 +275,7 @@ int main() {
 
 	affichePoint(Q);
 	affichePoint(G);
-/*
+
 	Line L;
 	L.pt.x = -3;
 	L.pt.y = -1;
@@ -306,17 +306,18 @@ int main() {
 	ListeDePoints[3] = D;
 	ListeDePoints[4] = E;
 
-	Plane P = planeEquationFromPoints(A,B,C);
+	P = planeEquationFromPoints(A,B,C);
 	Point Test = pointIntersectionLineAndPlane(L, P);
 
 	affichePoint(Test);
+	printf("------------------------------\n");
 	printf("%d\n", isOnPolygon(ListeDePoints, 5, Test));
 
 
 	Point TestB = pointIntersectionLineAndPlane(LB, P);
 
 	affichePoint(TestB);
-	printf("---****---\n");
-	printf("on polygone ? %d\n", isOnPolygon(ListeDePoints, 5, setPoint(4,1,3)));*/
+	printf("-here-\n");
+	printf("on polygone ? %d\n", isOnPolygon(ListeDePoints, 5, setPoint(4,1,3)));
 	return 0;
 }
