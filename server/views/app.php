@@ -50,12 +50,11 @@
                         </div>
                     </div>
 
-                    <h4>Plane</h4>
-                    <h5>Normal vector</h5>
+                    <h4>Plane rotation (radians)</h4>
 
-                    <input type="number" class="form-control" name="plane" placeholder="a" required>
-                    <input type="number" class="form-control" name="planeB" placeholder="b" required>
-                    <input type="number" class="form-control" name="planeC" placeholder="c" required>
+                    <input type="number" class="form-control" name="rotationX" placeholder="Rotation x" required>
+                    <input type="number" class="form-control" name="rotationY" placeholder="Rotation y" required>
+                    <input type="number" class="form-control" name="rotationZ" placeholder="Rotation z" required>
                 </div>
             </div>
         </fieldset>
