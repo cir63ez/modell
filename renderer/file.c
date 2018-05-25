@@ -11,13 +11,13 @@
 int caractereToNumber(FILE * f) {
     int number = 0;
     int test = 0;
-    char curCaractere = '\0';
+    char curCaractere = fgetc(f);
      while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
-        curCaractere = fgetc(f);
         if(curCaractere == '-') {
             test = 1;
         }
-        number = number * 10 + atoi(curCaractere);
+        number = number * 10 + charToInt(curCaractere);
+        curCaractere = fgetc(f);
     }
     if(test) {
         number = number * (-1);
@@ -39,16 +39,21 @@ char * caractereToName(FILE * f) {
     int nbletter = 0;
     int test = 0;
     char curCaractere = '\0';
-     while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
-        name = (char *)realloc(name, sizeof(char) * nbletter);
+    curCaractere = fgetc(f);
+    while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
+        name = (char *)realloc(name, sizeof(char) * (nbletter + 1));
         *(name + nbletter) = curCaractere;
         nbletter++;
         curCaractere = fgetc(f);
     }
+
+    name = (char *)realloc(name, sizeof(char) * (nbletter));
+    *(name + nbletter) = '\0';
+
     if(curCaractere == EOF) { 
-        strcpy(endOfFile, "endoffile");
-        return endOfFile;
+        return "endoffile";
     }
+    
     return name;
 }
 
@@ -101,45 +106,56 @@ int numberCaractere(FILE * f) {
     return nbCaractere;
 }
 
+/**
+*  Give the type of an object
+* 
+* @param name: name to compare
+*
+* @return the type of the object
+*/
 int whichType(char * name) {
-    char *ellipse;
-    char *brick;
-    char *tetrahedron;
-    char *light;
-    strcpy(ellipse, "ellipsoid");
-    strcpy(tetrahedron, "tetrahedron");
-    strcpy(brick, "brick");
-    strcpy(light, "light");
-    if(strcmp(ellipse, name)) {
+    char *ellipse = "ellipsoid";
+    char *brick = "brick";
+    char *tetrahedron = "tetrahedron";
+    char *light = "light";
+    
+    if(strcmp(ellipse, name) == 0) {
         return ELLIPSE_TYPE;
     }
-    if(strcmp(tetrahedron, name)) {
+    if(strcmp(tetrahedron, name) == 0) {
         return TETRAHEDRON_TYPE;
     }
-    if(strcmp(brick, name)) {
+    if(strcmp(brick, name) == 0) {
         return BRICK_TYPE;
     }
-    if(strcmp(light, name)) {
+    if(strcmp(light, name) == 0) {
         return LIGHT_TYPE;
     }
+    return -1;
 }
 
-List * fileNameTofind(FILE * f) {
+/**
+ * Get the list of objects from a file
+ * 
+ * @param f: File 
+ * 
+ * @return liste of object
+ */
+List * objectFromFile(FILE * f) {
     int type;
-    char *endOfFile;
+    char *endOfFile = "endoffile";
     double *object;
     char *name;
-    Element * e;
+    Element *e;
     List *L;
     L = initList();
 
-    strcpy(endOfFile, "endoffile");
-
     name = caractereToName(f);
 
-    type = whichType(name);
-    while(strcmp(name, endOfFile)) {
+    while(strcmp(name, endOfFile) != 0) {
+        type = whichType(name);
         object = objectTreatement(type, f);
+        
         if(type == BRICK_TYPE) {
             e = createElementBrick(object);
         }
@@ -151,12 +167,13 @@ List * fileNameTofind(FILE * f) {
         }
         if(type == LIGHT_TYPE) {
             e = createElementLight(object);
-        }   
+        }
+    
         addElementList(e, L);
+        name = caractereToName(f);
     }
     return L;
 }
-
 
 /**
 *  Give a brick from a file
@@ -191,6 +208,9 @@ Brick getBrick(FILE * f) {
     B.h.x = caractereToNumber(f);
     B.h.y = caractereToNumber(f);
     B.h.z = caractereToNumber(f);
+    B.color.red = (unsigned char) caractereToNumber(f);
+    B.color.green = (unsigned char) caractereToNumber(f);
+    B.color.blue = (unsigned char) caractereToNumber(f);
     return B;
 }
 
@@ -215,6 +235,9 @@ Tetrahedron getTetrahedron(FILE * f) {
     T.d.x = caractereToNumber(f);
     T.d.y = caractereToNumber(f);
     T.d.z = caractereToNumber(f);
+    T.color.red = (unsigned char) caractereToNumber(f);
+    T.color.green = (unsigned char) caractereToNumber(f);
+    T.color.blue = (unsigned char) caractereToNumber(f);
     return T;
 }
 
@@ -233,6 +256,9 @@ Ellipse getEllipse(FILE * f) {
     E.x = caractereToNumber(f);
     E.y = caractereToNumber(f);
     E.z = caractereToNumber(f);
+    E.color.red = (unsigned char) caractereToNumber(f);
+    E.color.green = (unsigned char) caractereToNumber(f);
+    E.color.blue = (unsigned char) caractereToNumber(f);
     return E;
 }
 
