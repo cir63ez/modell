@@ -150,18 +150,44 @@ Point contactBrickWithLine(Brick B, Line L) {
     int testF;
     double nbPoint;
     double whichPlane;
-    Point vertex[8];
+    Point faceA[4];
+    Point faceB[4];
+    Point faceC[4];
+    Point faceD[4];
+    Point faceE[4];
+    Point faceF[4];
 
     intersection = initPointNaN();
 
-    vertex[0] = B.a;
-    vertex[1] = B.b;
-    vertex[2] = B.c;
-    vertex[3] = B.d;
-    vertex[4] = B.e;
-    vertex[5] = B.f;
-    vertex[6] = B.g;
-    vertex[7] = B.h;
+    faceA[0] = B.a;
+    faceA[1] = B.b;
+    faceA[2] = B.c;
+    faceA[3] = B.d;
+
+    faceC[0] = B.a;
+    faceC[1] = B.b;
+    faceC[2] = B.e;
+    faceC[3] = B.f;
+
+    faceE[0] = B.d;
+    faceE[1] = B.c;
+    faceE[2] = B.g;
+    faceE[3] = B.h;
+
+    faceB[0] = B.b;
+    faceB[1] = B.c;
+    faceB[2] = B.f;
+    faceB[3] = B.g;
+
+    faceF[0] = B.e;
+    faceF[1] = B.f;
+    faceF[2] = B.g;
+    faceF[3] = B.h;
+
+    faceD[0] = B.a;
+    faceD[1] = B.d;
+    faceD[2] = B.e;
+    faceD[3] = B.h;
 
     nbPoint = 8;
 
@@ -179,20 +205,13 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
-    printf("IA %lf %lf %lf \n", IA.x, IA.y, IA.z);
-    printf("IB %lf %lf %lf \n", IB.x, IB.y, IB.z);
-    printf("IC %lf %lf %lf \n", IC.x, IC.y, IC.z);
-    printf("ID %lf %lf %lf \n", ID.x, ID.y, ID.z);
-    printf("IE %lf %lf %lf \n", IE.x, IE.y, IE.z);
-    printf("IF %lf %lf %lf \n", IF.x, IF.y, IF.z);
 
-
-    testA = isOnPolygon(vertex, nbPoint, IA);
-    testB = isOnPolygon(vertex, nbPoint, IB);
-    testC = isOnPolygon(vertex, nbPoint, IC);
-    testD = isOnPolygon(vertex, nbPoint, ID);
-    testE = isOnPolygon(vertex, nbPoint, IE);
-    testF = isOnPolygon(vertex, nbPoint, IF);
+    testA = isOnPolygon(faceA, nbPoint, IA);
+    testB = isOnPolygon(faceB, nbPoint, IB);
+    testC = isOnPolygon(faceC, nbPoint, IC);
+    testD = isOnPolygon(faceD, nbPoint, ID);
+    testE = isOnPolygon(faceE, nbPoint, IE);
+    testF = isOnPolygon(faceF, nbPoint, IF);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -1034,45 +1053,50 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L) {
 */
 int isOnPolygon(Point *list, double numberOfPoint, Point test) {
     Vector V;
-    Vector negativeV;
+    //Vector negativeV;
     Plane P;
     Line L;
-    Line LB;
+    //Line LB;
     Point I;
-    Point IB;
+    //Point IB;
     int nbIntersection = 0;
     int cpt = 0;
 
     P = planeEquationFromPoints(list[0], list[1], list[2]);
     V = vectorInPlane(test, P);
 
-    negativeV.x = - V.x;
-    negativeV.y = - V.y;
-    negativeV.z = - V.z;
+    //negativeV.x = - V.x;
+    //negativeV.y = - V.y;
+    //negativeV.z = - V.z;
 
     L.pt = test;
     L.directionVector = V;
-    LB.pt = test;
-    LB.directionVector = negativeV;
+    //LB.pt = test;
+    //LB.directionVector = negativeV;
 
     for(int i = 0; i < numberOfPoint; i++) {
         I = pointIntersectionLineAndSegment(list[i], list[i + 1], L);
-        IB = pointIntersectionLineAndSegment(list[i], list[i + 1], LB);
+        //IB = pointIntersectionLineAndSegment(list[i], list[i + 1], LB);
 
-        if(!isPointNaN(I) || !isPointNaN(IB)) {
+        //if(!isPointNaN(I) || !isPointNaN(IB)) {
+        if(!isPointNaN(I)) {
             nbIntersection++;
         }
         cpt++;
     }
 
     I = pointIntersectionLineAndSegment(list[0], list[cpt - 1], L);
-    IB = pointIntersectionLineAndSegment(list[0], list[cpt - 1], LB);
+    //IB = pointIntersectionLineAndSegment(list[0], list[cpt - 1], LB);
 
-    if(!isPointNaN(I) || !isPointNaN(IB)) {
+    //if(!isPointNaN(I) || !isPointNaN(IB)) {
+    if(!isPointNaN(I)) {
             nbIntersection++;
     }
 
-    if(nbIntersection == 2){
+    //printf("%d\n", nbIntersection);
+
+    //if(nbIntersection == 2){
+    if(nbIntersection % 2 == 1) {
         return TRUE;
     }
     return FALSE;
