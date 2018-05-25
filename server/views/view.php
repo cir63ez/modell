@@ -15,7 +15,7 @@
         </li>
     </ul>
 
-    <img src="<?= $imageFile; ?>" alt="Rendered image">
+    <img src="<?= $imageFile; ?>" width="100%" alt="Rendered image">
 <?php endif; ?>
 </div>
 

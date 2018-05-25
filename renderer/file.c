@@ -40,6 +40,7 @@ char * caractereToName(FILE * f) {
     int test = 0;
     char curCaractere = '\0';
     curCaractere = fgetc(f);
+
     while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
         name = (char *)realloc(name, sizeof(char) * (nbletter + 1));
         *(name + nbletter) = curCaractere;
@@ -47,6 +48,7 @@ char * caractereToName(FILE * f) {
         curCaractere = fgetc(f);
     }
 
+    if(nbletter == 0) {return "endoffile";}
     name = (char *)realloc(name, sizeof(char) * (nbletter));
     *(name + nbletter) = '\0';
 
@@ -172,6 +174,7 @@ List * objectFromFile(FILE * f) {
         addElementList(e, L);
         name = caractereToName(f);
     }
+
     return L;
 }
 
@@ -250,12 +253,12 @@ Tetrahedron getTetrahedron(FILE * f) {
 */
 Ellipse getEllipse(FILE * f) {
     Ellipse E;
-    E.a = caractereToNumber(f);
-    E.b = caractereToNumber(f);
-    E.c = caractereToNumber(f);
     E.x = caractereToNumber(f);
     E.y = caractereToNumber(f);
     E.z = caractereToNumber(f);
+    E.a = caractereToNumber(f);
+    E.b = caractereToNumber(f);
+    E.c = caractereToNumber(f);
     E.color.red = (unsigned char) caractereToNumber(f);
     E.color.green = (unsigned char) caractereToNumber(f);
     E.color.blue = (unsigned char) caractereToNumber(f);
