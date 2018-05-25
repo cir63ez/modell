@@ -444,43 +444,6 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
     return refracted;
 }
 
-/**
-* Check if the point is on the polygon
-*
-* @param A: list of point
-* @param B: test point
-*                    ->
-* @return the vector AB
-*/
-int isOnPolygon(Point *li,double numberOfPoint,Point t){
-    double *listOfNorm;
-
-    if(isPointNaN(t)) {
-        return FALSE;
-    }
-
-    listOfNorm = (double*)malloc(sizeof(double) * numberOfPoint);
-
-    for (int actualPoint = 0; actualPoint < numberOfPoint; actualPoint++) {
-        for (int otherPoint = 0; otherPoint < numberOfPoint; otherPoint++) {
-            if(actualPoint != otherPoint){
-                if(listOfNorm[actualPoint] < norm(pointsToVector(li[actualPoint], li[otherPoint]))) {
-                    listOfNorm[actualPoint] = norm(pointsToVector(li[actualPoint], li[otherPoint]));
-                }
-            }
-        }
-    }
-
-    for (int testPoint = 0; testPoint < numberOfPoint; testPoint++) {
-        if(listOfNorm[testPoint] < norm(pointsToVector(li[testPoint],t))){
-            free(listOfNorm);
-            return FALSE;
-        }
-    }
-
-    free(listOfNorm);
-    return TRUE;
-}
 
 /**
 * Check if the point is on the plane
@@ -559,4 +522,12 @@ Point setPoint (double x, double y, double z){
     P.y = y;
     P.z = z;
     return P;
+}
+
+Rgb setColor(unsigned char r, unsigned char g, unsigned char b){
+    Rgb color;
+    color.red = r;
+    color.green = g;
+    color.blue = b;
+    return color;
 }

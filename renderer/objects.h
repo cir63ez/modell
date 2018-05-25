@@ -124,3 +124,18 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 
 // Creates a "tetrahedron" element to be added in a chained list
 Element * createElementTetrahedron(double * T);
+
+// Gets intersection point beteween two lines
+Point pointIntersectionLineAndLine(Line L, Line D);
+
+// Gets intersection point beteween a line and a segment
+Point pointIntersectionLineAndSegment(Point A, Point B, Line L);
+
+// Checks if a point is in a polyogon
+int isOnPolygon(Point *list, double numberOfPoint, Point test);
+
+// Gives a vector in a given plane
+Vector vectorInPlane(Point O, Plane P);
+
+// Checks if two points are conjoined
+int arePointsEqual(Point O, Point I);

@@ -864,3 +864,209 @@ Element * createElementLight(double * L) {
         element->next = NULL;
     }
 }
+
+/**
+* Give the intersection point between two lines
+*
+* @param L: First line
+* @param D: Second line
+*
+* @return an intersection point
+*/
+Point pointIntersectionLineAndLine(Line L, Line D) {
+    double t;
+    double tA;
+    double nominator;
+    double denominator;
+    Point I;
+
+    I = initPointNaN();
+
+    nominator = ((D.directionVector.y *(L.pt.x - D.pt.x) / D.directionVector.x) + D.pt.y - L.pt.y);
+    denominator = (L.directionVector.y - (D.directionVector.y * L.directionVector.x) / D.directionVector.x);
+
+    if(denominator == 0 || D.directionVector.x == 0) {
+        return I;
+    }
+
+    t = nominator / denominator;
+    tA = (L.directionVector.x * t + L.pt.x - D.pt.x) / D.directionVector.x;
+
+    if(!FEQUAL((L.directionVector.z * t + L.pt.z), (D.directionVector.z * tA + D.pt.z))) {
+        return I;
+    }
+    else {
+        I.x = L.directionVector.x * t + L.pt.x;
+        I.y = L.directionVector.y * t + L.pt.y;
+        I.z = L.directionVector.z * t + L.pt.z;
+        return I;
+    }
+}
+
+/**
+* Test if two points are equal
+* @param O: First point
+* @param I: Second point
+*
+* @return 1 if they are equals
+* @return 0 if there aren't
+*/
+int arePointsEqual(Point O, Point I) {
+    if(FEQUAL(O.x, I.x) && FEQUAL(O.y, I.y) && FEQUAL(O.z, I.z)) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+/**
+* Give a vector in a plane
+* @param O: Point
+* @param P: Plane
+*
+* @return a vector in the plane
+*/
+Vector vectorInPlane(Point O, Plane P) {
+    Point I;
+    Vector V;
+
+    I.x = P.x;
+    I.y = P.y;
+    I.z = P.z;
+
+    if(arePointsEqual(O,I)) {
+        V = pointsToVector(O,I);
+        return V;
+    }
+
+    V = initVectorNaN();
+
+    if(P.c != 0) {
+        I.x = 1;
+        I.y = 1;
+        I.z = (P.a * (I.x - P.x) + P.b * (I.y - P.y) - P.c * P.z) / P.c;
+        V = pointsToVector(O,I);
+        return V;
+    }
+    else if(P.a != 0) {
+        I.y = 1;
+        I.z = 1;
+        I.x = (- P.a * P.x + P.b * (I.y - P.y) + P.c * (I.z - P.z)) / P.a;
+        V = pointsToVector(O,I);
+        return V;
+    }
+    else if(P.b != 0) {
+        I.x = 1;
+        I.z = 1;
+        I.y = (P.a * (I.x - P.x) - P.b * P.y + P.c * (I.z - P.z)) / P.b;
+        V = pointsToVector(O,I);
+        return V;
+    }
+
+    return V;
+
+}
+
+/**
+* Give the intersection point between a line and a segment
+*
+* @param A: First point of the segment
+* @param A: Second point of the segment
+* @param L: Line
+*
+* @return an intersection point
+*/
+Point pointIntersectionLineAndSegment(Point A, Point B, Line L) {
+    Line D;
+    Vector AB;
+    Vector IA;
+    Vector IB;
+    Point I;
+    double normIA;
+    double normIB;
+    double normAB;
+
+    AB = pointsToVector(A, B);
+
+    D.pt = A;
+    D.directionVector = AB;
+
+    I = pointIntersectionLineAndLine(L, D);
+
+    if(isPointNaN(I)){
+        return I;
+    }
+
+    IA = pointsToVector(I, A);
+    IB = pointsToVector(I, B);
+
+    normIA = norm(IA);
+    normIB = norm(IB);
+    normAB = norm(AB);
+
+
+    if(FEQUAL(normIA + normIB, normAB)) {
+        return I;
+    }
+    else {
+        I = initPointNaN();
+        return I;
+    }
+}
+
+
+/**
+* Check if the point is on the polygon
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return void
+*/
+int isOnPolygon(Point *list, double numberOfPoint, Point test) {
+    Vector V;
+    Vector negativeV;
+    Plane P;
+    Line L;
+    Line LB;
+    Point I;
+    Point IB;
+    int nbIntersection = 0;
+    int cpt = 0;
+
+    P = planeEquationFromPoints(list[0], list[1], list[2]);
+    V = vectorInPlane(test, P);
+
+    negativeV.x = - V.x;
+    negativeV.y = - V.y;
+    negativeV.z = - V.z;
+
+    L.pt = test;
+    L.directionVector = V;
+    LB.pt = test;
+    LB.directionVector = negativeV;
+
+    for(int i = 0; i < numberOfPoint; i++) {
+        I = pointIntersectionLineAndSegment(list[i], list[i + 1], L);
+        IB = pointIntersectionLineAndSegment(list[i], list[i + 1], LB);
+
+        if(!isPointNaN(I) || !isPointNaN(IB)) {
+            nbIntersection++;
+        }
+        cpt++;
+    }
+
+    I = pointIntersectionLineAndSegment(list[0], list[cpt - 1], L);
+    IB = pointIntersectionLineAndSegment(list[0], list[cpt - 1], LB);
+
+    if(!isPointNaN(I) || !isPointNaN(IB)) {
+            nbIntersection++;
+    }
+
+    if(nbIntersection == 2){
+        return TRUE;
+    }
+    return FALSE;
+}
