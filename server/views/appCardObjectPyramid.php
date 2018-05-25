@@ -40,6 +40,12 @@
         <input type="number" class="form-control" name="<?= $id; ?>_pointEX" placeholder="X" required>
         <input type="number" class="form-control" name="<?= $id; ?>_pointEY" placeholder="Y"required>
         <input type="number" class="form-control" name="<?= $id; ?>_pointEZ" placeholder="Z"required>
+
+        <h4>Color</h4>
+
+        <input type="number" class="form-control"name="<?= $id; ?>_colorR" placeholder="R" required>
+        <input type="number" class="form-control"name="<?= $id; ?>_colorG" placeholder="G" required>
+        <input type="number" class="form-control"name="<?= $id; ?>_colorB" placeholder="B" required>
             
 
         <div class="text-right mt-3">
