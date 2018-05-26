@@ -56,6 +56,17 @@ int main(){
     B.color = setColor(255,0,255);
 
     Line L;
+
+    for(int i = 0; i < 100; i++) {
+ 
+        L.pt = setPoint(100 + 10 * i,100 + 10 * i,-10 + 10 * i);
+        L.directionVector.x = i;
+        L.directionVector.y = i;
+        L.directionVector.z = 10*i;
+
+        printf("%lf %lf %lf \n", contactBrickWithLine(B, L).x,  contactBrickWithLine(B, L).y,  contactBrickWithLine(B, L).z);
+   
+    }
     L.pt = setPoint(100,100,-10);
     L.directionVector.x = 0;
     L.directionVector.y = 0;

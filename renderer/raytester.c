@@ -52,7 +52,7 @@ int main(){
 
 
     Light *lightList;
-    lightList = (Light*)malloc(sizeof(Light) * 4);
+    lightList = (Light*)malloc(sizeof(Light));
     lightList[0] = lA;
     // lightList[1] = lB;
     // lightList[2] = lC;
