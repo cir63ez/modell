@@ -1196,7 +1196,7 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
         }
     }
 
-    if (sum > 1.047197/*1.047197551196*/ && sum < 1.047198/*1.047197551197*/) {  //1.0471975511965976
+    if (sum/(2*_PI) > 1.047197/*1.047197551196*/ && sum < 1.047198/*1.047197551197*/) {  //1.0471975511965976
         return TRUE;
     }
     else {
