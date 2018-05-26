@@ -1,5 +1,48 @@
 #include "raytracer.h"
 
+
+void affichePoint(Point I) {
+  printf("%lf %lf %lf\n", I.x, I.y, I.z);
+}
+
+void afficheVector(Vector I) {
+  printf("%lf %lf %lf\n", I.x, I.y, I.z);
+}
+
+void affichePlan(Plane Q) {
+  printf("Plan : vectorNormal %lf %lf %lf point %lf %lf %lf\n", Q.x, Q.y, Q.z, Q.a, Q.b, Q.c);
+}
+
+void afficheObject(double * object, int size) {
+  for(int i = 0; i < size; i++) {
+    if(i != 0 && i % 3 == 0) {printf("\n");}
+    printf("%lf ", object[i]);
+  }
+}
+
+void afficheElement(Element * E) {
+  int size;
+  char * name;
+
+  if(E->type == TETRAHEDRON_TYPE) {name = "Tetrahedron"; size = 4*3;}
+  if(E->type == BRICK_TYPE) {name = "Brick"; size = 8*3;}
+  if(E->type == LIGHT_TYPE) {name = "Light"; size = 3;}
+  if(E->type == ELLIPSE_TYPE) {name = "Ellipsoid"; size = 6;}
+  printf("%s:\n", name);
+  afficheObject(E->object, size);
+  printf("\n\n");  
+}
+
+void afficheList(List * L) {
+  Element * current = L->head;
+
+  while(current != NULL) {
+    afficheElement(current);
+    current = current->next;
+  }
+
+}
+
 int main(){
     Brick B;
     B.a = setPoint(0, 0, 0);

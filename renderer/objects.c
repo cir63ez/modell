@@ -201,7 +201,7 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
-
+    printf("%lf %lf %lf %lf %lf %lf \n", IA.x, IB.x, IC.x, ID.x, IE.x, IF.x);
     testA = isOnPolygon(faceA, nbPoint, IA);
     testB = isOnPolygon(faceB, nbPoint, IB);
     testC = isOnPolygon(faceC, nbPoint, IC);

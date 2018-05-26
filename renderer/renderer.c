@@ -68,6 +68,7 @@ int main(int argc, char **argv){
 
     rayTracer(listObjects, listLights, observer, P, height, width, angleX, angleY, angleZ);
 
+
     
     free(listObjects);
 
