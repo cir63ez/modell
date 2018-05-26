@@ -7,7 +7,8 @@
 *  Calls raytracer.c
 */
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
+    printf("HELLLLLLOOOOO");
     FILE * f;
 
     Point P;
@@ -26,8 +27,8 @@ int main(int argc, char **argv){
     observer.y = 0;
     observer.z = 0;
 
-
-    f = fopen("../data.txt", "r");
+    f = fopen("./data.txt", "r");
+    // TODO: in server value: f = fopen("../data.txt", "r");
     
     if(f == NULL) {
         printf("Can't read file");
@@ -43,7 +44,6 @@ int main(int argc, char **argv){
     numberObject = caractereToNumber(f);
     numberLight = caractereToNumber(f);
     
-
     List * L;
     List * listObjects = initList();
     Light listLights[numberLight];
@@ -52,7 +52,6 @@ int main(int argc, char **argv){
     L = objectFromFile(f);
     fclose(f);
     
-
     Element * currentElement = L->head;
     while(currentElement != NULL) {
         if(currentElement->type != LIGHT_TYPE) {
@@ -67,6 +66,7 @@ int main(int argc, char **argv){
     free(L);
 
     rayTracer(listObjects, listLights, observer, P, height, width, angleX, angleY, angleZ);
+
 
     
     free(listObjects);

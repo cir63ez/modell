@@ -91,6 +91,7 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
  /*Add parameter Light *list,*/
 
 void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int height, int width, double tetaX, double tetaY, double tetaZ){
+    
     BMP *imageFile;
     imageFile = newBMP(height, width);
     char* imageFileName = "bitmapImage.bmp";
