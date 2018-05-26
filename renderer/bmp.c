@@ -2,10 +2,10 @@
 
 /**
  * Generate an empty BMP image
- * 
+ *
  * @param height: Height of the image (in pixels)
  * @param width: Width of the image (in pixels)
- * 
+ *
  * @return BMP *: Pointer to the BMP structures containing the image's height,width & pixelsGrid
  */
 BMP *newBMP(int height, int width) {
@@ -21,11 +21,11 @@ BMP *newBMP(int height, int width) {
 
 /**
  * Set the pixel of an image
- * 
+ *
  * @param image: Pointer to the BMP element
  * @param x: Position x of the pixel
  * @param y: Position y of the pixel
- * 
+ *
  * @return void
  *  /------x------->
  *  |      |
@@ -49,12 +49,64 @@ void BMPSetColor(BMP *image, int x, int y, Rgb color) {
 
 /**
  * Export a BMP Image to a BMP File
- * 
+ *
  * @param image: Pointer to the BMP element
  * @param filename: BMP filename (with extension)
- * 
+ *
  * @return void
  */
+
+void blurBmpImage (BMP *image, double blurValue){
+    Rgb *pixelsGrid;
+    int height;
+    int width;
+    int x;
+    int y;
+
+    Rgb averageColorOverTop;
+    Rgb averageColorTop;
+    Rgb averageColorMiddle;
+    Rgb averageColorBottom;
+    Rgb averageColorUnderBottom;
+    Rgb averageColor;
+
+    height = image->height;
+    width = image->width;
+    pixelsGrid = image->pixels;
+
+    for (int i = width * 2; i < height * (width - 2); i++){
+        averageColorOverTop.red   = pixelsGrid[i - 2 * (width + 1)].red   + pixelsGrid[i - (2 * width + 1)].red   + pixelsGrid[i - 2 * width].red   + pixelsGrid[i - 2 * width + 1].red   + pixelsGrid[i - 2 * width + 2].red;
+        averageColorOverTop.green = pixelsGrid[i - 2 * (width + 1)].green + pixelsGrid[i - (2 * width + 1)].green + pixelsGrid[i - 2 * width].green + pixelsGrid[i - 2 * width + 1].green + pixelsGrid[i - 2 * width + 2].green;
+        averageColorOverTop.blue  = pixelsGrid[i - 2 * (width + 1)].blue  + pixelsGrid[i - (2 * width + 1)].blue  + pixelsGrid[i - 2 * width].blue  + pixelsGrid[i - 2 * width + 1].blue  + pixelsGrid[i - 2 * width + 2].blue ;
+
+        averageColorTop.red   = pixelsGrid[i - (width + 1)].red   + pixelsGrid[i - width].red   + pixelsGrid[i - width + 1].red   + pixelsGrid[i - (width + 2)].red   + pixelsGrid[i - width + 2].red;
+        averageColorTop.green = pixelsGrid[i - (width + 1)].green + pixelsGrid[i - width].green + pixelsGrid[i - width + 1].green + pixelsGrid[i - (width + 2)].green + pixelsGrid[i - width + 2].green;
+        averageColorTop.blue  = pixelsGrid[i - (width + 1)].blue  + pixelsGrid[i - width].blue  + pixelsGrid[i - width + 1].blue  + pixelsGrid[i - (width + 2)].blue  + pixelsGrid[i - width + 2].blue;
+
+        averageColorMiddle.red   = pixelsGrid[i - 1].red   + pixelsGrid[i + 1].red   + pixelsGrid[i - 2].red   + pixelsGrid[i + 2].red;
+        averageColorMiddle.green = pixelsGrid[i - 1].green + pixelsGrid[i + 1].green + pixelsGrid[i - 2].green + pixelsGrid[i + 2].green;
+        averageColorMiddle.blue  = pixelsGrid[i - 1].blue  + pixelsGrid[i + 1].blue  + pixelsGrid[i - 2].blue  + pixelsGrid[i + 2].blue;
+
+        averageColorBottom.red   = pixelsGrid[i + (width + 1)].red   + pixelsGrid[i + width].red   + pixelsGrid[i + width + 1].red   + pixelsGrid[i + (width + 2)].red   + pixelsGrid[i + width - 2].red;
+        averageColorBottom.green = pixelsGrid[i + (width + 1)].green + pixelsGrid[i + width].green + pixelsGrid[i + width + 1].green + pixelsGrid[i + (width + 2)].green + pixelsGrid[i + width - 2].green;
+        averageColorBottom.blue  = pixelsGrid[i + (width + 1)].blue  + pixelsGrid[i + width].blue  + pixelsGrid[i + width + 1].blue  + pixelsGrid[i + (width + 2)].blue  + pixelsGrid[i + width - 2].blue;
+
+        averageColorUnderBottom.red   = pixelsGrid[i + 2 * (width + 1)].red   + pixelsGrid[i + (2 * width + 1)].red   + pixelsGrid[i + 2 * width].red   + pixelsGrid[i + 2 * width - 1].red   + pixelsGrid[i + 2 * width - 2].red;
+        averageColorUnderBottom.green = pixelsGrid[i + 2 * (width + 1)].green + pixelsGrid[i + (2 * width + 1)].green + pixelsGrid[i + 2 * width].green + pixelsGrid[i + 2 * width - 1].green + pixelsGrid[i + 2 * width - 2].green;
+        averageColorUnderBottom.blue  = pixelsGrid[i + 2 * (width + 1)].blue  + pixelsGrid[i + (2 * width + 1)].blue  + pixelsGrid[i + 2 * width].blue  + pixelsGrid[i + 2 * width - 1].blue  + pixelsGrid[i + 2 * width - 2].blue ;
+
+        averageColor.red   = ( pixelsGrid[i].red   + blurValue * (averageColorTop.red   + averageColorMiddle.red   + averageColorBottom.red))   / 25;
+        averageColor.green = ( pixelsGrid[i].green + blurValue * (averageColorTop.green + averageColorMiddle.green + averageColorBottom.green)) / 25;
+        averageColor.blue  = ( pixelsGrid[i].blue  + blurValue * (averageColorTop.blue  + averageColorMiddle.blue  + averageColorBottom.blue))  / 25;
+
+        x = i % (height);
+        y = (i - x)/width;
+
+        BMPSetColor(image, x, y, averageColor);
+    }
+
+}
+
 void exportBMPImageToFile(BMP *image, char *filename) {
     int height;
     int width;

@@ -8,20 +8,20 @@ int main(){
 
     earth.x = 0;
     earth.y = 0;
-    earth.z = 1000000000;
+    earth.z = 0;
+    earth.color = setColor(0,255,0);
 
-    earth.color = setColor(237, 189, 33);
+    // earth.color = setColor(237, 189, 33); // saturn
 
     Ellipse moon;
-    moon.a = 700;
-    moon.b = 75;
-    moon.c = 120;
+    moon.a = moon.b = moon.c = 120;
 
     moon.x = 0;
     moon.y = 0;
-    moon.z = 100000000 ;
+    moon.z = -400;
 
-    moon.color = setColor(209, 142, 0);
+    moon.color = setColor(255,255,255);
+    // moon.color = setColor(209, 142, 0); // saturn's ring
 
 
     // Brick B;
@@ -44,7 +44,7 @@ int main(){
 
     Light lA;//, lB;// lC, lD;
     // lA.lightSource = setPoint(200000, -200000, 999900000);
-    lA.lightSource = setPoint(0, 0, -999999999999999);
+    lA.lightSource = setPoint(0, 0, -9999999999999999);
     //
     // lB.lightSource = setPoint(0, 0, -1000000000);
     // lC.lightSource = setPoint(0, -0, 0);
@@ -63,12 +63,12 @@ int main(){
     observer.c = 1;
     observer.x = 0;
     observer.y = 0;
-    observer.z = 0;
+    observer.z = -1000000000;
 
     Point imageOrigin;
-    imageOrigin.x = -500;
-    imageOrigin.y =  500;
-    imageOrigin.z =    0;
+    imageOrigin.x = -1000;
+    imageOrigin.y =  1000;
+    imageOrigin.z = -1000000000;
 
     int width = 2000;
     int height = 2000;
