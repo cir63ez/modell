@@ -32,7 +32,7 @@ int main(){
     // B.e = setPoint(0, 20, 0);
     // B.f = setPoint(20, 20, 0);
     // B.g = setPoint(20, 20, 20);
-    // B.h = setPoint(0, 200, 20);
+    // B.h = setPoint(0, 20, 20);
     // B.color = setColor(255,0,255);
 
     List *list;
@@ -52,7 +52,7 @@ int main(){
 
 
     Light *lightList;
-    lightList = (Light*)malloc(sizeof(Light) * 4);
+    lightList = (Light*)malloc(sizeof(Light));
     lightList[0] = lA;
     // lightList[1] = lB;
     // lightList[2] = lC;

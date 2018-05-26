@@ -26,7 +26,7 @@ int main(int argc, char **argv){
     observer.y = 0;
     observer.z = 0;
 
-    f = fopen("./data.txt", "r");
+    f = fopen("../data.txt", "r");
     // TODO: in server value: f = fopen("../data.txt", "r");
     
     if(f == NULL) {
