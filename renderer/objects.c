@@ -162,8 +162,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceC[0] = B.a;
     faceC[1] = B.b;
-    faceC[2] = B.e;
-    faceC[3] = B.f;
+    faceC[2] = B.f;
+    faceC[3] = B.e;
 
     faceE[0] = B.d;
     faceE[1] = B.c;
@@ -172,8 +172,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceB[0] = B.b;
     faceB[1] = B.c;
-    faceB[2] = B.f;
-    faceB[3] = B.g;
+    faceB[2] = B.g;
+    faceB[3] = B.f;
 
     faceF[0] = B.e;
     faceF[1] = B.f;
@@ -182,8 +182,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceD[0] = B.a;
     faceD[1] = B.d;
-    faceD[2] = B.e;
-    faceD[3] = B.h;
+    faceD[2] = B.h;
+    faceD[3] = B.e;
 
     nbPoint = 4;
 
@@ -201,7 +201,6 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
-    printf("%lf %lf %lf %lf %lf %lf \n", IA.x, IB.x, IC.x, ID.x, IE.x, IF.x);
     testA = isOnPolygon(faceA, nbPoint, IA);
     testB = isOnPolygon(faceB, nbPoint, IB);
     testC = isOnPolygon(faceC, nbPoint, IC);
