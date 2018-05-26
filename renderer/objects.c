@@ -689,14 +689,29 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     int testD;
     double nbPoint;
     double whichPlane;
-    Point vertex[4];
+    Point faceA[3];
+    Point faceB[3];
+    Point faceC[3];
+    Point faceD[3];
 
     intersection = initPointNaN();
 
-    vertex[0] = T.a;
-    vertex[1] = T.b;
-    vertex[2] = T.c;
-    vertex[3] = T.d;
+    faceA[0] = T.a;
+    faceA[1] = T.b;
+    faceA[2] = T.c;
+
+    faceB[0] = T.d;
+    faceB[1] = T.b;
+    faceB[2] = T.c;
+
+    faceC[0] = T.a;
+    faceC[1] = T.b;
+    faceC[2] = T.d;
+
+    faceD[0] = T.a;
+    faceD[1] = T.d;
+    faceD[2] = T.c;
+    
     nbPoint = 4;
 
     PA = planeEquationFromPoints(T.a,T.b,T.c);
@@ -1128,4 +1143,63 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
         return TRUE;
     }
     return FALSE;
+}
+
+
+
+/**
+* Check if the point is on the polygon with the angle method
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return void
+*/
+int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
+    Vector V;
+    Vector VB;
+    Plane P;
+    Line L;
+    double teta;
+    double sum = 0;
+    int cpt = 0;
+
+    for(int i = 0; i < numberOfPoint; i++) {
+        cpt++;
+        if(!isPointNaN(I)) {
+            V = pointsToVector(I, list[i]);
+            VB = pointsToVector(I, list[i + 1]);
+
+            teta = angle(V, VB);
+
+            if(isnan(teta)) {
+                return FALSE;
+            }
+            else {
+                sum = sum + teta;
+            }
+        }
+    }
+    
+    if(!isPointNaN(I)) {
+        V = pointsToVector(I, list[cpt]);
+        VB = pointsToVector(I, list[0]);
+
+        teta = angle(V, VB);
+
+        if(isnan(teta)) {
+            return FALSE;
+        }
+        else {
+            sum = sum + teta;
+        }
+    }
+
+    if (sum > 1.047197/*1.047197551196*/ && sum < 1.047198/*1.047197551197*/) {  //1.0471975511965976
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
 }
