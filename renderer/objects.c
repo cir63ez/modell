@@ -201,12 +201,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
-    testA = isOnPolygon(faceA, nbPoint, IA);
-    testB = isOnPolygon(faceB, nbPoint, IB);
-    testC = isOnPolygon(faceC, nbPoint, IC);
-    testD = isOnPolygon(faceD, nbPoint, ID);
-    testE = isOnPolygon(faceE, nbPoint, IE);
-    testF = isOnPolygon(faceF, nbPoint, IF);
+    testA = isOnPolygonAngleMethod(faceA, nbPoint, IA);
+    testB = isOnPolygonAngleMethod(faceB, nbPoint, IB);
+    testC = isOnPolygonAngleMethod(faceC, nbPoint, IC);
+    testD = isOnPolygonAngleMethod(faceD, nbPoint, ID);
+    testE = isOnPolygonAngleMethod(faceE, nbPoint, IE);
+    testF = isOnPolygonAngleMethod(faceF, nbPoint, IF);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -724,10 +724,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     IC = pointIntersectionLineAndPlane(L,PC);
     ID = pointIntersectionLineAndPlane(L,PD);
 
-    testA = isOnPolygon(vertex, nbPoint, IA);
-    testB = isOnPolygon(vertex, nbPoint, IB);
-    testC = isOnPolygon(vertex, nbPoint, IC);
-    testD = isOnPolygon(vertex, nbPoint, ID);
+    testA = isOnPolygon(faceA, nbPoint, IA);
+    testB = isOnPolygon(faceB, nbPoint, IB);
+    testC = isOnPolygon(faceC, nbPoint, IC);
+    testD = isOnPolygon(faceD, nbPoint, ID);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -1196,7 +1196,10 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
         }
     }
 
-    if (sum/(2*_PI) > 1.047197/*1.047197551196*/ && sum < 1.047198/*1.047197551197*/) {  //1.0471975511965976
+//    sum = sum/(2 * _PI);
+
+    if (sum > 0.1) {  //1.0471975511965976
+    //if(sum != 0) {
         return TRUE;
     }
     else {

@@ -147,3 +147,5 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L);
 
 // Checks if a point is in a polyogon
 int isOnPolygon(Point *list, double numberOfPoint, Point test);
+
+int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I);

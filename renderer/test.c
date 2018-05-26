@@ -44,6 +44,19 @@ void afficheList(List * L) {
 }
 
 int main(){
+    /*Tetrahedron T;
+    T.a = setPoint(0,0,0);
+    T.b = setPoint(3,0,0);
+    T.c = setPoint(1.5,0,3);
+    T.d = setPoint(1.5,2,1.5);*/
+
+    /*Line L;
+    L.pt = setPoint(100,100,-10);
+    L.directionVector.x = 0;
+    L.directionVector.y = 0;
+    L.directionVector.z = 1;*/
+
+    //affichePoint(contactTetrahedronWithLine(T, L));
     Brick B;
     B.a = setPoint(0, 0, 0);
     B.b = setPoint(200, 0, 0);
@@ -57,21 +70,12 @@ int main(){
 
     Line L;
 
-    for(int i = 0; i < 100; i++) {
- 
-        L.pt = setPoint(100 + 10 * i,100 + 10 * i,-10 + 10 * i);
-        L.directionVector.x = i;
-        L.directionVector.y = i;
-        L.directionVector.z = 10*i;
-
-        printf("%lf %lf %lf \n", contactBrickWithLine(B, L).x,  contactBrickWithLine(B, L).y,  contactBrickWithLine(B, L).z);
-   
-    }
     L.pt = setPoint(100,100,-10);
     L.directionVector.x = 0;
     L.directionVector.y = 0;
     L.directionVector.z = 1;
 
     printf("%lf %lf %lf \n", contactBrickWithLine(B, L).x,  contactBrickWithLine(B, L).y,  contactBrickWithLine(B, L).z);
+
     return 0;
 }
