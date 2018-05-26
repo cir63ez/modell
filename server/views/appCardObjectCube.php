@@ -6,18 +6,16 @@
     <div class="card-body">
         <div class="row">
             <div class="col-6">
-                <h4>Center</h4>
+                <h4>Bottom Left Corener</h4>
 
-                <input type="number" class="form-control" name="<?= $id; ?>_centerX" placeholder="X" required>
-                <input type="number" class="form-control" name="<?= $id; ?>_centerY" placeholder="Y"required>
-                <input type="number" class="form-control" name="<?= $id; ?>_centerZ" placeholder="Z"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_bottomLeftX" placeholder="X" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_bottomLeftY" placeholder="Y"required>
+                <input type="number" class="form-control" name="<?= $id; ?>_bottomLeftZ" placeholder="Z"required>
             </div>
             <div class="col-6">
-                <h4>Semi axis</h4>
+                <h4>Edge Length</h4>
 
-                <input type="number" class="form-control" name="<?= $id; ?>_semiRangeA" placeholder="a" required>
-                <input type="number" class="form-control" name="<?= $id; ?>_semiRangeB" placeholder="b" required>
-                <input type="number" class="form-control" name="<?= $id; ?>_semiRangeC" placeholder="c" required>
+                <input type="number" class="form-control" name="<?= $id; ?>_edgeLength" placeholder="Length" required>
             </div>
         </div>
 
