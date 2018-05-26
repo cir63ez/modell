@@ -12,27 +12,44 @@ function nbObjects($serialized) {
 }
 
 function generalizeCube($cube) {   
+    // A
     $object = 'brick,' . $cube[1] . ',' . $cube[2] . ',' . $cube[3] . ',';
-    $object .= $cube[4] . ',' . $cube[5] . ',' . $cube[6] . ',';
-    $object .= $cube[7] . ',' . $cube[8] . ',' . $cube[9] . ',';
 
-    $object .= (int)$cube[4] + (int)$cube[7] - (int)$cube[1] . ',';
-    $object .= (int)$cube[5] + (int)$cube[8] - (int)$cube[2] . ',';
-    $object .= (int)$cube[6] + (int)$cube[9] - (int)$cube[3] . ',';
+    // B
+    $object .= (int)$cube[1] + (int)$cube[4] . ',' . $cube[2] . ',' . $cube[3] . ',';
+
+    // C
+    $object .= (int)$cube[1] + (int)$cube[4] . ',';
+    $object .= $cube[2] . ',';
+    $object .= (int)$cube[3] + (int)$cube[4] . ',';
     
-    $object .= $cube[10] . ',' . $cube[11] . ',' . $cube[12] . ',';
+    // D
+    $object .= $cube[1] . ',';
+    $object .= $cube[2] . ',';
+    $object .= (int)$cube[3] + (int)$cube[4] . ',';
 
-    $object .= (int)$cube[10] + (int)$cube[4] - (int)$cube[1] . ',';
-    $object .= (int)$cube[11] + (int)$cube[5] - (int)$cube[2] . ',';
-    $object .= (int)$cube[12] + (int)$cube[6] - (int)$cube[3] . ',';
+    // E
+    $object .= $cube[1] . ',';
+    $object .= (int)$cube[2] + (int)$cube[4] . ',';
+    $object .= $cube[3] . ',';
 
-    $object .= (int)$cube[10] + (int)$cube[7] - (int)$cube[1] . ',';
-    $object .= (int)$cube[11] + (int)$cube[8] - (int)$cube[2] . ',';
-    $object .= (int)$cube[12] + (int)$cube[9] - (int)$cube[3] . ',';
+    // F
+    $object .= (int)$cube[1] + (int)$cube[4] . ',';
+    $object .= (int)$cube[2] + (int)$cube[4] . ',';
+    $object .= $cube[3] . ',';
 
-    $object .= (int)$cube[10] + (int)$cube[7] + (int)$cube[4] - 2*(int)$cube[1] . ',';
-    $object .= (int)$cube[11] + (int)$cube[8] + (int)$cube[5] - 2*(int)$cube[2] . ',';
-    $object .= (int)$cube[12] + (int)$cube[9] + (int)$cube[6] - 2*(int)$cube[3];
+    // G
+    $object .= (int)$cube[1] + (int)$cube[4] . ',';
+    $object .= (int)$cube[2] + (int)$cube[4] . ',';
+    $object .= (int)$cube[3] + (int)$cube[4] . ',';
+        
+    // H
+    $object .= $cube[1] . ',';
+    $object .= (int)$cube[2] + (int)$cube[4] . ',';
+    $object .= (int)$cube[3] + (int)$cube[4] . ',';
+
+    // RGB
+    $object .= $cube[5] . ',' . $cube[6] . ',' . $cube[7];
 
     return $object;
 }
@@ -45,14 +62,20 @@ function generalizePyramid($pyramid) {
     $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
     $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
     $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
-    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15];
+    $object .= $pyramid[13] . ',' . $pyramid[14] . ',' . $pyramid[15] . ',';
+
+    // RGB
+    $object .= $pyramid[16] . ',' . $pyramid[17] . ',' . $pyramid[18];
 
     return $object;
 }
 
 function generalizeSphere($sphere) {
     $object = 'ellipsoid,' . $sphere[1] . ',' . $sphere[2] . ',' . $sphere[3] . ',';
-    $object .= $sphere[4] . ',' . $sphere[4] . ',' . $sphere[4];
+    $object .= $sphere[4] . ',' . $sphere[4] . ',' . $sphere[4] . ',';
+
+    // RGB
+    $object .= $sphere[5] . ',' . $sphere[6] . ',' . $sphere[7];
 
     return $object;
 }
