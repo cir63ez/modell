@@ -164,6 +164,8 @@ Point contactBrickWithLine(Brick B, Line L) {
     faceC[1] = B.b;
     faceC[2] = B.e;
     faceC[3] = B.f;
+    faceC[2] = B.f;
+    faceC[3] = B.e;
 
     faceE[0] = B.d;
     faceE[1] = B.c;
@@ -174,6 +176,8 @@ Point contactBrickWithLine(Brick B, Line L) {
     faceB[1] = B.c;
     faceB[2] = B.f;
     faceB[3] = B.g;
+    faceB[2] = B.g;
+    faceB[3] = B.f;
 
     faceF[0] = B.e;
     faceF[1] = B.f;
@@ -184,6 +188,8 @@ Point contactBrickWithLine(Brick B, Line L) {
     faceD[1] = B.d;
     faceD[2] = B.e;
     faceD[3] = B.h;
+    faceD[2] = B.h;
+    faceD[3] = B.e;
 
     nbPoint = 4;
 
@@ -208,6 +214,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     testD = isOnPolygon(faceD, nbPoint, ID);
     testE = isOnPolygon(faceE, nbPoint, IE);
     testF = isOnPolygon(faceF, nbPoint, IF);
+    testA = isOnPolygonAngleMethod(faceA, nbPoint, IA);
+    testB = isOnPolygonAngleMethod(faceB, nbPoint, IB);
+    testC = isOnPolygonAngleMethod(faceC, nbPoint, IC);
+    testD = isOnPolygonAngleMethod(faceD, nbPoint, ID);
+    testE = isOnPolygonAngleMethod(faceE, nbPoint, IE);
+    testF = isOnPolygonAngleMethod(faceF, nbPoint, IF);
 
     if(isPointNaN(IA)) {
         testA = 0;
