@@ -1,5 +1,28 @@
 #include "lib.h"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 * Calculate a vector with from two points
 *
@@ -425,6 +448,45 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
     return refracted;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 * Check if the point is on the plane
 *
@@ -517,7 +579,7 @@ Point setPoint (double x, double y, double z){
 int charToInt(char caractere) {
     int number;
     number = (int)caractere;
-    if(number < 58 && number > 47){
+    if(number < 58 && number > 47) {
         return number - 48;
     }
     return 0;

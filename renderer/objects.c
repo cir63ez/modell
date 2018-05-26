@@ -39,6 +39,7 @@ void addElementList(Element * e, List * L) {
     L->nbElement++;
 }
 
+
 /**
 * Delete the last element of the list
 * @param B: head's list
@@ -178,6 +179,7 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
+//modifier vertex for each
 
     testA = isOnPolygon(vertex, nbPoint, IA);
     testB = isOnPolygon(vertex, nbPoint, IB);

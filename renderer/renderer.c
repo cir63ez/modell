@@ -112,7 +112,7 @@ int main(int argc, char **argv){
        // afficheList(L);
         //rayTracer(L,)
         //-------test-------//
-       /* Brick B;
+        Brick B;
         B.a.x = 0;
         B.a.y = 3;
         B.a.z = 0;
@@ -173,7 +173,7 @@ int main(int argc, char **argv){
 
         I = contactBrickWithLine(B,M);
         affichePoint(I);
-
+/*
         //------goat-------//
 
         printf("\n");
