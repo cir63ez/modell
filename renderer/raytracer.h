@@ -7,9 +7,11 @@
 //Calculates the ray corresponding to the (0,0) pixel
 Line calculateFirstRay (Plane image, Point origin);
 
-//(test version) calculate pixel's color
+// Creates the renedered image
 void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin,  int height, int width, double tetaX, double tetaY, double tetaZ);
 
-int testIfLightCutsObject(Light li, List *listOfObject, Point c);
+// Launches the check function corresponding to each object
+int testIfLightCutsObject(Light li, List *listOfObject, Point contactPoint);
 
-int isLit(Point c, List *listOfObject, Light *listOfLight, int numberOfLight);
+// Checks if a given point has direct line of sight with a light source
+int isLit(Point contactPoint, List *listOfObject, Light *listOfLight, int numberOfLight);
