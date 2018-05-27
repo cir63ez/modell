@@ -208,19 +208,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
-
-    testA = isOnPolygon(faceA, nbPoint, IA);
-    testB = isOnPolygon(faceB, nbPoint, IB);
-    testC = isOnPolygon(faceC, nbPoint, IC);
-    testD = isOnPolygon(faceD, nbPoint, ID);
-    testE = isOnPolygon(faceE, nbPoint, IE);
-    testF = isOnPolygon(faceF, nbPoint, IF);
-    testA = isOnPolygonAngleMethod(faceA, nbPoint, IA);
-    testB = isOnPolygonAngleMethod(faceB, nbPoint, IB);
-    testC = isOnPolygonAngleMethod(faceC, nbPoint, IC);
-    testD = isOnPolygonAngleMethod(faceD, nbPoint, ID);
-    testE = isOnPolygonAngleMethod(faceE, nbPoint, IE);
-    testF = isOnPolygonAngleMethod(faceF, nbPoint, IF);
+    testA = isOnPolygonLilianMethod(faceA, nbPoint, IA);
+    testB = isOnPolygonLilianMethod(faceB, nbPoint, IB);
+    testC = isOnPolygonLilianMethod(faceC, nbPoint, IC);
+    testD = isOnPolygonLilianMethod(faceD, nbPoint, ID);
+    testE = isOnPolygonLilianMethod(faceE, nbPoint, IE);
+    testF = isOnPolygonLilianMethod(faceF, nbPoint, IF);
 
     if(isPointNaN(IA)) {
         testA = 0;
