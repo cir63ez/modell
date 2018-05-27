@@ -22,18 +22,18 @@ typedef struct List_
     double nbElement;
 } List;
 
-//Initialized the list
+//Initialises the list
 List * initList();
 
-// Add an element in the list
+// Adds an element in the list
 void addElementList(Element * e, List * L);
 
-// Delete the last element of the list
+// Deletes the last element of the list
 void deleteElementList(List * list);
 
 
-
 // Brick.h
+
 
 typedef struct Brick_ {
     Point a;
@@ -44,21 +44,22 @@ typedef struct Brick_ {
     Point f;
     Point g;
     Point h;
+    Rgb color;
 } Brick;
 
-// Verify if the brick could exist
+// checks if the brick could exist
 int DoesBrickExist(Brick B);
 
-// Give the point of contact between a line and a brick
+// Gives the point of contact between a line and a brick
 Point contactBrickWithLine(Brick B, Line L);
 
-// Encode a brick as an array
+// Encodes a brick as an array
 double * encodeBrick(Brick B);
 
-// Encode a brick's array as a brick structure
+// Encodes a brick's array as a brick structure
 Brick decodeBrick(double * brick);
 
-// Check if there is a direct path between the point and light
+// Checks if there is a direct path between the point and light
 int testIfLightCutsBrick(double *object,Light Li,Point C);
 
 // Creates a "brick" element to be added in a chained list
@@ -66,6 +67,7 @@ Element * createElementBrick(double * B);
 
 
 // Ellipse.h
+
 
 typedef struct Ellipse_ {
     //radii of the ellipsoid
@@ -76,21 +78,22 @@ typedef struct Ellipse_ {
     double x;
     double y;
     double z;
+    Rgb color;
 } Ellipse;
 
-//Give the point of contact between a line and an ellipse
+//Gives the point of contact between a line and an ellipse
 Point contactEllipseWithLine(Ellipse E, Line L);
 
-// Encode an array as an ellipse structure
+// Encodes an array as an ellipse structure
 Ellipse decodeEllipse(double * ellipse);
 
-//Encode an ellipse as an array
+//Encodes an ellipse as an array
 double * encodeEllipse(Ellipse E);
 
-//Test line of sight with light
+//Tests line of sight with light
 int testIfLightCutsEllipse(double *object, Light Li, Point C);
 
-// Give the tangente plane of a intersection point between a plane and an ellipse
+// Gives the tangente plane of a intersection point between a plane and an ellipse
 Plane tangentPlaneEllipse(Ellipse E, Line L);
 
 // Creates an "ellipse" element to be added in a chained list
@@ -105,46 +108,55 @@ typedef struct Tetrahedron_ {
     Point b;
     Point c;
     Point d;
+    Rgb color;
 } Tetrahedron;
 
-// Give the point of contact between a line and a tetrahedron
+// Gives the point of contact between a line and a tetrahedron
 Point contactTetrahedronWithLine(Tetrahedron T, Line L);
 
-//Encode a tetrahedron as an array
+//Encodes a tetrahedron as an array
 double * encodeTetrahedron(Tetrahedron T);
 
-//Encode a tetrahedron's array as a tetrahedron structure
+//Encodes a tetrahedron's array as a tetrahedron structure
 Tetrahedron decodeTetrahedron(double *tetrahedron);
 
-// Check if there is a direct path between the point and light
+// Checks if there is a direct path between the point and light
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C);
 
 // Creates a "tetrahedron" element to be added in a chained list
 Element * createElementTetrahedron(double * T);
 
-//Light
-// Encode a light's array as a light structure
+
+// Light.h
+
+
+// Encodes a light's array as a light structure
 Light decodeLight(double * light);
 
-// Encode a light as an array
+// Encodes a light as an array
 double * encodeLight(Light L);
 
-// Create a light element for the list
+// Creates a light element for the list
 Element * createElementLight(double * L);
 
-///-------------New--------------///
-// Test if two points are equals
+// Tests if two points are equals
 int arePointsEqual(Point O, Point I);
 
-// Give a vector in a plane
+// Gives a vector in a plane
 Vector vectorInPlane(Point O, Plane P);
-///-----------End new--------------------///
 
-// Give the intersection point between two lines
+// Gets intersection point beteween two lines
 Point pointIntersectionLineAndLine(Line L, Line D);
 
-// Give the intersection point between a line and a segment
+// Gets intersection point beteween a line and a segment
 Point pointIntersectionLineAndSegment(Point A, Point B, Line L);
 
-// Check if the point is on the polygon
+// Checks if a point is in a polyogon
 int isOnPolygon(Point *list, double numberOfPoint, Point test);
+
+// Checks if a point is in polygon
+int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I);
+
+// Checks if a point is in polygon
+// Comes from "L’hélicoptère aux 52 orteils de Moldavie" and adapted to our libs
+int isOnPolygonLilianMethod(Point *list, double numberOfPoint, Point I);

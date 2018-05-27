@@ -3,17 +3,8 @@
 $pagename = 'Viewer';
 
 $dataFile = '../data.txt';
-$rendererExecutable = '../renderer/raytester';
+$rendererExecutable = '../renderer/renderer';
 $imageFile = './bitmapImage.bmp';
-
-// TODO: Make error codes
-$code = [
-    '0' => '',
-    '1' => '',
-    '2' => '',
-    '4' => '',
-    '8' => ''
-];
 
 require('./models/serialize.php');
 
@@ -34,7 +25,7 @@ file_put_contents($dataFile, $data);
 $output = exec($rendererExecutable);
 
 // Dump errors (or temp dump output, treatment after)
-//if(!file_exists($imageFile)) { $error = 'It seems that there is no rendered image, the renderer may have failed.'; }
+if(!file_exists($imageFile)) { $error = 'It seems that there is no rendered image, the renderer may have failed.'; }
 if(isset($output) && $output != '') { $error = 'Error code: ' . $output; }
 
 require('./views/view.php');

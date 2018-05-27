@@ -1,49 +1,47 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 // Defines
-#define _PI 3.14159265359
 
 #define TRUE 1
 #define FALSE 0
-#define NaN 0. / 0.
+#define NaN 0./0.
+#define _PI 3.14159265358979
 
 #define FEQUAL_LIMIT 0.0000000001
+#define FEQUAL_LIMIT 0.00001
 #define FEQUAL(A, B) (fabs(A - B) < FEQUAL_LIMIT) ? TRUE : FALSE
 
 // Structures
 
-typedef struct Point_
-{
+
+typedef struct Point_ {
     double x;
     double y;
     double z;
 } Point;
 
-typedef struct Vector_
-{
+typedef struct Vector_ {
     double x;
     double y;
     double z;
 } Vector;
 
-typedef struct Line_
-{
+typedef struct Line_ {
     Point pt;
     Vector directionVector;
 } Line;
 
-typedef struct Rgb_
-{
+typedef struct Rgb_ {
     unsigned char red;
     unsigned char green;
     unsigned char blue;
 } Rgb;
 
-typedef struct Plane_
-{
+typedef struct Plane_ {
     double a;
     double b;
     double c;
@@ -52,18 +50,15 @@ typedef struct Plane_
     double z;
 } Plane;
 
-typedef struct Light_
-{
+typedef struct Light_ {
     Point lightSource;
 } Light;
 
-typedef struct Ray_
-{
+typedef struct Ray_ {
     Line rayLine;
 } Ray;
 
-typedef struct Pixel_
-{
+typedef struct Pixel_ {
     int x;
     int y;
     Rgb color;
@@ -71,67 +66,67 @@ typedef struct Pixel_
 
 // Functions
 
-//create a vector from two points
+//creates a vector from two points
 Vector pointsToVector(Point A, Point B);
 
-//sum of two vectors
+//sums of two vectors
 Vector sumVectors(Vector A, Vector B);
 
-//Substract two vectors
+//Substracts two vectors
 Vector substractVectors(Vector A, Vector B);
 
-//Calculate the scalar product between two vectors
+//Calculates the scalar product between two vectors
 double scalarProduct(Vector A, Vector B);
 
-//Calculate the norm of a vector
+//Calculates the norm of a vector
 double norm(Vector A);
 
-//calculate the angle between two vectors
+//calculates the angle between two vectors
 double angle(Vector AB, Vector AC);
 
-//check if three points are aligned
+//checks if three points are aligned
 char arePointsAligned(Point A, Point B, Point C);
 
-//calculate the normal vector from a plane created by 3 points
+//calculates the normal vector from a plane created by 3 points
 Vector normalVector(Point A, Point B, Point C);
 
-//create a plane from three points
+//creates a plane from three points
 Plane planeEquationFromPoints(Point A, Point B, Point C);
 
 //Point imagePointOnPlane(Point O, Point B, Plane Q);
 
-//Calculate the intersection point between a line and a plane
+//Calculates the intersection point between a line and a plane
 Point pointIntersectionLineAndPlane(Line L, Plane P);
 
-//return the first plane seen by a line
+//returns the first plane seen by a line
 Plane firstPlaneSeen(Line L, Plane P, Plane Q);
 
-//calculate the reflected ray
+//calculates the reflected ray
 Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
 
-//calculate the refracted ray
+//calculates the refracted ray
 Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, double refractiveIndexB);
 
-//check if a point is in a polygon
-int isOnPolygon(Point *li, double numberOfPoint, Point t);
-
-//Check if the point is on the plane
+//Checks if the point is on the plane
 int isPointOnPlane(Point I, Plane P);
 
-//create a NaN point
+//creates a NaN point
 Point initPointNaN();
 
-//create a NaN vector
+//creates a NaN vector
 Vector initVectorNaN();
 
-//check if point is NaN
+//checks if point is NaN
 int isPointNaN(Point P);
 
 //Sets the three coordinates of a pointsToVector
 Point setPoint(double x, double y, double z);
 
-// Change a caractere to an integer
+// Sets an RGB color
+Rgb setColor(unsigned char r, unsigned char g, unsigned char b);
+
+// Changes a caractere to an integer
 int charToInt(char caractere);
 
-// Give the vector of a rotation
+// rotates a vector around the three axes
 Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ);

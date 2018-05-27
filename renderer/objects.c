@@ -1,13 +1,13 @@
 #include "objects.h"
 
+
 // List.c
 
 
 /**
- * Initialized the list
- * @param L: list
+ * Initialises a list
  *
- * @return list
+ * @return intialised list
  */
 List * initList() {
     List * L;
@@ -18,33 +18,41 @@ List * initList() {
 }
 
 /**
-* Add an element in the list
-* @param e: element
+* Adds an element at the end of the list
 *
-* @return void
+* @param A: Element to be added to the list
+* @param B; List to which the Element is added
 */
 void addElementList(Element * e, List * L) {
     Element * curElement;
 
     if(L->head == NULL) {
+    Element *current;
+
+    if(L->nbElement == 0 || L->head == NULL) {
         L->head = e;
     }
     else {
         curElement = L->head;
         while(curElement->next != NULL) {
             curElement = curElement->next;
+    } else {
+        current = L->head;
+        while(current->next != NULL) {
+            current = current->next;
         }
         curElement->next = e;
+
+        current->next = e;
     }
+
     L->nbElement++;
 }
 
-
 /**
-* Delete the last element of the list
-* @param B: head's list
+* Deletes the last element of the list
 *
-* @return void
+* @param A: List from which the element will be removed
 */
 void deleteElementList(List * list) {
     if(list->head != NULL) {
@@ -64,15 +72,17 @@ void deleteElementList(List * list) {
     }
 }
 
+
 // Brick.c
 
+
 /**
-* Verify if the brick could exist
+* Checks if the brick can exist
 *
-* @param B: Brick's name
+* @param A: The brick
 *
-* @return 1 if it could exist
-* @return 0 if it could not exist
+* @return 1 if it can
+* @return 0 if it can't
 */
 int DoesBrickExist(Brick B) {
     Plane PA;
@@ -111,16 +121,14 @@ int DoesBrickExist(Brick B) {
     }
 }
 
-
-
 /**
-* Give the point of contact between a line and a brick
+* Gives the point of contact between a line and a brick
 *
-* @param B: Brick's name
-* @param L: Line's name
+* @param A: The brick
+* @param B: The line
 *
 * @return the closest point of contact between an brick and a line if it exists
-* @return a point with NaN coordinates if the point doesn't exist
+* @return a point with NaN coordinates if it doesn't
 */
 Point contactBrickWithLine(Brick B, Line L) {
     Plane PA;
@@ -150,20 +158,52 @@ Point contactBrickWithLine(Brick B, Line L) {
     int testF;
     double nbPoint;
     double whichPlane;
-    Point vertex[8];
+    Point faceA[4];
+    Point faceB[4];
+    Point faceC[4];
+    Point faceD[4];
+    Point faceE[4];
+    Point faceF[4];
 
     intersection = initPointNaN();
 
-    vertex[0] = B.a;
-    vertex[1] = B.b;
-    vertex[2] = B.c;
-    vertex[3] = B.d;
-    vertex[4] = B.e;
-    vertex[5] = B.f;
-    vertex[6] = B.g;
-    vertex[7] = B.h;
+    faceA[0] = B.a;
+    faceA[1] = B.b;
+    faceA[2] = B.c;
+    faceA[3] = B.d;
 
-    nbPoint = 8;
+    faceC[0] = B.a;
+    faceC[1] = B.b;
+    faceC[2] = B.e;
+    faceC[3] = B.f;
+    faceC[2] = B.f;
+    faceC[3] = B.e;
+
+    faceE[0] = B.d;
+    faceE[1] = B.c;
+    faceE[2] = B.g;
+    faceE[3] = B.h;
+
+    faceB[0] = B.b;
+    faceB[1] = B.c;
+    faceB[2] = B.f;
+    faceB[3] = B.g;
+    faceB[2] = B.g;
+    faceB[3] = B.f;
+
+    faceF[0] = B.e;
+    faceF[1] = B.f;
+    faceF[2] = B.g;
+    faceF[3] = B.h;
+
+    faceD[0] = B.a;
+    faceD[1] = B.d;
+    faceD[2] = B.e;
+    faceD[3] = B.h;
+    faceD[2] = B.h;
+    faceD[3] = B.e;
+
+    nbPoint = 4;
 
     PA = planeEquationFromPoints(B.a, B.b, B.c);
     PB = planeEquationFromPoints(B.b, B.c, B.g);
@@ -179,14 +219,12 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
-//modifier vertex for each
-
-    testA = isOnPolygon(vertex, nbPoint, IA);
-    testB = isOnPolygon(vertex, nbPoint, IB);
-    testC = isOnPolygon(vertex, nbPoint, IC);
-    testD = isOnPolygon(vertex, nbPoint, ID);
-    testE = isOnPolygon(vertex, nbPoint, IE);
-    testF = isOnPolygon(vertex, nbPoint, IF);
+    testA = isOnPolygonLilianMethod(faceA, nbPoint, IA);
+    testB = isOnPolygonLilianMethod(faceB, nbPoint, IB);
+    testC = isOnPolygonLilianMethod(faceC, nbPoint, IC);
+    testD = isOnPolygonLilianMethod(faceD, nbPoint, ID);
+    testE = isOnPolygonLilianMethod(faceE, nbPoint, IE);
+    testF = isOnPolygonLilianMethod(faceF, nbPoint, IF);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -220,6 +258,7 @@ Point contactBrickWithLine(Brick B, Line L) {
     if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
+        return intersection;
     }
     if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA);
@@ -305,15 +344,15 @@ Point contactBrickWithLine(Brick B, Line L) {
 
 
 /**
-* Encode an brick as an array
+* Encodes a brick as an array
 *
-* @param B: Brick's name
+* @param A: Brick object
 *
-* @return an array of double which contain the informations about the brick
+* @return an array of doubles which contains the information about the brick
 */
 double * encodeBrick(Brick B){
     double *brick;
-    brick =(double*)malloc(8 * 3 * sizeof(double));
+    brick =(double*)malloc(27 * sizeof(double));
     brick[0] = B.a.x;
     brick[1] = B.a.y;
     brick[2] = B.a.z;
@@ -338,16 +377,19 @@ double * encodeBrick(Brick B){
     brick[21] = B.h.x;
     brick[22] = B.h.y;
     brick[23] = B.h.z;
+    brick[24] = B.color.red;
+    brick[25] = B.color.green;
+    brick[26] = B.color.blue;
     return brick;
 }
 
 
 /**
-* Encode a brick's array as a brick structure
+* Decodes a brick's array and creates a brick object
 *
-* @param brick: Brick array
+* @param A: Brick array
 *
-* @return a brick
+* @return a brick object
 */
 Brick decodeBrick(double *brick){
     Brick B;
@@ -375,21 +417,24 @@ Brick decodeBrick(double *brick){
     B.h.x = brick[21];
     B.h.y = brick[22];
     B.h.z = brick[23];
+    B.color.red =   brick[24];
+    B.color.green = brick[25];
+    B.color.blue =  brick[26];
     return B;
 }
 
 /**
-* Checks if a point sees the light
+* Checks line of sight to a light source is obstructed by a brick type object
 *
-* @param A: Object
+* @param A: Brick object
 * @param B: Light source
-* @param C: contact points
+* @param C: Contact point
 *
-* @return TRUE if the light cut an brick before point c
-* @return FALSE if the light doesn't cut a brick before point c
+* @return TRUE if the light cuts a brick before the contact point
+* @return FALSE if it doesn't
 */
 
-int testIfLightCutsBrick(double *object,Light Li,Point C) {
+int testIfLightCutsBrick(double *object, Light Li, Point C) {
     Brick B;
     B = decodeBrick(object);
     Line L;
@@ -403,12 +448,11 @@ int testIfLightCutsBrick(double *object,Light Li,Point C) {
     }
 }
 
-
 /**
-* Create a brick element for the list
-* @param B: brick
+* Creates a brick element to be added in a list
+* @param A: Brick array
 *
-* @return an element Brick created
+* @return the element containing the brick
 */
 Element * createElementBrick(double * B) {
     Element * element = (Element *)malloc(sizeof(Element));
@@ -423,13 +467,15 @@ Element * createElementBrick(double * B) {
     return element;
 }
 
+
 // Ellipse.c
 
+
 /**
-* Give the point of contact between a line and an ellipse
+* Gives the point of contact between a line and an ellipse
 *
-* @param E: Ellipse's name
-* @param B: Line's name
+* @param A: The ellipse
+* @param B: The object
 *
 * @return the closest point of contact between an ellipse and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
@@ -459,7 +505,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 
     delta = (pow(B,2) - 4 * A * C);
 
-    if(delta < 0){
+    if(delta  < 0){
         return I;
     }
     else{
@@ -492,11 +538,7 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
             }
 
         }
-        else{
-            if (delta == 0){
-                t = - B / 2 * A;
-            }
-        }
+
     }
 
     if(t < 0){
@@ -512,32 +554,36 @@ Point contactEllipseWithLine(Ellipse E, Line L) {
 }
 
 
+
 /**
-* Encode an ellipse as an array
+* Encodes an ellipse as an array
 *
-* @param E: Ellipse's name
+* @param A: Ellipse object
 *
-* @return an array of double which contain the informations about the ellipse
+* @return an array of doubles which contains the information about the ellipse
 */
 double * encodeEllipse(Ellipse E){
     double *ellipse;
-    ellipse =(double*)malloc(6 * sizeof(double));
+    ellipse =(double*)malloc(9 * sizeof(double));
     ellipse[0] = E.a;
     ellipse[1] = E.b;
     ellipse[2] = E.c;
     ellipse[3] = E.x;
     ellipse[4] = E.y;
     ellipse[5] = E.z;
+    ellipse[6] = E.color.red;
+    ellipse[7] = E.color.green;
+    ellipse[8] = E.color.blue;
     return ellipse;
 }
 
 
 /**
-* Encode an ellipse's array as a ellipse structure
+* Decodes an ellipse's array and creates an ellipse object
 *
 * @param ellipse: Ellipse array
 *
-* @return an ellipse
+* @return an ellipse object
 */
 Ellipse decodeEllipse(double * ellipse){
     Ellipse E;
@@ -547,15 +593,18 @@ Ellipse decodeEllipse(double * ellipse){
     E.x = ellipse[3];
     E.y = ellipse[4];
     E.z = ellipse[5];
+    E.color.red   = ellipse[6];
+    E.color.green = ellipse[7];
+    E.color.blue  = ellipse[8];
     return E;
 }
 
 
 /**
-* Get the tangent plane at the first point of intersection between a line and an Ellipse
+* Gets the tangent plane at the first point of intersection between a line and an ellipse
 *
-*@param E : the Ellipse
-*@param L : the Line
+*@param A: The ellipse
+*@param B: The line
 *
 *@return the tangent plane
 */
@@ -581,14 +630,14 @@ Plane tangentPlaneEllipse(Ellipse E, Line L) {
 }
 
 /**
-* Check if a point sees the light
+* Checks line of sight to a light source is obstructed by an ellipse type object
 *
-* @param A: Object
-* @param B: point of light
-* @param C: contact points
+* @param A: Ellipse object
+* @param B: Light source
+* @param C: Contact point
 *
-* @return TRUE if the light cuts an ellipse before point c
-* @return FALSE if the light doesn't cut an ellipse before point c
+* @return TRUE if the light cuts an ellipse before the contact point
+* @return FALSE if it doesn't
 */
 
 int testIfLightCutsEllipse(double *object, Light Li, Point C){
@@ -606,10 +655,10 @@ int testIfLightCutsEllipse(double *object, Light Li, Point C){
 }
 
 /**
-* Create an ellipse element for the list
-* @param E: Ellipse's name
+* Creates an ellipse element to be added in a list
+* @param A: Ellipse array
 *
-* @return an element ellipse created
+* @return the element containing the ellipse
 */
 Element * createElementEllipse(double * E) {
     Element * element = (Element *)malloc(sizeof(Element));
@@ -630,10 +679,10 @@ Element * createElementEllipse(double * E) {
 // Tetrahedron.c
 
 /**
-* Give the point of contact between a line and a tetrahedron
+* Gives the point of contact between a line and a tetrahedron
 *
-* @param T: Tetrahedron's name
-* @param L: Line's name
+* @param A: The tetrahedron
+* @param B: The line
 *
 * @return the closest point of contact between an tetrahedron and a line if it exists
 * @return a point with NaN coordinates if the point doesn't exist
@@ -661,6 +710,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     double nbPoint;
     double whichPlane;
     Point vertex[4];
+    Point faceA[3];
+    Point faceB[3];
+    Point faceC[3];
+    Point faceD[3];
 
     intersection = initPointNaN();
 
@@ -668,6 +721,22 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     vertex[1] = T.b;
     vertex[2] = T.c;
     vertex[3] = T.d;
+    faceA[0] = T.a;
+    faceA[1] = T.b;
+    faceA[2] = T.c;
+
+    faceB[0] = T.d;
+    faceB[1] = T.b;
+    faceB[2] = T.c;
+
+    faceC[0] = T.a;
+    faceC[1] = T.b;
+    faceC[2] = T.d;
+
+    faceD[0] = T.a;
+    faceD[1] = T.d;
+    faceD[2] = T.c;
+
     nbPoint = 4;
 
     PA = planeEquationFromPoints(T.a,T.b,T.c);
@@ -684,6 +753,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     testB = isOnPolygon(vertex, nbPoint, IB);
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
+    testA = isOnPolygon(faceA, nbPoint, IA);
+    testB = isOnPolygon(faceB, nbPoint, IB);
+    testC = isOnPolygon(faceC, nbPoint, IC);
+    testD = isOnPolygon(faceD, nbPoint, ID);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -701,32 +774,26 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     if(testA != 0 && testB != 0){
         firstPlaneA = firstPlaneSeen(L, PA, PB);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneA);
-        return intersection;
     }
     if(testB != 0 && testC != 0){
         firstPlaneB = firstPlaneSeen(L,PB,PC);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneB);
-        return intersection;
     }
     if(testC != 0 && testD != 0){
         firstPlaneC = firstPlaneSeen(L,PC,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneC);
-        return intersection;
     }
     if(testC != 0 && testA != 0){
         firstPlaneD = firstPlaneSeen(L,PC,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneD);
-        return intersection;
     }
     if(testD != 0 && testA != 0){
         firstPlaneE = firstPlaneSeen(L,PD,PA);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneE);
-        return intersection;
     }
     if(testB != 0 && testD != 0){
         firstPlaneF = firstPlaneSeen(L,PB,PD);
         intersection = pointIntersectionLineAndPlane(L, firstPlaneF);
-        return intersection;
     }
     if(testA){
         intersection = IA;
@@ -744,15 +811,15 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
 }
 
 /**
-* Encode an tetrahedron as an array
+* Encodes a tetrahedron as an array
 *
-* @param T: Tetrahedron's name
+* @param A: Tetrahedron object
 *
-* @return an array of double which contain the informations about the tetrahedron
+* @return an array of doubles which contains the informations about the tetrahedron
 */
 double * encodeTetrahedron(Tetrahedron T){
     double *tetrahedron;
-    tetrahedron=(double*)malloc(12 * sizeof(double));
+    tetrahedron=(double*)malloc(15 * sizeof(double));
     tetrahedron[0] = T.a.x;
     tetrahedron[1] = T.a.y;
     tetrahedron[2] = T.a.z;
@@ -765,18 +832,19 @@ double * encodeTetrahedron(Tetrahedron T){
     tetrahedron[9] = T.d.x;
     tetrahedron[10] = T.d.y;
     tetrahedron[11] = T.d.z;
-
-
+    tetrahedron[12] = T.color.red;
+    tetrahedron[13] = T.color.green;
+    tetrahedron[14] = T.color.blue;
     return tetrahedron;
 }
 
 
 /**
-* Encode a tetrahedron's array as a tetrahedron structure
+* Decodes a tetrahedron's array and creates a tetrahedron object
 *
-* @param tetrahedron: Tetrahedron array
+* @param A: Tetrahedron array
 *
-* @return a tetrahedron
+* @return a tetrahedron object
 */
 Tetrahedron decodeTetrahedron(double * tetrahedron){
     Tetrahedron T;
@@ -792,19 +860,22 @@ Tetrahedron decodeTetrahedron(double * tetrahedron){
     T.d.x = tetrahedron[9];
     T.d.y = tetrahedron[10];
     T.d.z = tetrahedron[11];
+    T.color.red   = tetrahedron[12];
+    T.color.green = tetrahedron[13];
+    T.color.blue  = tetrahedron[14];
     return T;
 }
 
 
 /**
-* Check if a point sees the light
+* Checks line of sight to a light source is obstructed by a tetrahedron type object
 *
-* @param A: Object
+* @param A: Tetrahedron object
 * @param B: Light source
-* @param C: Contact points
+* @param C: Contact point
 *
-* @return TRUE if the light cut a tetrahedron before point c
-* @return FALSE if the light doesnt cut a tetrahedron before point c
+* @return TRUE if the light cuts a tetrahedron before the contact point
+* @return FALSE if it doesn't
 */
 
 int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
@@ -814,18 +885,18 @@ int testIfLightCutsTetrahedron(double *object, Light Li, Point C){
     L.pt = C;
     L.directionVector = pointsToVector(C, Li.lightSource);
     if(isPointNaN(contactTetrahedronWithLine(T, L)) == TRUE) {
-        return FALSE;
+        return TRUE;
     }
     else{
-        return TRUE;
+        return FALSE;
     }
 }
 
 /**
-* Create an tetrahedron element for the list
-* @param T: tetrahedron's name
+* Creates a tetrahedron element to be added in a list
+* @param A: Tetrahedron array
 *
-* @return an element Brick created
+* @return the element containing the tetrahedron
 */
 Element * createElementTetrahedron(double * T) {
     Element * element = (Element *)malloc(sizeof(Element));
@@ -837,18 +908,18 @@ Element * createElementTetrahedron(double * T) {
         element->object = T;
         element->next = NULL;
     }
-    return element;
 }
 
 
-//LIGHTS
+//Light sources
+
 
 /**
-* Encode a light's array as a light structure
+* Encodes a light's array and creates a light source object
 *
 * @param light: Light array
 *
-* @return a light
+* @return light source object
 */
 Light decodeLight(double * light){
     Light L;
@@ -859,11 +930,11 @@ Light decodeLight(double * light){
 }
 
 /**
-* Encode a light as an array
+* Encodes a light as an array
 *
-* @param L: Light's name
+* @param L: Light object
 *
-* @return an array of double which contain the informations about the light
+* @return an array of doubles which contains the informations about the light
 */
 double * encodeLight(Light L){
     double *light;
@@ -875,12 +946,11 @@ double * encodeLight(Light L){
     return light;
 }
 
-
 /**
-* Create a light element for the list
-* @param L: light
+* Creates a light element to be added in a list
+* @param A: Light array
 *
-* @return an element Light created
+* @return the element containing the light source
 */
 Element * createElementLight(double * L) {
     Element * element = (Element *)malloc(sizeof(Element));
@@ -892,18 +962,53 @@ Element * createElementLight(double * L) {
         element->object = L;
         element->next = NULL;
     }
-    return element;
 }
 
+/**
+* Gives the intersection point between two lines
+*
+* @param A: First line
+* @param B: Second line
+*
+* @return an intersection point
+*/
+Point pointIntersectionLineAndLine(Line L, Line D) {
+    double t;
+    double tA;
+    double nominator;
+    double denominator;
+    Point I;
 
-///-------------New--------------///
+    I = initPointNaN();
+
+    nominator = ((D.directionVector.y *(L.pt.x - D.pt.x) / D.directionVector.x) + D.pt.y - L.pt.y);
+    denominator = (L.directionVector.y - (D.directionVector.y * L.directionVector.x) / D.directionVector.x);
+
+    if(denominator == 0 || D.directionVector.x == 0) {
+        return I;
+    }
+
+    t = nominator / denominator;
+    tA = (L.directionVector.x * t + L.pt.x - D.pt.x) / D.directionVector.x;
+
+    if(!FEQUAL((L.directionVector.z * t + L.pt.z), (D.directionVector.z * tA + D.pt.z))) {
+        return I;
+    }
+    else {
+        I.x = L.directionVector.x * t + L.pt.x;
+        I.y = L.directionVector.y * t + L.pt.y;
+        I.z = L.directionVector.z * t + L.pt.z;
+        return I;
+    }
+}
+
 /**
 * Test if two points are equal
-* @param O: First point
-* @param I: Second point
+* @param A: First point
+* @param B: Second point
 *
-* @return 1 if they are equals 
-* @return 0 if there aren't
+* @return TRUE if they are equal
+* @return FALSE if they're not
 */
 int arePointsEqual(Point O, Point I) {
     if(FEQUAL(O.x, I.x) && FEQUAL(O.y, I.y) && FEQUAL(O.z, I.z)) {
@@ -911,13 +1016,22 @@ int arePointsEqual(Point O, Point I) {
     }
     else {
         return FALSE;
+    if(FEQUAL(O.x, I.x)) {
+        if(FEQUAL(O.y, I.y)) {
+            if(FEQUAL(O.z, I.z)) {
+                return TRUE;
+            }
+        }
     }
+
+    return FALSE;
 }
 
 /**
-* Give a vector in a plane
-* @param O: Point
-* @param P: Plane
+* Creates an arbitrary vector in a plane
+*
+* @param A: A point on the plane
+* @param B: Said plane
 *
 * @return a vector in the plane
 */
@@ -957,62 +1071,17 @@ Vector vectorInPlane(Point O, Plane P) {
         V = pointsToVector(O,I);
         return V;
     }
-    
+
     return V;
 
 }
-///-----------End new--------------------///
 
-///----------------NewNew---------------///
 /**
-* Give the intersection point between two lines
-* 
-* @param L: First line
-* @param D: Second line
+* Gives the intersection point between a line and a segment
 *
-* @return an intersection point
-*/
-Point pointIntersectionLineAndLine(Line L, Line D) {
-    double t;
-    double tA;
-    double nominator;
-    double denominator;
-    Point I;
-
-    I = initPointNaN();
-
-    if(FEQUAL(D.directionVector.x , 0)){
-        return I;
-    }
-    
-    nominator = ((D.directionVector.y *(L.pt.x - D.pt.x) / D.directionVector.x) + D.pt.y - L.pt.y);
-    denominator = (L.directionVector.y - (D.directionVector.y * L.directionVector.x) / D.directionVector.x);
-    
-    if(FEQUAL(denominator, 0)) {
-        return I;
-    }
-
-    t = nominator / denominator;
-    tA = (L.directionVector.x * t + L.pt.x - D.pt.x) / D.directionVector.x;
-
-    if(!FEQUAL((L.directionVector.z * t + L.pt.z), (D.directionVector.z * tA + D.pt.z))) {
-        return I;
-    }
-    else {
-        I.x = L.directionVector.x * t + L.pt.x;
-        I.y = L.directionVector.y * t + L.pt.y;
-        I.z = L.directionVector.z * t + L.pt.z;
-        
-        return I;
-    }
-}
-
-/**
-* Give the intersection point between a line and a segment
-* 
 * @param A: First point of the segment
-* @param A: Second point of the segment
-* @param L: Line
+* @param B: Second point of the segment
+* @param C: Line
 *
 * @return an intersection point
 */
@@ -1056,13 +1125,15 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L) {
 
 
 /**
-* Check if the point is on the polygon
+* Checks if a point is on a polygon
 *
-* @param list: List of points
-* @param numberOfPoint: Number of points
-* @param test: Test point
-*                    
+* @param A: List of points creating a polygon
+* @param B: Number of vertices in the polygon
+* @param C: Test point
+*
 * @return void
+* @return TRUE if the point is in the polygon
+* @return FALSE if the point is not in the polygon
 */
 int isOnPolygon(Point *list, double numberOfPoint, Point test) {
     Vector V;
@@ -1097,7 +1168,7 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
         }
         cpt++;
     }
-    
+
     I = pointIntersectionLineAndSegment(list[0], list[cpt - 1], L);
     //IB = pointIntersectionLineAndSegment(list[0], list[cpt - 1], LB);
 
@@ -1105,8 +1176,8 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
     if(!isPointNaN(I)) {
             nbIntersection++;
     }
-    
-    printf("%d\n", nbIntersection);
+
+    //printf("%d\n", nbIntersection);
 
     //if(nbIntersection == 2){
     if(nbIntersection % 2 == 1) {
@@ -1114,4 +1185,132 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
     }
     return FALSE;
 }
-///--------------EndNewNew------------///
+
+
+
+/**
+* Checks if a point is on a polygon with the angle method
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return void
+* @return TRUE if the point is on the polygon
+* @return FALSE if the point is not on the polygon
+*/
+int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
+    Vector V;
+    Point A;
+    Point B;
+    Vector VA;
+    Vector VB;
+    Plane P;
+    Line L;
+    double teta;
+    double sum = 0;
+    int cpt = 0;
+
+    double sum;
+
+    for(int i = 0; i < numberOfPoint; i++) {
+        cpt++;
+        A = list[i];
+        B = (i == numberOfPoint - 1) ? list[0] : list[i + 1];
+
+
+        if(arePointsEqual(I, A)) {return TRUE;}
+        if(arePointsEqual(I, B)) {return TRUE;}
+
+
+        if(!isPointNaN(I)) {
+            V = pointsToVector(I, list[i]);
+            VB = pointsToVector(I, list[i + 1]);
+            Vector VA = pointsToVector(I, A);
+            Vector VB = pointsToVector(I, B);
+
+            teta = angle(V, VB);
+            teta = angle(VA, VB);
+
+            if(isnan(teta)) {
+                return FALSE;
+            }
+            else {
+                sum = sum + teta;
+            }
+            if(isnan(teta)) {return FALSE;}
+
+            sum += teta;
+        }
+    }
+
+    if(!isPointNaN(I)) {
+        V = pointsToVector(I, list[cpt]);
+        VB = pointsToVector(I, list[0]);
+
+        teta = angle(V, VB);
+    return (FEQUAL(sum, 2 * _PI)) ? TRUE : FALSE;
+}
+
+        if(isnan(teta)) {
+            return FALSE;
+/**
+* Check if the point is on the polygon with the angle method of Lilian
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
+*/
+int isOnPolygonLilianMethod(Point *list, double numberOfPoint, Point I) {
+  Vector A;
+  Vector B;
+  double sum = 0;
+  int nbVertex;
+  nbVertex = (int)numberOfPoint;
+
+  if(isPointNaN(I) ==  FALSE) {
+    for(int i = 0; i < numberOfPoint; i++){
+        A = pointsToVector(I, list[i]);
+
+        if(arePointsEqual(I, list[i])) {
+            return TRUE;
+        }
+        else {
+            sum = sum + teta;
+
+      if(i == nbVertex - 1){
+        A = pointsToVector(I, list[0]);
+
+        if(arePointsEqual(I, list[0])) {
+            return TRUE;
+        }
+    }
+
+//    sum = sum/(2 * _PI);
+      }
+      else{
+        B = pointsToVector(I, list[i + 1]);
+
+    if (sum > 0.1) {  //1.0471975511965976
+    //if(sum != 0) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+        if(arePointsEqual(I, list[i + 1])) {
+            return TRUE;
+        }
+
+      }
+      sum = sum + angle(A,B);
+    }
+  }
+
+  if(FEQUAL(sum, 2 * _PI)){
+    return TRUE;
+  }
+  return FALSE;
+}

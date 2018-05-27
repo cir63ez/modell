@@ -1,11 +1,11 @@
 #include "bmp.h"
 
 /**
- * Generate an empty BMP image
- * 
+ * Generates an empty BMP image
+ *
  * @param height: Height of the image (in pixels)
  * @param width: Width of the image (in pixels)
- * 
+ *
  * @return BMP *: Pointer to the BMP structures containing the image's height,width & pixelsGrid
  */
 BMP *newBMP(int height, int width) {
@@ -20,12 +20,12 @@ BMP *newBMP(int height, int width) {
 }
 
 /**
- * Set the pixel of an image
- * 
+ * Sets the pixel of an image
+ *
  * @param image: Pointer to the BMP element
  * @param x: Position x of the pixel
  * @param y: Position y of the pixel
- * 
+ *
  * @return void
  *  /------x------->
  *  |      |
@@ -48,13 +48,76 @@ void BMPSetColor(BMP *image, int x, int y, Rgb color) {
 }
 
 /**
- * Export a BMP Image to a BMP File
- * 
+ * Exports a BMP Image to a BMP File
+ *
  * @param image: Pointer to the BMP element
  * @param filename: BMP filename (with extension)
- * 
+ *
  * @return void
  */
+
+void blurBmpImage (BMP *image, double blurValue){
+    Rgb *pixelsGrid;
+    int height;
+    int width;
+    int x;
+    int y;
+
+    int averageColorOverTopRed;
+    int averageColorOverTopGreen;
+    int averageColorOverTopBlue;
+    int averageColorTopRed;
+    int averageColorTopGreen;
+    int averageColorTopBlue;
+    int averageColorMiddleRed;
+    int averageColorMiddleGreen;
+    int averageColorMiddleBlue;
+    int averageColorBottomRed;
+    int averageColorBottomGreen;
+    int averageColorBottomBlue;
+    int averageColorUnderBottomRed;
+    int averageColorUnderBottomGreen;
+    int averageColorUnderBottomBlue;
+    Rgb averageColor;
+
+    height = image->height;
+    width = image->width;
+    pixelsGrid = image->pixels;
+
+    for (int i = width * 2; i < height * (width - 2); i++){
+        averageColorOverTopRed   = pixelsGrid[i - 2 * (width + 1)].red   + pixelsGrid[i - (2 * width + 1)].red   + pixelsGrid[i - 2 * width].red   + pixelsGrid[i - 2 * width + 1].red   + pixelsGrid[i - 2 * width + 2].red;
+        averageColorOverTopGreen = pixelsGrid[i - 2 * (width + 1)].green + pixelsGrid[i - (2 * width + 1)].green + pixelsGrid[i - 2 * width].green + pixelsGrid[i - 2 * width + 1].green + pixelsGrid[i - 2 * width + 2].green;
+        averageColorOverTopBlue  = pixelsGrid[i - 2 * (width + 1)].blue  + pixelsGrid[i - (2 * width + 1)].blue  + pixelsGrid[i - 2 * width].blue  + pixelsGrid[i - 2 * width + 1].blue  + pixelsGrid[i - 2 * width + 2].blue ;
+
+        averageColorTopRed   = pixelsGrid[i - (width + 1)].red   + pixelsGrid[i - width].red   + pixelsGrid[i - width + 1].red   + pixelsGrid[i - (width + 2)].red   + pixelsGrid[i - width + 2].red;
+        averageColorTopGreen = pixelsGrid[i - (width + 1)].green + pixelsGrid[i - width].green + pixelsGrid[i - width + 1].green + pixelsGrid[i - (width + 2)].green + pixelsGrid[i - width + 2].green;
+        averageColorTopBlue  = pixelsGrid[i - (width + 1)].blue  + pixelsGrid[i - width].blue  + pixelsGrid[i - width + 1].blue  + pixelsGrid[i - (width + 2)].blue  + pixelsGrid[i - width + 2].blue;
+
+        averageColorMiddleRed   = pixelsGrid[i - 1].red   + pixelsGrid[i + 1].red   + pixelsGrid[i - 2].red   + pixelsGrid[i + 2].red;
+        averageColorMiddleGreen = pixelsGrid[i - 1].green + pixelsGrid[i + 1].green + pixelsGrid[i - 2].green + pixelsGrid[i + 2].green;
+        averageColorMiddleBlue  = pixelsGrid[i - 1].blue  + pixelsGrid[i + 1].blue  + pixelsGrid[i - 2].blue  + pixelsGrid[i + 2].blue;
+
+        averageColorBottomRed   = pixelsGrid[i + (width + 1)].red   + pixelsGrid[i + width].red   + pixelsGrid[i + width + 1].red   + pixelsGrid[i + (width + 2)].red   + pixelsGrid[i + width - 2].red;
+        averageColorBottomGreen = pixelsGrid[i + (width + 1)].green + pixelsGrid[i + width].green + pixelsGrid[i + width + 1].green + pixelsGrid[i + (width + 2)].green + pixelsGrid[i + width - 2].green;
+        averageColorBottomBlue  = pixelsGrid[i + (width + 1)].blue  + pixelsGrid[i + width].blue  + pixelsGrid[i + width + 1].blue  + pixelsGrid[i + (width + 2)].blue  + pixelsGrid[i + width - 2].blue;
+
+        averageColorUnderBottomRed   = pixelsGrid[i + 2 * (width + 1)].red   + pixelsGrid[i + (2 * width + 1)].red   + pixelsGrid[i + 2 * width].red   + pixelsGrid[i + 2 * width - 1].red   + pixelsGrid[i + 2 * width - 2].red;
+        averageColorUnderBottomGreen = pixelsGrid[i + 2 * (width + 1)].green + pixelsGrid[i + (2 * width + 1)].green + pixelsGrid[i + 2 * width].green + pixelsGrid[i + 2 * width - 1].green + pixelsGrid[i + 2 * width - 2].green;
+        averageColorUnderBott
+        omBlue  = pixelsGrid[i + 2 * (width + 1)].blue  + pixelsGrid[i + (2 * width + 1)].blue  + pixelsGrid[i + 2 * width].blue  + pixelsGrid[i + 2 * width - 1].blue  + pixelsGrid[i + 2 * width - 2].blue ;
+
+        averageColor.red   = ( pixelsGrid[i].red   + blurValue * (averageColorTopRed   + averageColorMiddleRed   + averageColorBottomRed))   / 20;
+        averageColor.green = ( pixelsGrid[i].green + blurValue * (averageColorTopGreen + averageColorMiddleGreen + averageColorBottomGreen)) / 20;
+        averageColor.blue  = ( pixelsGrid[i].blue  + blurValue * (averageColorTopBlue  + averageColorMiddleBlue  + averageColorBottomBlue))  / 20;
+
+        x = i % (height);
+        y = (i - x)/width;
+
+        BMPSetColor(image, x, y, averageColor);
+    }
+
+}
+
 void exportBMPImageToFile(BMP *image, char *filename) {
     int height;
     int width;
@@ -64,7 +127,7 @@ void exportBMPImageToFile(BMP *image, char *filename) {
     Rgb pixel;
 
     height = image->height;
-    width = image->width;
+    width  = image->width;
 
     fileHeader = createBitmapFileHeader(height, width);
     infoHeader = createBitmapInfoHeader(height, width);
@@ -90,7 +153,7 @@ void exportBMPImageToFile(BMP *image, char *filename) {
 }
 
 /**
- * Generate the Bitmap File Header
+ * Generates the Bitmap File Header
  *
  * @param height: Height of the image
  * @param width: Width of the image
@@ -119,7 +182,7 @@ unsigned char *createBitmapFileHeader(int height, int width) {
 }
 
 /**
- * Generate the Bitmap Info Header
+ * Generates the Bitmap Info Header
  *
  * @param height: Height of the image
  * @param width: Width of the image

@@ -9,7 +9,7 @@ CFLAGS?=-lm -Wall
 # Main file in the "CROOT" folder ($(CROOT)/$(TARGET).c)
 TARGET?=renderer
 # Local libraries files needed for the compilation (LOCAL_LIBS=lib1.o lib2.o lib3.o) -	They will be automatically compiled
-LOCAL_LIBS?=bmp.o file.o lib.o raytracer.o objects.o
+LOCAL_LIBS?=bmp.o lib.o file.o raytracer.o objects.o
 
 # PHP Server Options
 
@@ -25,8 +25,9 @@ HOST?=localhost
 # Recipes
 
 install:
-	sudo apt-get install -y gcc gdb
-	sudo apt-get install -y php php-cgi  php-dev
+	sudo apt-get install -y gcc
+	sudo apt-get install -y php
+	sudo apt-get install -y php-dev
 
 $(LOCAL_LIBS): %.o: $(CROOT)/%.c $(CROOT)/%.h
 	$(CC) -c $< -o $(CROOT)/$@
@@ -50,4 +51,4 @@ clean:
 	find $(CROOT) -type f -name "*.bmp" -delete
 	find $(PHPROOT) -type f -name "*.bmp" -delete
 	find . -type f -name "*.bmp" -delete
-	#find . -type f -name "data.txt" -delete
+	find . -type f -name "data.txt" -delete

@@ -41,7 +41,7 @@
                             <input type="number" class="form-control" name="topLeftCornerPosX" placeholder="X" required>
                             <input type="number" class="form-control" name="topLeftCornerPosY" placeholder="Y" required>
                             <input type="number" class="form-control" name="topLeftCornerPosZ" placeholder="Z" required>
-                        </div>
+                        </div><!-- ./col-6 -->
                         <div class="col-6 mt-3">
                             <h4>Image dimension</h4>
 

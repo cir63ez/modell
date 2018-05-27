@@ -2,9 +2,9 @@
 
 
 /**
-*  Change caracteres into a number from a file
+*  Changes caracteres into a number from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return the number from the caracteres
 */
@@ -26,9 +26,9 @@ int caractereToNumber(FILE * f) {
 }
 
 /**
- *  Change caracteres into an object name from a file
+ *  Changes caracteres into an object name from a file
  * 
- * @param f: file  
+ * @param f: File  
  * 
  * @return a char array
  */
@@ -40,6 +40,7 @@ char * caractereToName(FILE * f) {
     int test = 0;
     char curCaractere = '\0';
     curCaractere = fgetc(f);
+
     while(curCaractere != ',' && curCaractere != ';' && curCaractere != EOF) {
         name = (char *)realloc(name, sizeof(char) * (nbletter + 1));
         *(name + nbletter) = curCaractere;
@@ -47,6 +48,7 @@ char * caractereToName(FILE * f) {
         curCaractere = fgetc(f);
     }
 
+    if(nbletter == 0) {return "endoffile";}
     name = (char *)realloc(name, sizeof(char) * (nbletter));
     *(name + nbletter) = '\0';
 
@@ -58,7 +60,7 @@ char * caractereToName(FILE * f) {
 }
 
 /**
-*  Give point in the image plane from a file
+*  Gives point in the image plane from a file
 * 
 * @param f: file
 *
@@ -74,9 +76,9 @@ Point pointPlaneFile (FILE * f) {
 }
 
 /**
-*  Give the normal vector of the image plane from a file
+*  Gives the normal vector of the image plane from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a point in the image plane
 */
@@ -89,9 +91,9 @@ Vector normalVectorPlaneFile (FILE * f) {
 }
 
 /**
-*  Give the number of caractere of a number or a word between txo ','
+*  Gives the number of caractere of a number or a word between txo ','
 * 
-* @param f: file
+* @param f: File
 *
 * @return the number of caractere
 */
@@ -107,9 +109,9 @@ int numberCaractere(FILE * f) {
 }
 
 /**
-*  Give the type of an object
+*  Gives the type of an object
 * 
-* @param name: name to compare
+* @param name: Name to compare
 *
 * @return the type of the object
 */
@@ -135,7 +137,7 @@ int whichType(char * name) {
 }
 
 /**
- * Get the list of objects from a file
+ * Gets the list of objects from a file
  * 
  * @param f: File 
  * 
@@ -172,50 +174,53 @@ List * objectFromFile(FILE * f) {
         addElementList(e, L);
         name = caractereToName(f);
     }
+
     return L;
 }
 
-
 /**
-* Give a brick from a file
+*  Gives a brick from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a brick
 */
 Brick getBrick(FILE * f) {
     Brick B;
-    B.a.x = (double)caractereToNumber(f);
-    B.a.y = (double)caractereToNumber(f);
-    B.a.z = (double)caractereToNumber(f);
-    B.b.x = (double)caractereToNumber(f);
-    B.b.y = (double)caractereToNumber(f);
-    B.b.z = (double)caractereToNumber(f);
-    B.c.x = (double)caractereToNumber(f);
-    B.c.y = (double)caractereToNumber(f);
-    B.c.z = (double)caractereToNumber(f);
-    B.d.x = (double)caractereToNumber(f);
-    B.d.y = (double)caractereToNumber(f);
-    B.d.z = (double)caractereToNumber(f);
-    B.e.x = (double)caractereToNumber(f);
-    B.e.y = (double)caractereToNumber(f);
-    B.e.z = (double)caractereToNumber(f);
-    B.f.x = (double)caractereToNumber(f);
-    B.f.y = (double)caractereToNumber(f);
-    B.f.z = (double)caractereToNumber(f);
-    B.g.x = (double)caractereToNumber(f);
-    B.g.y = (double)caractereToNumber(f);
-    B.g.z = (double)caractereToNumber(f);
-    B.h.x = (double)caractereToNumber(f);
-    B.h.y = (double)caractereToNumber(f);
-    B.h.z = (double)caractereToNumber(f);
+    B.a.x = caractereToNumber(f);
+    B.a.y = caractereToNumber(f);
+    B.a.z = caractereToNumber(f);
+    B.b.x = caractereToNumber(f);
+    B.b.y = caractereToNumber(f);
+    B.b.z = caractereToNumber(f);
+    B.c.x = caractereToNumber(f);
+    B.c.y = caractereToNumber(f);
+    B.c.z = caractereToNumber(f);
+    B.d.x = caractereToNumber(f);
+    B.d.y = caractereToNumber(f);
+    B.d.z = caractereToNumber(f);
+    B.e.x = caractereToNumber(f);
+    B.e.y = caractereToNumber(f);
+    B.e.z = caractereToNumber(f);
+    B.f.x = caractereToNumber(f);
+    B.f.y = caractereToNumber(f);
+    B.f.z = caractereToNumber(f);
+    B.g.x = caractereToNumber(f);
+    B.g.y = caractereToNumber(f);
+    B.g.z = caractereToNumber(f);
+    B.h.x = caractereToNumber(f);
+    B.h.y = caractereToNumber(f);
+    B.h.z = caractereToNumber(f);
+    B.color.red = (unsigned char) caractereToNumber(f);
+    B.color.green = (unsigned char) caractereToNumber(f);
+    B.color.blue = (unsigned char) caractereToNumber(f);
     return B;
 }
 
 /**
-*  Give a tetrahedron from a file
+*  Gives a tetrahedron from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a tetrahedron 
 */
@@ -233,31 +238,37 @@ Tetrahedron getTetrahedron(FILE * f) {
     T.d.x = caractereToNumber(f);
     T.d.y = caractereToNumber(f);
     T.d.z = caractereToNumber(f);
+    T.color.red = (unsigned char) caractereToNumber(f);
+    T.color.green = (unsigned char) caractereToNumber(f);
+    T.color.blue = (unsigned char) caractereToNumber(f);
     return T;
 }
 
 /**
-*  Give an ellipse from a file
+*  Gives an ellipse from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return an ellipse 
 */
 Ellipse getEllipse(FILE * f) {
     Ellipse E;
-    E.a = caractereToNumber(f);
-    E.b = caractereToNumber(f);
-    E.c = caractereToNumber(f);
     E.x = caractereToNumber(f);
     E.y = caractereToNumber(f);
     E.z = caractereToNumber(f);
+    E.a = caractereToNumber(f);
+    E.b = caractereToNumber(f);
+    E.c = caractereToNumber(f);
+    E.color.red = (unsigned char) caractereToNumber(f);
+    E.color.green = (unsigned char) caractereToNumber(f);
+    E.color.blue = (unsigned char) caractereToNumber(f);
     return E;
 }
 
 /**
-* Give a light from a file
+*  Gives a light from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a light
 */
@@ -269,14 +280,6 @@ Light getLight(FILE * f) {
     return L;
 }
 
-/**
-* Treat the object to have a string of an object
-* 
-* @param type: object's type
-* @param f: file
-*
-* @return a the string of an object
-*/
 double * objectTreatement(int type, FILE * f) {
     Brick B;
     Tetrahedron T;
