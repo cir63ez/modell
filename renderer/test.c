@@ -75,6 +75,18 @@ int main(){
     L.directionVector.y = 0;
     L.directionVector.z = 1;
 
+    Point list[4];
+    list[0] = setPoint(0,0,0);
+    list[1] = setPoint(200,0,0);
+    list[2] = setPoint(200,200,0);
+    list[3] = setPoint(0,200,0);
+
+    Point I = setPoint(200,200,0);
+    Point P = setPoint(200,2000,0);
+
+    printf("%d\n", isOnPolygonAngleMethod(list, 4, I));
+    printf("%d\n", isOnPolygonAngleMethod(list, 4, P));
+
     printf("%lf %lf %lf \n", contactBrickWithLine(B, L).x,  contactBrickWithLine(B, L).y,  contactBrickWithLine(B, L).z);
 
     return 0;

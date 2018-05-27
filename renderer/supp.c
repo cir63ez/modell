@@ -8,33 +8,22 @@
 */
 
 int main(int argc, char **argv) {
-    printf("HELLLLLLOOOOO");
     FILE * f;
 
     Point P;
-    Plane observer;
     int height;
     int width;
-    double angleX;
-    double angleY;
-    double angleZ;
     int numberObject;
     int numberLight;
-
-    observer.a = observer.b = 0;
-    observer.c = 1;
-    observer.x = 0;
-    observer.y = 0;
-    observer.z = 0;
+    Vector V;
+    List * L;
 
     f = fopen("./data.txt", "r");
-    // TODO: in server value: f = fopen("../data.txt", "r");
-    
-    if(f == NULL) {
-        printf("Can't read file");
-        exit(0);
-    }
 
+    if(f == NULL) {
+        printf("File not found \n");
+    }     
+    
     P = pointPlaneFile(f);
     height = caractereToNumber(f);
     width = caractereToNumber(f);
@@ -48,10 +37,10 @@ int main(int argc, char **argv) {
     List * listObjects = initList();
     Light listLights[numberLight];
     int i = 0;
-
-
-    L = objectFromFile(f);
     fclose(f);
+
+
+     fclose(f);
     
     Element * currentElement = L->head;
     while(currentElement != NULL) {
@@ -69,6 +58,7 @@ int main(int argc, char **argv) {
     rayTracer(listObjects, listLights, observer, P, height, width, angleX, angleY, angleZ);
 
     free(listObjects);
+
 
     return 0;
 }

@@ -981,12 +981,15 @@ Point pointIntersectionLineAndLine(Line L, Line D) {
 * @return 0 if there aren't
 */
 int arePointsEqual(Point O, Point I) {
-    if(FEQUAL(O.x, I.x) && FEQUAL(O.y, I.y) && FEQUAL(O.z, I.z)) {
-        return TRUE;
+    if(FEQUAL(O.x, I.x)) {
+        if(FEQUAL(O.y, I.y)) {
+            if(FEQUAL(O.z, I.z)) {
+                return TRUE;
+            }
+        }
     }
-    else {
-        return FALSE;
-    }
+
+    return FALSE;
 }
 
 /**
@@ -1157,52 +1160,33 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
 * @return void
 */
 int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
-    Vector V;
+    Point A;
+    Point B;
+    Vector VA;
     Vector VB;
-    Plane P;
-    Line L;
     double teta;
-    double sum = 0;
-    int cpt = 0;
-
-    for(int i = 0; i < numberOfPoint; i++) {
-        cpt++;
-        if(!isPointNaN(I)) {
-            V = pointsToVector(I, list[i]);
-            VB = pointsToVector(I, list[i + 1]);
-
-            teta = angle(V, VB);
-
-            if(isnan(teta)) {
-                return FALSE;
-            }
-            else {
-                sum = sum + teta;
-            }
-        }
-    }
+    double sum;
     
-    if(!isPointNaN(I)) {
-        V = pointsToVector(I, list[cpt]);
-        VB = pointsToVector(I, list[0]);
+    for(int i = 0; i < numberOfPoint; i++) {
+        A = list[i];
+        B = (i == numberOfPoint - 1) ? list[0] : list[i + 1];
+        
 
-        teta = angle(V, VB);
+        if(arePointsEqual(I, A)) {return TRUE;}
+        if(arePointsEqual(I, B)) {return TRUE;}
 
-        if(isnan(teta)) {
-            return FALSE;
+
+        if(!isPointNaN(I)) {
+            Vector VA = pointsToVector(I, A);
+            Vector VB = pointsToVector(I, B);
+
+            teta = angle(VA, VB);
+
+            if(isnan(teta)) {return FALSE;}
+
+            sum += teta;
         }
-        else {
-            sum = sum + teta;
-        }
     }
 
-//    sum = sum/(2 * _PI);
-
-    if (sum > 0.1) {  //1.0471975511965976
-    //if(sum != 0) {
-        return TRUE;
-    }
-    else {
-        return FALSE;
-    }
+    return (FEQUAL(sum, 2 * _PI)) ? TRUE : FALSE;
 }
