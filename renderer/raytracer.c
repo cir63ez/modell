@@ -1,14 +1,5 @@
 #include "raytracer.h"
 
-/*Missing : paramètres d'entrée du main
-*          Ellipse E : the ellipsoid
-*          Line firstRay : the ray corresponding to the (0,0) pixel
-*          Point originPoint : Origin of the image
-*          Plane imagePlane : Image plane
-*          image[] : pixel array
-*/
-
-
 /**
 * Calculates the ray corresponding to the (0,0) pixel
 *
@@ -27,30 +18,30 @@ Line calculateFirstRay (Plane image, Point origin){
     directionVector.y = image.b;
     directionVector.z = image.c;
     firstRay.directionVector = directionVector;
-    //printf("%lf %lf %lf \n", directionVector.x, directionVector.y, directionVector.z);
-    //printf("%lf %lf %lf \n", origin.x, origin.y, origin.z);
     return firstRay;
 }
 
 /**
-* Launch the check function depending of the object
+* Launches the check function corresponding to each object
 *
 * @param A: Light source
-* @param B: list of object
-* @param C: contact points
+* @param B: List of object
+* @param C: Contact point
 *
-* @return TRUE if the light cuts an object before point c
+* @return TRUE if the light cuts an object before the contact point
 
-* @return FALSE if the light doesnt cuts an object before point c
+* @return FALSE if the light doesn't cut an object before the contact point
 */
-
-int testIfLightCutsObject(Light li, List *objectList, Point c){
+int testIfLightCutsObject(Light li, List *objectList, Point contactPoint){
     while(objectList->head != NULL) {
         switch (objectList->head->type) {
             case ELLIPSE_TYPE:
-                if(testIfLightCutsEllipse(objectList->head->object, li, c)){
+                if(testIfLightCutsEllipse(objectList->head->object, li, contactPoint)){
                     return TRUE;
                 }
+
+            // These cases were commented out because they made everything else crash
+
             // case BRICK_TYPE :
             //     if(testIfLightCutsBrick(objectList->head->object, li, c)){
             //         return TRUE;
@@ -67,20 +58,19 @@ int testIfLightCutsObject(Light li, List *objectList, Point c){
 }
 
 /**
-* launch the check fonctions for each point of light
+* Checks if a given point has direct line of sight with a light source
 *
-* @param A: contact point
-* @param B: list of object
-* @param C: list of light
-* @param D: numberOfLight
+* @param A: Contact point
+* @param B: List of objects
+* @param C: List of lights
+* @param D: Number of Lights
 *
 * @return TRUE if the point c sees the light
 * @return FALSE if the point c doesn't see the light
 */
-
-int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
+int isLit(Point contactPoint, List *objectList, Light *listOfLights, int numberofLights){
 	for (int i = 0; i < numberofLights; i++) {
-        if(testIfLightCutsObject(*(listOfLights + i), objectList, c) == TRUE){
+        if(testIfLightCutsObject(*(listOfLights + i), objectList, contactPoint)){
             return FALSE;
         }
     }
@@ -88,8 +78,21 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
 }
 
 
- /*Add parameter Light *list,*/
-
+/**
+* Calculate seach pixel's color and outputs the BMP image
+*
+* @param A: List of objects
+* @param B: List of lights
+* @param C: Observer plane
+* @param D: Origin of the image on the obsever plane
+* @param E: Height of the image
+* @param F: Width of the image
+* @param G: Rotation of the observer plane according to the X axis
+* @param H: Rotation of the observer plane according to the Y axis
+* @param I: Rotation of the observer plane according to the Z axis
+*
+* @output BMP image file
+*/
 void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int height, int width, double tetaX, double tetaY, double tetaZ){
 
     BMP *imageFile;
@@ -97,10 +100,10 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
     char* imageFileName = "bitmapImage.bmp";
 
     Rgb backgroundColor;
-    // Deep Blue
-    backgroundColor.red   = 0;
-    backgroundColor.green = 0;
-    backgroundColor.blue  = 255;
+    // Background color : Deep Blue
+    backgroundColor.red   =   0;
+    backgroundColor.green =   0;
+    backgroundColor.blue  =  56;
 
     Line firstRay;
     firstRay = calculateFirstRay(observer,imageOrigin);
@@ -122,13 +125,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
     listHeadCopy = objectList->head;
 
     for (int i = 0; i < width * height; i++){
-        /* tmpLine.pt.x += x * vectorA.x;
-         tmpLine.pt.y += x * vectorA.y;
-         tmpLine.pt.z += x * vectorA.z;
-         tmpLine.pt.x += y * vectorB.x;
-         tmpLine.pt.y += y * vectorB.y;
-         tmpLine.pt.z += y * vectorB.z;
-        */
 
         x = i % (height);
         y = (i - x)/width;
@@ -172,7 +168,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
                 objectList->head = objectList->head->next;
             }
             else{
-                // printf("end list :%d \n", j);
             }
         }
         tmpLine = firstRay;
@@ -195,15 +190,13 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
                 objectList->head = objectList->head->next;
             }
         }
-        //printf("%d %d %d \n", nearestPointColor.red, nearestPointColor.green, nearestPointColor.blue);
         objectList->head = listHeadCopy;
         if (isPointNaN(nearestPoint)){
             BMPSetColor(imageFile , x, y, backgroundColor);
         }
         else{
-            if(isLit(nearestPoint, objectList, lightList, 1)/* && !isPointNaN(nearestPoint)*/) {
+            if(isLit(nearestPoint, objectList, lightList, 1)) {
                 BMPSetColor(imageFile , x, y, nearestPointColor);
-                // printf("%d\n", nearestPointColor.blue);
             }
             else{
                 if(!isLit(nearestPoint, objectList, lightList, 1)){
@@ -219,5 +212,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
 
     }
     blurBmpImage(imageFile, 0.8);
+
     exportBMPImageToFile(imageFile, imageFileName);
 }
