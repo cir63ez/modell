@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 
     f = fopen("./data.txt", "r");
     // TODO: in server value: f = fopen("../data.txt", "r");
-    
+
     if(f == NULL) {
         printf("Can't read file");
         exit(0);
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
     angleZ = caractereToNumber(f);
     numberObject = caractereToNumber(f);
     numberLight = caractereToNumber(f);
-    
+
     List * L;
     List * listObjects = initList();
     Light listLights[numberLight];
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
     L = objectFromFile(f);
     fclose(f);
-    
+
     Element * currentElement = L->head;
 
     Element *currentElement = L->head;
@@ -97,8 +97,6 @@ int main(int argc, char **argv) {
 
     rayTracer(listObjects, listLights, observer, P, height, width, angleX, angleY, angleZ);
 
-
-    
     free(listObjects);
 
     return 0;

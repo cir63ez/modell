@@ -79,7 +79,7 @@ int isLit(Point contactPoint, List *objectList, Light *listOfLights, int numbero
 
 
 /**
-* Calculate seach pixel's color and outputs the BMP image
+* Calculates each pixel's color and outputs the BMP image
 *
 * @param A: List of objects
 * @param B: List of lights
