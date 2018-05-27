@@ -80,15 +80,15 @@ void rayTracer(List *objectList, /* Light *list,*/ Plane observer, Point imageOr
                     }
                 }
             }
-            if(isPointNaN(nearestPoint)){
-                BMPSetColor(imageFile , x, y, black);
-            }
-            else{
-                BMPSetColor(imageFile, x, y, white);
-            }
             objectList->head = objectList->head->next;
-            tmpLine = firstRay;
         }
+        if(isPointNaN(nearestPoint)){
+            BMPSetColor(imageFile , x, y, black);
+        }
+        else{
+            BMPSetColor(imageFile, x, y, white);
+        }
+        tmpLine = firstRay;
     }
     free(contactPoint);
     exportBMPImageToFile(imageFile, imageFileName);
@@ -124,7 +124,7 @@ int testIfLightCutsObject(Light li, List *objectList, Point c){
         }
     }
         objectList->head = objectList->head->next;
-    
+
     return FALSE;
 }
 
