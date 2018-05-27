@@ -2,9 +2,9 @@
 
 
 /**
-*  Change caracteres into a number from a file
+*  Changes caracteres into a number from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return the number from the caracteres
 */
@@ -26,9 +26,9 @@ int caractereToNumber(FILE * f) {
 }
 
 /**
- *  Change caracteres into an object name from a file
+ *  Changes caracteres into an object name from a file
  * 
- * @param f: file  
+ * @param f: File  
  * 
  * @return a char array
  */
@@ -60,7 +60,7 @@ char * caractereToName(FILE * f) {
 }
 
 /**
-*  Give point in the image plane from a file
+*  Gives point in the image plane from a file
 * 
 * @param f: file
 *
@@ -76,9 +76,9 @@ Point pointPlaneFile (FILE * f) {
 }
 
 /**
-*  Give the normal vector of the image plane from a file
+*  Gives the normal vector of the image plane from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a point in the image plane
 */
@@ -91,9 +91,9 @@ Vector normalVectorPlaneFile (FILE * f) {
 }
 
 /**
-*  Give the number of caractere of a number or a word between txo ','
+*  Gives the number of caractere of a number or a word between txo ','
 * 
-* @param f: file
+* @param f: File
 *
 * @return the number of caractere
 */
@@ -109,9 +109,9 @@ int numberCaractere(FILE * f) {
 }
 
 /**
-*  Give the type of an object
+*  Gives the type of an object
 * 
-* @param name: name to compare
+* @param name: Name to compare
 *
 * @return the type of the object
 */
@@ -137,7 +137,7 @@ int whichType(char * name) {
 }
 
 /**
- * Get the list of objects from a file
+ * Gets the list of objects from a file
  * 
  * @param f: File 
  * 
@@ -179,9 +179,9 @@ List * objectFromFile(FILE * f) {
 }
 
 /**
-*  Give a brick from a file
+*  Gives a brick from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a brick
 */
@@ -218,9 +218,9 @@ Brick getBrick(FILE * f) {
 }
 
 /**
-*  Give a tetrahedron from a file
+*  Gives a tetrahedron from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a tetrahedron 
 */
@@ -245,9 +245,9 @@ Tetrahedron getTetrahedron(FILE * f) {
 }
 
 /**
-*  Give an ellipse from a file
+*  Gives an ellipse from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return an ellipse 
 */
@@ -266,9 +266,9 @@ Ellipse getEllipse(FILE * f) {
 }
 
 /**
-*  Give a light from a file
+*  Gives a light from a file
 * 
-* @param f: file
+* @param f: File
 *
 * @return a light
 */

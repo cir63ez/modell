@@ -1,7 +1,7 @@
 #include "bmp.h"
 
 /**
- * Generate an empty BMP image
+ * Generates an empty BMP image
  *
  * @param height: Height of the image (in pixels)
  * @param width: Width of the image (in pixels)
@@ -20,7 +20,7 @@ BMP *newBMP(int height, int width) {
 }
 
 /**
- * Set the pixel of an image
+ * Sets the pixel of an image
  *
  * @param image: Pointer to the BMP element
  * @param x: Position x of the pixel
@@ -48,7 +48,7 @@ void BMPSetColor(BMP *image, int x, int y, Rgb color) {
 }
 
 /**
- * Export a BMP Image to a BMP File
+ * Exports a BMP Image to a BMP File
  *
  * @param image: Pointer to the BMP element
  * @param filename: BMP filename (with extension)
@@ -103,7 +103,8 @@ void blurBmpImage (BMP *image, double blurValue){
 
         averageColorUnderBottomRed   = pixelsGrid[i + 2 * (width + 1)].red   + pixelsGrid[i + (2 * width + 1)].red   + pixelsGrid[i + 2 * width].red   + pixelsGrid[i + 2 * width - 1].red   + pixelsGrid[i + 2 * width - 2].red;
         averageColorUnderBottomGreen = pixelsGrid[i + 2 * (width + 1)].green + pixelsGrid[i + (2 * width + 1)].green + pixelsGrid[i + 2 * width].green + pixelsGrid[i + 2 * width - 1].green + pixelsGrid[i + 2 * width - 2].green;
-        averageColorUnderBottomBlue  = pixelsGrid[i + 2 * (width + 1)].blue  + pixelsGrid[i + (2 * width + 1)].blue  + pixelsGrid[i + 2 * width].blue  + pixelsGrid[i + 2 * width - 1].blue  + pixelsGrid[i + 2 * width - 2].blue ;
+        averageColorUnderBott
+        omBlue  = pixelsGrid[i + 2 * (width + 1)].blue  + pixelsGrid[i + (2 * width + 1)].blue  + pixelsGrid[i + 2 * width].blue  + pixelsGrid[i + 2 * width - 1].blue  + pixelsGrid[i + 2 * width - 2].blue ;
 
         averageColor.red   = ( pixelsGrid[i].red   + blurValue * (averageColorTopRed   + averageColorMiddleRed   + averageColorBottomRed))   / 20;
         averageColor.green = ( pixelsGrid[i].green + blurValue * (averageColorTopGreen + averageColorMiddleGreen + averageColorBottomGreen)) / 20;
@@ -152,7 +153,7 @@ void exportBMPImageToFile(BMP *image, char *filename) {
 }
 
 /**
- * Generate the Bitmap File Header
+ * Generates the Bitmap File Header
  *
  * @param height: Height of the image
  * @param width: Width of the image
@@ -181,7 +182,7 @@ unsigned char *createBitmapFileHeader(int height, int width) {
 }
 
 /**
- * Generate the Bitmap Info Header
+ * Generates the Bitmap Info Header
  *
  * @param height: Height of the image
  * @param width: Width of the image
