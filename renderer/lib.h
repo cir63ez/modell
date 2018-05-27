@@ -12,6 +12,7 @@
 #define _PI 3.14159265358979
 
 #define FEQUAL_LIMIT 0.0000000001
+#define FEQUAL_LIMIT 0.00001
 #define FEQUAL(A, B) (fabs(A - B) < FEQUAL_LIMIT) ? TRUE : FALSE
 
 // Structures

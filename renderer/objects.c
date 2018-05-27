@@ -26,15 +26,25 @@ void addElementList(Element * e, List * L) {
     Element * curElement;
 
     if(L->head == NULL) {
+    Element *current;
+    
+    if(L->nbElement == 0 || L->head == NULL) {
         L->head = e;
     }
     else {
         curElement = L->head;
         while(curElement->next != NULL) {
             curElement = curElement->next;
+    } else {
+        current = L->head;
+        while(current->next != NULL) {
+            current = current->next;
         }
         curElement->next = e;
+
+        current->next = e;
     }
+
     L->nbElement++;
 }
 
@@ -1008,7 +1018,15 @@ int arePointsEqual(Point O, Point I) {
     }
     else {
         return FALSE;
+    if(FEQUAL(O.x, I.x)) {
+        if(FEQUAL(O.y, I.y)) {
+            if(FEQUAL(O.z, I.z)) {
+                return TRUE;
+            }
+        }
     }
+
+    return FALSE;
 }
 
 /**
@@ -1115,6 +1133,8 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L) {
 * @param test: Test point
 *
 * @return void
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
 */
 int isOnPolygon(Point *list, double numberOfPoint, Point test) {
     Vector V;
@@ -1177,9 +1197,14 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
 * @param test: Test point
 *
 * @return void
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
 */
 int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
     Vector V;
+    Point A;
+    Point B;
+    Vector VA;
     Vector VB;
     Plane P;
     Line L;
@@ -1187,13 +1212,26 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
     double sum = 0;
     int cpt = 0;
 
+    double sum;
+    
     for(int i = 0; i < numberOfPoint; i++) {
         cpt++;
+        A = list[i];
+        B = (i == numberOfPoint - 1) ? list[0] : list[i + 1];
+        
+
+        if(arePointsEqual(I, A)) {return TRUE;}
+        if(arePointsEqual(I, B)) {return TRUE;}
+
+
         if(!isPointNaN(I)) {
             V = pointsToVector(I, list[i]);
             VB = pointsToVector(I, list[i + 1]);
+            Vector VA = pointsToVector(I, A);
+            Vector VB = pointsToVector(I, B);
 
             teta = angle(V, VB);
+            teta = angle(VA, VB);
 
             if(isnan(teta)) {
                 return FALSE;
@@ -1201,6 +1239,9 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
             else {
                 sum = sum + teta;
             }
+            if(isnan(teta)) {return FALSE;}
+
+            sum += teta;
         }
     }
     
@@ -1209,16 +1250,50 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
         VB = pointsToVector(I, list[0]);
 
         teta = angle(V, VB);
+    return (FEQUAL(sum, 2 * _PI)) ? TRUE : FALSE;
+}
 
         if(isnan(teta)) {
             return FALSE;
+/**
+* Check if the point is on the polygon with the angle method of Lilian
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
+*/
+int isOnPolygonLilianMethod(Point *list, double numberOfPoint, Point I) {
+  Vector A;
+  Vector B;
+  double sum = 0;
+  int nbVertex;
+  nbVertex = (int)numberOfPoint;
+
+  if(isPointNaN(I) ==  FALSE) {
+    for(int i = 0; i < numberOfPoint; i++){
+        A = pointsToVector(I, list[i]);
+        
+        if(arePointsEqual(I, list[i])) {
+            return TRUE;
         }
         else {
             sum = sum + teta;
+
+      if(i == nbVertex - 1){
+        A = pointsToVector(I, list[0]);
+        
+        if(arePointsEqual(I, list[0])) {
+            return TRUE;
         }
     }
 
 //    sum = sum/(2 * _PI);
+      }
+      else{
+        B = pointsToVector(I, list[i + 1]);
 
     if (sum > 0.1) {  //1.0471975511965976
     //if(sum != 0) {
@@ -1226,5 +1301,17 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
     }
     else {
         return FALSE;
+        if(arePointsEqual(I, list[i + 1])) {
+            return TRUE;
+        }
+
+      }
+      sum = sum + angle(A,B);
     }
+  } 
+
+  if(FEQUAL(sum, 2 * _PI)){
+    return TRUE;
+  }
+  return FALSE;
 }
