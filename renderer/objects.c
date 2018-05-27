@@ -1117,7 +1117,8 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L) {
 * @param numberOfPoint: Number of points
 * @param test: Test point
 *
-* @return void
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
 */
 int isOnPolygon(Point *list, double numberOfPoint, Point test) {
     Vector V;
@@ -1179,7 +1180,8 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
 * @param numberOfPoint: Number of points
 * @param test: Test point
 *
-* @return void
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
 */
 int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
     Point A;
@@ -1211,4 +1213,55 @@ int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
     }
 
     return (FEQUAL(sum, 2 * _PI)) ? TRUE : FALSE;
+}
+
+/**
+* Check if the point is on the polygon with the angle method of Lilian
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return 1 if the point is on the polygon
+* @return 0 if the point is not on the polygon
+*/
+int isOnPolygonLilianMethod(Point *list, double numberOfPoint, Point I) {
+  Vector A;
+  Vector B;
+  double sum = 0;
+  int nbVertex;
+  nbVertex = (int)numberOfPoint;
+
+  if(isPointNaN(I) ==  FALSE) {
+    for(int i = 0; i < numberOfPoint; i++){
+        A = pointsToVector(I, list[i]);
+        
+        if(arePointsEqual(I, list[i])) {
+            return TRUE;
+        }
+
+      if(i == nbVertex - 1){
+        A = pointsToVector(I, list[0]);
+        
+        if(arePointsEqual(I, list[0])) {
+            return TRUE;
+        }
+
+      }
+      else{
+        B = pointsToVector(I, list[i + 1]);
+
+        if(arePointsEqual(I, list[i + 1])) {
+            return TRUE;
+        }
+
+      }
+      sum = sum + angle(A,B);
+    }
+  } 
+
+  if(FEQUAL(sum, 2 * _PI)){
+    return TRUE;
+  }
+  return FALSE;
 }

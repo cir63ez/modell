@@ -220,6 +220,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         }
 
     }
-    blurBmpImage(imageFile, 1.8);
+    //blurBmpImage(imageFile, 1.8);
     exportBMPImageToFile(imageFile, imageFileName);
 }

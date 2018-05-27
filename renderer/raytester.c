@@ -4,22 +4,22 @@
 int main(){
 
     Ellipse body;
-    body.a = body.b = body.c = 80;
+    body.a = body.b = body.c = 400;
 
     body.x = 0;
     body.y = 0;
-    body.z = -20;
+    body.z = 0;
 
     body.color = setColor(255, 153,204);
 
     Ellipse armA;
-    armA.a = 13;
-    armA.b = 10;
-    armA.c = 10;
+    armA.a = 26;
+    armA.b = 20;
+    armA.c = 20;
 
-    armA.x = 27;
+    armA.x = 54;
     armA.y = 0;
-    armA.z = +1.5 ;
+    armA.z = 3 ;
 
     armA.color = setColor(250, 153, 204);
 
@@ -80,9 +80,9 @@ int main(){
     eyeB.color = setColor(0,0,0);
 
     Ellipse blancA;
-    blancA.a = 2;
-    blancA.b = 2;
-    blancA.c = 2;
+    blancA.a = 20;
+    blancA.b = 20;
+    blancA.c = 20;
 
     blancA.x = 6;
     blancA.y = +24;
@@ -91,9 +91,9 @@ int main(){
     blancA.color = setColor(255,255,255);
 
     Ellipse blancB;
-    blancB.a = 2;
-    blancB.b = 2;
-    blancB.c = 2;
+    blancB.a = 20;
+    blancB.b = 20;
+    blancB.c = 20;
 
     blancB.x = -6;
     blancB.y = +24;
@@ -102,9 +102,9 @@ int main(){
     blancB.color = setColor(255,255,255);
 
     Ellipse bleuA;
-    bleuA.a = 2;
-    bleuA.b = 2;
-    bleuA.c = 2;
+    bleuA.a = 20;
+    bleuA.b = 20;
+    bleuA.c = 20;
 
     bleuA.x = 6;
     bleuA.y = +24;
@@ -113,9 +113,9 @@ int main(){
     bleuA.color = setColor(0,102,255);
 
     Ellipse bleuB;
-    bleuB.a = 2;
-    bleuB.b = 2;
-    bleuB.c = 2;
+    bleuB.a = 20;
+    bleuB.b = 20;
+    bleuB.c = 20;
 
     bleuB.x = -6;
     bleuB.y = +24;
@@ -188,7 +188,7 @@ int main(){
 
     Light lA;//, lB;// lC, lD;
     // lA.lightSource = setPoint(200000, -200000, 999900000);
-    lA.lightSource = setPoint(0, 0, -9999999999999999);
+    lA.lightSource = setPoint(0, 0, -9999999);
     //
     // lB.lightSource = setPoint(0, 0, -1000000000);
     // lC.lightSource = setPoint(0, -0, 0);

@@ -84,11 +84,11 @@ int main(){
     Point I = setPoint(200,200,0);
     Point P = setPoint(200,2000,0);
 
-    printf("%d\n", isOnPolygonAngleMethod(list, 4, I));
-    printf("%d\n", isOnPolygonAngleMethod(list, 4, P));
+    printf("%d\n", isOnPolygonLilianMethod(list, 4, I));
+    printf("%d\n", isOnPolygonLilianMethod(list, 4, P));
 
     printf("%lf %lf %lf \n", contactBrickWithLine(B, L).x,  contactBrickWithLine(B, L).y,  contactBrickWithLine(B, L).z);
 
     return 0;
-}
+
 }

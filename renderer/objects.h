@@ -149,3 +149,5 @@ Point pointIntersectionLineAndSegment(Point A, Point B, Line L);
 int isOnPolygon(Point *list, double numberOfPoint, Point test);
 
 int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I);
+
+int isOnPolygonLilianMethod(Point *list, double numberOfPoint, Point I);
