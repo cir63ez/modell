@@ -162,6 +162,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceC[0] = B.a;
     faceC[1] = B.b;
+    faceC[2] = B.e;
+    faceC[3] = B.f;
     faceC[2] = B.f;
     faceC[3] = B.e;
 
@@ -172,6 +174,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceB[0] = B.b;
     faceB[1] = B.c;
+    faceB[2] = B.f;
+    faceB[3] = B.g;
     faceB[2] = B.g;
     faceB[3] = B.f;
 
@@ -182,6 +186,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceD[0] = B.a;
     faceD[1] = B.d;
+    faceD[2] = B.e;
+    faceD[3] = B.h;
     faceD[2] = B.h;
     faceD[3] = B.e;
 
@@ -201,6 +207,13 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
+
+    testA = isOnPolygon(faceA, nbPoint, IA);
+    testB = isOnPolygon(faceB, nbPoint, IB);
+    testC = isOnPolygon(faceC, nbPoint, IC);
+    testD = isOnPolygon(faceD, nbPoint, ID);
+    testE = isOnPolygon(faceE, nbPoint, IE);
+    testF = isOnPolygon(faceF, nbPoint, IF);
     testA = isOnPolygonAngleMethod(faceA, nbPoint, IA);
     testB = isOnPolygonAngleMethod(faceB, nbPoint, IB);
     testC = isOnPolygonAngleMethod(faceC, nbPoint, IC);
@@ -689,6 +702,7 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     int testD;
     double nbPoint;
     double whichPlane;
+    Point vertex[4];
     Point faceA[3];
     Point faceB[3];
     Point faceC[3];
@@ -696,6 +710,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
 
     intersection = initPointNaN();
 
+    vertex[0] = T.a;
+    vertex[1] = T.b;
+    vertex[2] = T.c;
+    vertex[3] = T.d;
     faceA[0] = T.a;
     faceA[1] = T.b;
     faceA[2] = T.c;
@@ -724,6 +742,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     IC = pointIntersectionLineAndPlane(L,PC);
     ID = pointIntersectionLineAndPlane(L,PD);
 
+    testA = isOnPolygon(vertex, nbPoint, IA);
+    testB = isOnPolygon(vertex, nbPoint, IB);
+    testC = isOnPolygon(vertex, nbPoint, IC);
+    testD = isOnPolygon(vertex, nbPoint, ID);
     testA = isOnPolygon(faceA, nbPoint, IA);
     testB = isOnPolygon(faceB, nbPoint, IB);
     testC = isOnPolygon(faceC, nbPoint, IC);

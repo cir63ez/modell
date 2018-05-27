@@ -19,6 +19,9 @@ BMP *newBMP(int height, int width);
 // Set the pixel of an image
 void BMPSetColor(BMP *image, int x, int y, Rgb color);
 
+// Applies Gaussian Blur to an image
+void blurBmpImage (BMP *image, double blurValue);
+
 // Export a BMP Image to a BMP File
 void exportBMPImageToFile(BMP *image, char *filename);
 

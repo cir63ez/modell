@@ -99,9 +99,9 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
 
     Rgb backgroundColor;
     // Deep Blue
-    backgroundColor.red = 0;
+    backgroundColor.red   = 0;
     backgroundColor.green = 0;
-    backgroundColor.blue = 56;
+    backgroundColor.blue  = 255;
 
     Line firstRay;
     firstRay = calculateFirstRay(observer,imageOrigin);
@@ -220,5 +220,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         }
 
     }
+    blurBmpImage(imageFile, 1.8);
     exportBMPImageToFile(imageFile, imageFileName);
 }
