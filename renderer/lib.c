@@ -110,6 +110,7 @@ double angle(Vector AB, Vector AC) {
     if (test > 1 || test < -1){
         printf("Not in range -1;1");
         exit(0);
+        //exit(0);
     }
 
     return acos(productABAC/(normAB * normAC));

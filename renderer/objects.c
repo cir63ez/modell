@@ -162,6 +162,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceC[0] = B.a;
     faceC[1] = B.b;
+    faceC[2] = B.e;
+    faceC[3] = B.f;
     faceC[2] = B.f;
     faceC[3] = B.e;
 
@@ -172,6 +174,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceB[0] = B.b;
     faceB[1] = B.c;
+    faceB[2] = B.f;
+    faceB[3] = B.g;
     faceB[2] = B.g;
     faceB[3] = B.f;
 
@@ -182,6 +186,8 @@ Point contactBrickWithLine(Brick B, Line L) {
 
     faceD[0] = B.a;
     faceD[1] = B.d;
+    faceD[2] = B.e;
+    faceD[3] = B.h;
     faceD[2] = B.h;
     faceD[3] = B.e;
 
@@ -201,12 +207,19 @@ Point contactBrickWithLine(Brick B, Line L) {
     IE = pointIntersectionLineAndPlane(L, PE);
     IF = pointIntersectionLineAndPlane(L, PF);
 
+
     testA = isOnPolygon(faceA, nbPoint, IA);
     testB = isOnPolygon(faceB, nbPoint, IB);
     testC = isOnPolygon(faceC, nbPoint, IC);
     testD = isOnPolygon(faceD, nbPoint, ID);
     testE = isOnPolygon(faceE, nbPoint, IE);
     testF = isOnPolygon(faceF, nbPoint, IF);
+    testA = isOnPolygonAngleMethod(faceA, nbPoint, IA);
+    testB = isOnPolygonAngleMethod(faceB, nbPoint, IB);
+    testC = isOnPolygonAngleMethod(faceC, nbPoint, IC);
+    testD = isOnPolygonAngleMethod(faceD, nbPoint, ID);
+    testE = isOnPolygonAngleMethod(faceE, nbPoint, IE);
+    testF = isOnPolygonAngleMethod(faceF, nbPoint, IF);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -690,6 +703,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     double nbPoint;
     double whichPlane;
     Point vertex[4];
+    Point faceA[3];
+    Point faceB[3];
+    Point faceC[3];
+    Point faceD[3];
 
     intersection = initPointNaN();
 
@@ -697,6 +714,22 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     vertex[1] = T.b;
     vertex[2] = T.c;
     vertex[3] = T.d;
+    faceA[0] = T.a;
+    faceA[1] = T.b;
+    faceA[2] = T.c;
+
+    faceB[0] = T.d;
+    faceB[1] = T.b;
+    faceB[2] = T.c;
+
+    faceC[0] = T.a;
+    faceC[1] = T.b;
+    faceC[2] = T.d;
+
+    faceD[0] = T.a;
+    faceD[1] = T.d;
+    faceD[2] = T.c;
+    
     nbPoint = 4;
 
     PA = planeEquationFromPoints(T.a,T.b,T.c);
@@ -713,6 +746,10 @@ Point contactTetrahedronWithLine(Tetrahedron T, Line L){
     testB = isOnPolygon(vertex, nbPoint, IB);
     testC = isOnPolygon(vertex, nbPoint, IC);
     testD = isOnPolygon(vertex, nbPoint, ID);
+    testA = isOnPolygon(faceA, nbPoint, IA);
+    testB = isOnPolygon(faceB, nbPoint, IB);
+    testC = isOnPolygon(faceC, nbPoint, IC);
+    testD = isOnPolygon(faceD, nbPoint, ID);
 
     if(isPointNaN(IA)) {
         testA = 0;
@@ -1128,4 +1165,66 @@ int isOnPolygon(Point *list, double numberOfPoint, Point test) {
         return TRUE;
     }
     return FALSE;
+}
+
+
+
+/**
+* Check if the point is on the polygon with the angle method
+*
+* @param list: List of points
+* @param numberOfPoint: Number of points
+* @param test: Test point
+*
+* @return void
+*/
+int isOnPolygonAngleMethod(Point *list, double numberOfPoint, Point I) {
+    Vector V;
+    Vector VB;
+    Plane P;
+    Line L;
+    double teta;
+    double sum = 0;
+    int cpt = 0;
+
+    for(int i = 0; i < numberOfPoint; i++) {
+        cpt++;
+        if(!isPointNaN(I)) {
+            V = pointsToVector(I, list[i]);
+            VB = pointsToVector(I, list[i + 1]);
+
+            teta = angle(V, VB);
+
+            if(isnan(teta)) {
+                return FALSE;
+            }
+            else {
+                sum = sum + teta;
+            }
+        }
+    }
+    
+    if(!isPointNaN(I)) {
+        V = pointsToVector(I, list[cpt]);
+        VB = pointsToVector(I, list[0]);
+
+        teta = angle(V, VB);
+
+        if(isnan(teta)) {
+            return FALSE;
+        }
+        else {
+            sum = sum + teta;
+        }
+    }
+
+//    sum = sum/(2 * _PI);
+
+    if (sum > 0.1) {  //1.0471975511965976
+    //if(sum != 0) {
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
 }

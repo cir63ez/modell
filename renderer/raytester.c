@@ -163,7 +163,7 @@ int main(){
     // B.e = setPoint(0, 20, 0);
     // B.f = setPoint(20, 20, 0);
     // B.g = setPoint(20, 20, 20);
-    // B.h = setPoint(0, 200, 20);
+    // B.h = setPoint(0, 20, 20);
     // B.color = setColor(255,0,255);
 
     List *list;
@@ -188,7 +188,7 @@ int main(){
 
     Light lA;//, lB;// lC, lD;
     // lA.lightSource = setPoint(200000, -200000, 999900000);
-    lA.lightSource = setPoint(0, 0, -999999999999999);
+    lA.lightSource = setPoint(0, 0, -9999999999999999);
     //
     // lB.lightSource = setPoint(0, 0, -1000000000);
     // lC.lightSource = setPoint(0, -0, 0);
@@ -196,7 +196,7 @@ int main(){
 
 
     Light *lightList;
-    lightList = (Light*)malloc(sizeof(Light) * 1);
+    lightList = (Light*)malloc(sizeof(Light));
     lightList[0] = lA;
     // lightList[1] = lB;
     // lightList[2] = lC;
@@ -207,12 +207,12 @@ int main(){
     observer.c = 1;
     observer.x = 0;
     observer.y = 0;
-    observer.z = 0;
+    observer.z = -1000000000;
 
     Point imageOrigin;
     imageOrigin.x = -1000;
     imageOrigin.y =  1000;
-    imageOrigin.z =    0;
+    imageOrigin.z = -1000000000;
 
     int width = 2000;
     int height = 2000;

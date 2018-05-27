@@ -7,7 +7,8 @@
 *  Calls raytracer.c
 */
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
+    printf("HELLLLLLOOOOO");
     FILE * f;
 
     Point P;
@@ -43,7 +44,6 @@ int main(int argc, char **argv){
     numberObject = caractereToNumber(f);
     numberLight = caractereToNumber(f);
     
-
     List * L;
     List * listObjects = initList();
     Light listLights[numberLight];
@@ -52,7 +52,6 @@ int main(int argc, char **argv){
     L = objectFromFile(f);
     fclose(f);
     
-
     Element * currentElement = L->head;
     while(currentElement != NULL) {
         if(currentElement->type != LIGHT_TYPE) {

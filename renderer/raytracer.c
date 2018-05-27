@@ -91,15 +91,16 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
  /*Add parameter Light *list,*/
 
 void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int height, int width, double tetaX, double tetaY, double tetaZ){
+    
     BMP *imageFile;
     imageFile = newBMP(height, width);
     char* imageFileName = "bitmapImage.bmp";
 
     Rgb backgroundColor;
     // Deep Blue
-    backgroundColor.red = 0;
+    backgroundColor.red   = 0;
     backgroundColor.green = 0;
-    backgroundColor.blue = 56;
+    backgroundColor.blue  = 255;
 
     Line firstRay;
     firstRay = calculateFirstRay(observer,imageOrigin);
@@ -217,5 +218,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         }
 
     }
+    blurBmpImage(imageFile, 1.8);
     exportBMPImageToFile(imageFile, imageFileName);
 }
