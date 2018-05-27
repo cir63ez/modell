@@ -23,18 +23,19 @@ List * initList() {
 * @return void
 */
 void addElementList(Element * e, List * L) {
-    Element * curElement;
-
-    if(L->head == NULL) {
+    Element *current;
+    
+    if(L->nbElement == 0 || L->head == NULL) {
         L->head = e;
-    }
-    else {
-        curElement = L->head;
-        while(curElement->next != NULL) {
-            curElement = curElement->next;
+    } else {
+        current = L->head;
+        while(current->next != NULL) {
+            current = current->next;
         }
-        curElement->next = e;
+
+        current->next = e;
     }
+
     L->nbElement++;
 }
 

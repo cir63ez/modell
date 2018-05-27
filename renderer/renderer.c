@@ -7,8 +7,27 @@
 *  Calls raytracer.c
 */
 
+void printObject(double *object, int size) {
+    for(int i = 0; i < size; i++) {
+        printf("%lf ", object[i]);
+    }
+    printf("\n");
+}
+
+void printObjectList(List *L) {
+    int size;
+    Element *current = L->head;
+    while(current != NULL) {
+        if(current->type == ELLIPSE_TYPE) {size = 9; printf("Ellipsoid: ");}
+        if(current->type == BRICK_TYPE) {size = 27; printf("Brick: ");}
+        if(current->type == TETRAHEDRON_TYPE) {size = 15; printf("Tetrahedron: ");}
+        if(current->type == LIGHT_TYPE) {size = 3; printf("Light: ");}
+        printObject(current->object, size);
+        current = current->next;
+    }
+}
+
 int main(int argc, char **argv) {
-    printf("HELLLLLLOOOOO");
     FILE * f;
 
     Point P;
@@ -52,11 +71,17 @@ int main(int argc, char **argv) {
 
     L = objectFromFile(f);
     fclose(f);
-    
-    Element * currentElement = L->head;
+
+    Element *currentElement = L->head;
     while(currentElement != NULL) {
         if(currentElement->type != LIGHT_TYPE) {
-            addElementList(currentElement, listObjects); // BUG HEREf
+            Element *e;
+
+            if(currentElement->type == BRICK_TYPE) {e = createElementBrick(currentElement->object);}
+            if(currentElement->type == ELLIPSE_TYPE) {e = createElementEllipse(currentElement->object);}
+            if(currentElement->type == TETRAHEDRON_TYPE) {e = createElementTetrahedron(currentElement->object);}
+
+            addElementList(e, listObjects);
         } else {
             listLights[i] = decodeLight(currentElement->object);
             i++;
