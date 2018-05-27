@@ -2,6 +2,7 @@
 
 /**
 * Calculate a vector with from two points
+* Calculates a vector with from two points
 *
 * @param A: First point
 * @param B: Second point
@@ -20,6 +21,7 @@ Vector pointsToVector(Point A, Point B) {
 
 /**
 * Calculate the sum of two vectors
+* Calculates the sum of two vectors
 *
 * @param A: First vector
 * @param B: Second vector
@@ -38,6 +40,7 @@ Vector sumVectors(Vector A, Vector B) {
 
 /**
 * Calculate the difference beteween two vectors
+* Calculates the difference beteween two vectors
 *
 * @param A: First vector
 * @param B: Second vector
@@ -56,6 +59,7 @@ Vector substractVectors(Vector A, Vector B) {
 
 /**
 * Calculate the scalarProduct of two vectors
+* Calculates the scalarProduct of two vectors
 *
 * @param A: First vector
 * @param B: Second vector
@@ -72,6 +76,7 @@ double scalarProduct(Vector A, Vector B) {
 
 /**
 * Calculate the norm of a vector
+* Calculates the norm of a vector
 *
 * @param A: Vector
 *
@@ -84,6 +89,7 @@ double norm(Vector A) {
 
 /**
 * Calculate the angle between two vectors
+* Calculates the angle between two vectors
 *
 * @param A: First vector
 * @param B: Second vector
@@ -118,6 +124,7 @@ double angle(Vector AB, Vector AC) {
 
 /**
 * Verify if 3 points are aligned
+* checks if 3 points are aligned
 *
 * @param A: First point
 * @param B: Second point
@@ -148,18 +155,22 @@ char arePointsAligned(Point A, Point B, Point C) {
 
 /**
 * Calculate a normal vector with 3 points
+* Calculates a normal vector with 3 points
 *
 * @param A: First point'
+* @param A: First point
 * @param B: Second point
 * @param C: Third point
 *
 * @return a vector normal of a plan if the 3 points are not aligned
+* @return a vector normal of a plane if the 3 points are not aligned
 * @return the nul vector if the 3 points are aligned
 */
 Vector normalVector(Point A, Point B, Point C) {
     Vector V;
 
     V = initVectorNaN();
+    V = initialisesVectorNaN();
 
     if (arePointsAligned(A,B,C)) {
         printf("We can't make a plane equation with 3 aligned points");
@@ -175,6 +186,8 @@ Vector normalVector(Point A, Point B, Point C) {
 /**
 * Calculate a plan equation 3 points
 * Calculate a plan equation with 3 points
+* Calculates a plane equation 3 points
+* Calculates a plane equation with 3 points
 *
 * @param A: First point
 * @param B: Second point
@@ -182,6 +195,8 @@ Vector normalVector(Point A, Point B, Point C) {
 *
 * @return the equation of the plan formed by the 3 points non aligned
 * @return a plan with nul coefficient if the 3 points are aligned
+* @return the equation of the plane formed by the 3 points non aligned
+* @return a plane with nul coefficient if the 3 points are aligned
 */
 Plane planeEquationFromPoints(Point A, Point B, Point C) {
     Plane P;
@@ -209,8 +224,9 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 }
 
 /**
-* Calculate the image of an  object on a plane
 * Calculate the image of an object on a plane
+* Calculates the image of an  object on a plane
+* Calculates the image of an object on a plane
 *
 * @param O: Observateur point
 * @param B: Object point
@@ -254,6 +270,7 @@ Plane planeEquationFromPoints(Point A, Point B, Point C) {
 
 /**
 * Calculate the intersection point between a line and a plane
+* Calculates the intersection point between a line and a plane
 *
 * @param L: Line
 * @param B: First plane
@@ -292,6 +309,7 @@ Point pointIntersectionLineAndPlane(Line L, Plane P) {
 
 /**
 * Give the first plan that the observer sees
+* Give the first plane that the observer sees
 *
 * @param L: Ray
 * @param B: First plane
@@ -344,12 +362,17 @@ Plane firstPlaneSeen(Line L, Plane P, Plane Q) {
 
 /**
 * Calculate the reflected ray and the refracted ray if it exists
+* Calculates the reflected ray and the refracted ray if it exists
 *
 * @param O: Observateur point
 * @param normal: normal vector of the plane
 * @param ray: ray which arrive
 * @param refractiveIndexA: refractive index of the first medium
 * @param refractiveIndexB: refractive index of the second medium
+* @param Normal: Normal vector of the plane
+* @param Ray: ray which arrive
+* @param RefractiveIndexA: refractive index of the first medium
+* @param RefractiveIndexB: refractive index of the second medium
 *
 * @return the reflected ray and the refracted ray if it exists
 */
@@ -391,12 +414,16 @@ Line reflectedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 
 /**
 * Calculate the refracted ray if it exists
+* Calculates the refracted ray if it exists
 *
 * @param O: Observateur point
 * @param normal: normal vector of the plane
 * @param ray: ray which arrive
 * @param refractiveIndexA: refractive index of the first medium
 * @param refractiveIndexB: refractive index of the second medium
+* @param ray: Ray which arrive
+* @param refractiveIndexA: Refractive index of the first medium
+* @param refractiveIndexB: Refractive index of the second medium
 *
 * @return the refracted ray and the refracted ray if it exists
 */
@@ -438,6 +465,7 @@ Line refractedRay(Point I, Vector normal, Vector ray, double refractiveIndexA, d
 
 /**
 * Check if the point is on the plane
+* Checks if the point is on the plane
 *
 * @param I: Point
 * @param P: Plane
@@ -460,6 +488,7 @@ int isPointOnPlane(Point I, Plane P) {
 
 /**
 * Init a point to NaN
+* initialises a point to NaN
 *
 *
 * @return a point initialized at NaN
@@ -471,11 +500,13 @@ Point initPointNaN() {
     P.y = NaN;
     P.z = NaN;
     
+
     return P;
 }
 
 /**
 * Init a vector to NaN
+* initialises a vector to NaN
 *
 * @return a point initialized at NaN
 */
@@ -491,6 +522,7 @@ Vector initVectorNaN() {
 
 /**
 * Verify if a point have NaN coordinates
+* checks if a point have NaN coordinates
 *
 * @return a point initialized at NaN
 */
@@ -525,10 +557,13 @@ Point setPoint (double x, double y, double z){
 /**
  * Set a rgb color quickly
  * 
+ * Sets a rgb color quickly
+ *
  * @param r: Red component of the color
  * @param g: Green component of the color
  * @param b: Blue component of the color
  * 
+ *
  * @return a rgb object (red = r, green = g, blue = b)
  */
 Rgb setColor(unsigned char r, unsigned char g, unsigned char b){
@@ -544,6 +579,10 @@ Rgb setColor(unsigned char r, unsigned char g, unsigned char b){
  * 
  * @param caractere: the caractere
  * 
+ * Changes a caractere to an integer
+ *
+ * @param caractere: The caractere
+ *
  * @return the number corresponding to the caractere
  */
 int charToInt(char caractere) {
@@ -559,11 +598,16 @@ int charToInt(char caractere) {
 
 /**
  * Give the vector of a rotation
+ * Gives the vector of a rotation
  *
  * @param V: vector to change
  * @param tetaX: angle of rotation on x axe
  * @param tetaY: angle of rotation on y axe
  * @param tetaZ: angle of rotation on z axe
+ * @param V: Vector to change
+ * @param tetaX: Angle of rotation on x axe
+ * @param tetaY: Angle of rotation on y axe
+ * @param tetaZ: Angle of rotation on z axe
  *
  * @return vector changed
  */
@@ -575,4 +619,5 @@ Vector matriceRotation(Vector V, double tetaX, double tetaY, double tetaZ) {
     vPrime.z = -V.x * sin(tetaY) + (V.y * sin(tetaX) + V.z * cos(tetaX)) * cos(tetaY);
 
     return vPrime;
-}
+}}}
+}}
