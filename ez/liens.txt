@@ -1,6 +1,0 @@
-Lien vers le drive: https://drive.google.com/open?id=1bHqOwX029XM7VmjUPRIAabliSwNs2WP0
-Lien vers le github: https://github.com/cir63ez/modell
-
-Présentation de soutenance: https://docs.google.com/presentation/d/1mx-4d70Rs9Ac8iTaxFDIdPxsEpQQw7BRbD35KiPGS2Q/edit?usp=drive_web
-
-Le code est documenté et tous les documents liés au projet sont sur le drive - Les fichiers sont trop lourds pour être zippés sur campus

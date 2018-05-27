@@ -28,6 +28,7 @@ void printObjectList(List *L) {
 }
 
 int main(int argc, char **argv) {
+    printf("HELLLLLLOOOOO");
     FILE * f;
 
     Point P;
@@ -71,10 +72,13 @@ int main(int argc, char **argv) {
 
     L = objectFromFile(f);
     fclose(f);
+    
+    Element * currentElement = L->head;
 
     Element *currentElement = L->head;
     while(currentElement != NULL) {
         if(currentElement->type != LIGHT_TYPE) {
+            addElementList(currentElement, listObjects);
             Element *e;
 
             if(currentElement->type == BRICK_TYPE) {e = createElementBrick(currentElement->object);}
@@ -93,6 +97,8 @@ int main(int argc, char **argv) {
 
     rayTracer(listObjects, listLights, observer, P, height, width, angleX, angleY, angleZ);
 
+
+    
     free(listObjects);
 
     return 0;

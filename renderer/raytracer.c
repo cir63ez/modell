@@ -92,7 +92,6 @@ int isLit(Point c, List *objectList, Light *listOfLights, int numberofLights){
 
 void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOrigin, int height, int width, double tetaX, double tetaY, double tetaZ){
 
-
     BMP *imageFile;
     imageFile = newBMP(height, width);
     char* imageFileName = "bitmapImage.bmp";
@@ -130,7 +129,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
          tmpLine.pt.y += y * vectorB.y;
          tmpLine.pt.z += y * vectorB.z;
         */
-
 
         x = i % (height);
         y = (i - x)/width;
@@ -220,6 +218,6 @@ void rayTracer(List *objectList, Light *lightList, Plane observer, Point imageOr
         }
 
     }
-    //blurBmpImage(imageFile, 1.8);
+    blurBmpImage(imageFile, 0.8);
     exportBMPImageToFile(imageFile, imageFileName);
 }
