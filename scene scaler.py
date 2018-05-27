@@ -1,9 +1,9 @@
 #x,y,z
 
 def move_point(point,x,y,z):
-    point[0]=point[0]+x
-    point[1]=point[1]+y
-    point[2]=point[2]+z
+    point[0]+=x
+    point[1]+=y
+    point[2]+=z
     return point
     
 def point_to_cube(point,scale):
