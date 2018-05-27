@@ -63,11 +63,21 @@ void blurBmpImage (BMP *image, double blurValue){
     int x;
     int y;
 
-    Rgb averageColorOverTop;
-    Rgb averageColorTop;
-    Rgb averageColorMiddle;
-    Rgb averageColorBottom;
-    Rgb averageColorUnderBottom;
+    int averageColorOverTopRed;
+    int averageColorOverTopGreen;
+    int averageColorOverTopBlue;
+    int averageColorTopRed;
+    int averageColorTopGreen;
+    int averageColorTopBlue;
+    int averageColorMiddleRed;
+    int averageColorMiddleGreen;
+    int averageColorMiddleBlue;
+    int averageColorBottomRed;
+    int averageColorBottomGreen;
+    int averageColorBottomBlue;
+    int averageColorUnderBottomRed;
+    int averageColorUnderBottomGreen;
+    int averageColorUnderBottomBlue;
     Rgb averageColor;
 
     height = image->height;
@@ -75,29 +85,29 @@ void blurBmpImage (BMP *image, double blurValue){
     pixelsGrid = image->pixels;
 
     for (int i = width * 2; i < height * (width - 2); i++){
-        averageColorOverTop.red   = pixelsGrid[i - 2 * (width + 1)].red   + pixelsGrid[i - (2 * width + 1)].red   + pixelsGrid[i - 2 * width].red   + pixelsGrid[i - 2 * width + 1].red   + pixelsGrid[i - 2 * width + 2].red;
-        averageColorOverTop.green = pixelsGrid[i - 2 * (width + 1)].green + pixelsGrid[i - (2 * width + 1)].green + pixelsGrid[i - 2 * width].green + pixelsGrid[i - 2 * width + 1].green + pixelsGrid[i - 2 * width + 2].green;
-        averageColorOverTop.blue  = pixelsGrid[i - 2 * (width + 1)].blue  + pixelsGrid[i - (2 * width + 1)].blue  + pixelsGrid[i - 2 * width].blue  + pixelsGrid[i - 2 * width + 1].blue  + pixelsGrid[i - 2 * width + 2].blue ;
+        averageColorOverTopRed   = pixelsGrid[i - 2 * (width + 1)].red   + pixelsGrid[i - (2 * width + 1)].red   + pixelsGrid[i - 2 * width].red   + pixelsGrid[i - 2 * width + 1].red   + pixelsGrid[i - 2 * width + 2].red;
+        averageColorOverTopGreen = pixelsGrid[i - 2 * (width + 1)].green + pixelsGrid[i - (2 * width + 1)].green + pixelsGrid[i - 2 * width].green + pixelsGrid[i - 2 * width + 1].green + pixelsGrid[i - 2 * width + 2].green;
+        averageColorOverTopBlue  = pixelsGrid[i - 2 * (width + 1)].blue  + pixelsGrid[i - (2 * width + 1)].blue  + pixelsGrid[i - 2 * width].blue  + pixelsGrid[i - 2 * width + 1].blue  + pixelsGrid[i - 2 * width + 2].blue ;
 
-        averageColorTop.red   = pixelsGrid[i - (width + 1)].red   + pixelsGrid[i - width].red   + pixelsGrid[i - width + 1].red   + pixelsGrid[i - (width + 2)].red   + pixelsGrid[i - width + 2].red;
-        averageColorTop.green = pixelsGrid[i - (width + 1)].green + pixelsGrid[i - width].green + pixelsGrid[i - width + 1].green + pixelsGrid[i - (width + 2)].green + pixelsGrid[i - width + 2].green;
-        averageColorTop.blue  = pixelsGrid[i - (width + 1)].blue  + pixelsGrid[i - width].blue  + pixelsGrid[i - width + 1].blue  + pixelsGrid[i - (width + 2)].blue  + pixelsGrid[i - width + 2].blue;
+        averageColorTopRed   = pixelsGrid[i - (width + 1)].red   + pixelsGrid[i - width].red   + pixelsGrid[i - width + 1].red   + pixelsGrid[i - (width + 2)].red   + pixelsGrid[i - width + 2].red;
+        averageColorTopGreen = pixelsGrid[i - (width + 1)].green + pixelsGrid[i - width].green + pixelsGrid[i - width + 1].green + pixelsGrid[i - (width + 2)].green + pixelsGrid[i - width + 2].green;
+        averageColorTopBlue  = pixelsGrid[i - (width + 1)].blue  + pixelsGrid[i - width].blue  + pixelsGrid[i - width + 1].blue  + pixelsGrid[i - (width + 2)].blue  + pixelsGrid[i - width + 2].blue;
 
-        averageColorMiddle.red   = pixelsGrid[i - 1].red   + pixelsGrid[i + 1].red   + pixelsGrid[i - 2].red   + pixelsGrid[i + 2].red;
-        averageColorMiddle.green = pixelsGrid[i - 1].green + pixelsGrid[i + 1].green + pixelsGrid[i - 2].green + pixelsGrid[i + 2].green;
-        averageColorMiddle.blue  = pixelsGrid[i - 1].blue  + pixelsGrid[i + 1].blue  + pixelsGrid[i - 2].blue  + pixelsGrid[i + 2].blue;
+        averageColorMiddleRed   = pixelsGrid[i - 1].red   + pixelsGrid[i + 1].red   + pixelsGrid[i - 2].red   + pixelsGrid[i + 2].red;
+        averageColorMiddleGreen = pixelsGrid[i - 1].green + pixelsGrid[i + 1].green + pixelsGrid[i - 2].green + pixelsGrid[i + 2].green;
+        averageColorMiddleBlue  = pixelsGrid[i - 1].blue  + pixelsGrid[i + 1].blue  + pixelsGrid[i - 2].blue  + pixelsGrid[i + 2].blue;
 
-        averageColorBottom.red   = pixelsGrid[i + (width + 1)].red   + pixelsGrid[i + width].red   + pixelsGrid[i + width + 1].red   + pixelsGrid[i + (width + 2)].red   + pixelsGrid[i + width - 2].red;
-        averageColorBottom.green = pixelsGrid[i + (width + 1)].green + pixelsGrid[i + width].green + pixelsGrid[i + width + 1].green + pixelsGrid[i + (width + 2)].green + pixelsGrid[i + width - 2].green;
-        averageColorBottom.blue  = pixelsGrid[i + (width + 1)].blue  + pixelsGrid[i + width].blue  + pixelsGrid[i + width + 1].blue  + pixelsGrid[i + (width + 2)].blue  + pixelsGrid[i + width - 2].blue;
+        averageColorBottomRed   = pixelsGrid[i + (width + 1)].red   + pixelsGrid[i + width].red   + pixelsGrid[i + width + 1].red   + pixelsGrid[i + (width + 2)].red   + pixelsGrid[i + width - 2].red;
+        averageColorBottomGreen = pixelsGrid[i + (width + 1)].green + pixelsGrid[i + width].green + pixelsGrid[i + width + 1].green + pixelsGrid[i + (width + 2)].green + pixelsGrid[i + width - 2].green;
+        averageColorBottomBlue  = pixelsGrid[i + (width + 1)].blue  + pixelsGrid[i + width].blue  + pixelsGrid[i + width + 1].blue  + pixelsGrid[i + (width + 2)].blue  + pixelsGrid[i + width - 2].blue;
 
-        averageColorUnderBottom.red   = pixelsGrid[i + 2 * (width + 1)].red   + pixelsGrid[i + (2 * width + 1)].red   + pixelsGrid[i + 2 * width].red   + pixelsGrid[i + 2 * width - 1].red   + pixelsGrid[i + 2 * width - 2].red;
-        averageColorUnderBottom.green = pixelsGrid[i + 2 * (width + 1)].green + pixelsGrid[i + (2 * width + 1)].green + pixelsGrid[i + 2 * width].green + pixelsGrid[i + 2 * width - 1].green + pixelsGrid[i + 2 * width - 2].green;
-        averageColorUnderBottom.blue  = pixelsGrid[i + 2 * (width + 1)].blue  + pixelsGrid[i + (2 * width + 1)].blue  + pixelsGrid[i + 2 * width].blue  + pixelsGrid[i + 2 * width - 1].blue  + pixelsGrid[i + 2 * width - 2].blue ;
+        averageColorUnderBottomRed   = pixelsGrid[i + 2 * (width + 1)].red   + pixelsGrid[i + (2 * width + 1)].red   + pixelsGrid[i + 2 * width].red   + pixelsGrid[i + 2 * width - 1].red   + pixelsGrid[i + 2 * width - 2].red;
+        averageColorUnderBottomGreen = pixelsGrid[i + 2 * (width + 1)].green + pixelsGrid[i + (2 * width + 1)].green + pixelsGrid[i + 2 * width].green + pixelsGrid[i + 2 * width - 1].green + pixelsGrid[i + 2 * width - 2].green;
+        averageColorUnderBottomBlue  = pixelsGrid[i + 2 * (width + 1)].blue  + pixelsGrid[i + (2 * width + 1)].blue  + pixelsGrid[i + 2 * width].blue  + pixelsGrid[i + 2 * width - 1].blue  + pixelsGrid[i + 2 * width - 2].blue ;
 
-        averageColor.red   = ( pixelsGrid[i].red   + blurValue * (averageColorTop.red   + averageColorMiddle.red   + averageColorBottom.red))   / 25;
-        averageColor.green = ( pixelsGrid[i].green + blurValue * (averageColorTop.green + averageColorMiddle.green + averageColorBottom.green)) / 25;
-        averageColor.blue  = ( pixelsGrid[i].blue  + blurValue * (averageColorTop.blue  + averageColorMiddle.blue  + averageColorBottom.blue))  / 25;
+        averageColor.red   = ( pixelsGrid[i].red   + blurValue * (averageColorTopRed   + averageColorMiddleRed   + averageColorBottomRed))   / 20;
+        averageColor.green = ( pixelsGrid[i].green + blurValue * (averageColorTopGreen + averageColorMiddleGreen + averageColorBottomGreen)) / 20;
+        averageColor.blue  = ( pixelsGrid[i].blue  + blurValue * (averageColorTopBlue  + averageColorMiddleBlue  + averageColorBottomBlue))  / 20;
 
         x = i % (height);
         y = (i - x)/width;
@@ -116,7 +126,7 @@ void exportBMPImageToFile(BMP *image, char *filename) {
     Rgb pixel;
 
     height = image->height;
-    width = image->width;
+    width  = image->width;
 
     fileHeader = createBitmapFileHeader(height, width);
     infoHeader = createBitmapInfoHeader(height, width);
